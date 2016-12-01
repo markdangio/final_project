@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <%
+        /*
         boolean loggedIn;
         
         if(session.getAttribute("loggedIn") == null){
@@ -22,22 +23,22 @@
             loggedIn = (boolean) session.getAttribute("loggedIn");
         }
         if(!loggedIn)
-        {
+        {*/
             %>
-            <jsp:forward page="index.html" />
+            <!--jsp:forward page="index.html" /><-->
             <%
-        }
+        //}
     %>
 
     <body>
-        <h1>JMU Book Time Machine</h1>
+        <h1>JMU Book Time Machine Home Page</h1>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <a href='signup.jsp'>Sign Up</a>
+                    <p>Sell Book</p>
                 </div>
                 <div class="col-md-6">
-                    <a href='login.jsp'>Login</a>
+                    <p>Buy Book</p>
                 </div>
             </div>
         </div>
