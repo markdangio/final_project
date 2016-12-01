@@ -26,7 +26,7 @@
         {  
            
             %>
-            <jsp:forward page="index.html" />
+            <jsp:forward page="index.jsp" />
             <%
         }
     %>
@@ -50,21 +50,16 @@
                 <label for="inputBirthday" class="sr-only">Birthday</label>
                 <input type="text" id="inputBirthday" class="form-control" placeholder="10/10/1994" required autofocus>
                 </br>
-                <label for="inputAvatar" class="sr-only">Avatar</label>
-                Profile Picture
-                <input type="file" id="inputAvatar">
-                </br>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
                 </br>
                 <label for="inputPasswordConfirm" class="sr-only">Confirm Password</label>
                 <input type="password" id="inputPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
                 </br>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
+                <label for="inputAvatar" class="sr-only">Avatar</label>
+                Profile Picture
+                <input type="file" id="inputAvatar">
+                </br>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
             </form>
 
