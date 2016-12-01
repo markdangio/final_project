@@ -26,7 +26,7 @@
                         <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus>
                         </br>
                         <label for="lastname" class="sr-only">Last Name</label>
-                        <input type="text" id="lastname" class="form-control" placeholder="Last Name" required autofocus>
+                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required autofocus>
                         </br>
                         <label for="email" class="sr-only">Email Address</label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus>

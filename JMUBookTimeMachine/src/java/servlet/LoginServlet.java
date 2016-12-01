@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         session.setAttribute("loggedIn", true);
-        session.setAttribute("username", username);
+        session.setAttribute("loginUsername", username);
         forwardRequest(request, response, "/home.jsp");
     }
     

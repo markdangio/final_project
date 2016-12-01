@@ -6,6 +6,7 @@
 package model;
 
 import java.util.*;
+import java.util.UUID;
 import java.sql.*;
 
 /**
@@ -22,9 +23,14 @@ public class UserPersistence {
      */
     public static boolean addUser(User user) {
         DBHandler dbHandler = new DBHandler();
-                
+        
+        String userid = UUID.randomUUID().toString();
+        userid = userid.replace("-","");
+        userid = userid.substring(0, 16);
+        
         String command = "INSERT INTO User VALUES(";
-        command += "'" + user.getUsername() + "'";
+        command += "'" + userid + "'";
+        command += ", '" + user.getUsername() + "'";
         command += ", '" + user.getPassword() + "'";
         command += ", '" + user.getFirstName() + "'";
         command += ", '" + user.getLastName() + "'";
@@ -32,7 +38,7 @@ public class UserPersistence {
         
         // empty dates must be entered as null rather than ''
         command += user.getAvatar().equals("") 
-                ? ", null" 
+                ? ", NULL" 
                 : ", '" + user.getAvatar() + "'";
         command += ", '" + user.getBirthday() + "'";
         command += ")";
@@ -57,12 +63,13 @@ public class UserPersistence {
     public static boolean checkUser(String username, String password) {
         DBHandler dbHandler = new DBHandler();
                 
-        String command = "SELECT * FROM User WHERE username = ";
-        command += "'" + username + "'";
-        command += "AND password = '" + password + "'";
+        String command = "SELECT * FROM User";// WHERE username = ";
+        //command += "'" + username + "'";
+        //command += " AND password = '" + password + "'";
         try {
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();
+            System.out.println(resultCount);
             return (resultCount > 0);
         } catch (SQLException ex) {
             ex.printStackTrace();

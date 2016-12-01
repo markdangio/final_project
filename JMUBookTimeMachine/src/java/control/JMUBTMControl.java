@@ -130,8 +130,8 @@ public class JMUBTMControl extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter("signUpUsername");
+        String password = request.getParameter("signUpPassword");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
@@ -140,7 +140,7 @@ public class JMUBTMControl extends HttpServlet {
 
         if (username == null || password == null || firstname == null || lastname == null
                 || email == null || birthday == null) {
-            addMessage = "Improper add user request";
+            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday;
         } else if (username.trim().length() == 0) {
             addMessage = "Userame field must not be blank";
         } else if (password.trim().length() == 0) {
