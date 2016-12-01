@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         }
         else {
             //response.sendRedirect("login.jsp");
-            String nextPage = "/index.html";
+            String nextPage = "/index.jsp";
             RequestDispatcher dispatcher = 
                           getServletContext().getRequestDispatcher(nextPage);
             dispatcher.forward(request, response);
