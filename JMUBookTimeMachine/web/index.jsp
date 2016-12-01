@@ -20,46 +20,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <form class="form-signin">
+                    <form method="post" action="control?action=signup" class="form-signin">
                         <h2 class="form-signin-heading">Sign Up!</h2>
-                        <label for="inputUserName" class="sr-only">User Name</label>
-                        <input type="text" id="inputUserName" class="form-control" placeholder="User Name" required autofocus>
+                        <label for="firstname" class="sr-only">First Name</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus>
                         </br>
-                        <label for="inputFirstName" class="sr-only">First Name</label>
-                        <input type="text" id="inputFirstName" class="form-control" placeholder="First Name" required autofocus>
+                        <label for="lastname" class="sr-only">Last Name</label>
+                        <input type="text" id="lastname" class="form-control" placeholder="Last Name" required autofocus>
                         </br>
-                        <label for="inputLastName" class="sr-only">Last Name</label>
-                        <input type="text" id="inputLastName" class="form-control" placeholder="Last Name" required autofocus>
+                        <label for="email" class="sr-only">Email Address</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus>
                         </br>
-                        <label for="inputEmail" class="sr-only">Email Address</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email Address" required autofocus>
+                        <label for="birthday" class="sr-only">Birthday</label>
+                        <input type="text" name="birthday" id="birthday" class="form-control" placeholder="1995-10-15" required autofocus>
                         </br>
-                        <label for="inputBirthday" class="sr-only">Birthday</label>
-                        <input type="text" id="inputBirthday" class="form-control" placeholder="10/10/1994" required autofocus>
+                        <label for="signUpUsername" class="sr-only">User Name</label>
+                        <input type="text" name="signUpUsername" id="signUpUsername" class="form-control" placeholder="User Name" required autofocus>
                         </br>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                        <label for="signUpPassword" class="sr-only">Password</label>
+                        <input type="password" name="signUpPassword" id="signUpPassword" class="form-control" placeholder="Password" required>
                         </br>
-                        <label for="inputPasswordConfirm" class="sr-only">Confirm Password</label>
-                        <input type="password" id="inputPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
+                        <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
+                        <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
                         </br>
-                        <label for="inputAvatar" class="sr-only">Avatar</label>
-                        Profile Picture
-                        <input type="file" id="inputAvatar">
+                        <label for="avatar" class="sr-only">Profile Picture</label>
+                        <input type="file" name="avatar" id="avatar">
                         </br>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                        <button class="btn btn-lg btn-primary btn-block" name="adduser" type="submit">Sign up</button>
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <form action="login"  method="post" class="form-signin">
+                    <form method="post" action="control?action=login" class="form-signin">
                         <h2 class="form-signin-heading">Please sign in</h2>
-                        <label for="username" class="sr-only">Username</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
+                        <label for="loginUsername" class="sr-only">Username</label>
+                        <input type="text" name="loginUsername" id="loginUsername" class="form-control" placeholder="Username" required autofocus>
                         </br>
-                        <label for="password" class="sr-only">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                        <label for="loginPassword" class="sr-only">Password</label>
+                        <input type="password" name="loginPassword" id="loginPassword" class="form-control" placeholder="Password" required>
                         </br>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                        <button class="btn btn-lg btn-primary btn-block" name="login" type="submit">Sign in</button>
                     </form>
                 </div>
             </div>

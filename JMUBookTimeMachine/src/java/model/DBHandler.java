@@ -33,9 +33,9 @@ public class DBHandler {
         try {
             Context envCtx = (Context) (new InitialContext()).lookup("java:comp/env");
             driverName = (String) envCtx.lookup("DriverClassName");
-            url = (String) envCtx.lookup("grove.cs.jmu.edu");
-            userId = (String) envCtx.lookup("team13");
-            password = (String) envCtx.lookup("e@gle6");
+            url = (String) envCtx.lookup("Url");
+            userId = (String) envCtx.lookup("UserId");
+            password = (String) envCtx.lookup("Password");
         } catch (NamingException e) {
             e.printStackTrace();
         }

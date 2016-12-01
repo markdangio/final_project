@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.UserActions;
 
 /**
  *
@@ -33,26 +34,34 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter("loginUsername");
+        String password = request.getParameter("loginPassword");
 
-        if ((username.equals("massarmh") || username.equals("dangiomr") || username.equals("hinesmj")) && password.equals("websie")) {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("loggedIn", true);
-            session.setAttribute("username", username);
-            //response.sendRedirect("index.jsp");
-            String nextPage = "/home.jsp";
-            RequestDispatcher dispatcher = 
-                          getServletContext().getRequestDispatcher(nextPage);
-            dispatcher.forward(request, response);
+        if (UserActions.checkUser(username, password)) {
+            loginUser(request, response, username, password);
         }
         else {
-            //response.sendRedirect("login.jsp");
-            String nextPage = "/index.jsp";
-            RequestDispatcher dispatcher = 
-                          getServletContext().getRequestDispatcher(nextPage);
-            dispatcher.forward(request, response);
+            forwardRequest(request, response, "/index.jsp");
         }
+    }
+    
+    public void loginUser(HttpServletRequest request, HttpServletResponse response, String username, String password)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("loggedIn", true);
+        session.setAttribute("username", username);
+        forwardRequest(request, response, "/home.jsp");
+    }
+    
+    /*
+     * Forward this request to another component. 
+     */
+    private void forwardRequest(HttpServletRequest request,
+            HttpServletResponse response, String forwardUrl)
+            throws IOException, ServletException {
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+                forwardUrl);
+        dispatcher.forward(request, response);
     }
 
 }
