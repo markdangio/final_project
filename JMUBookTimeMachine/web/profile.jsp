@@ -25,12 +25,27 @@
         if(!loggedIn)
         {
             %>
-            <jsp:forward page="index.html" />
+            <jsp:forward page="index.jsp" />
             <%
         }
     %>
     <body>
         <div class="container">
+            <div class="row">
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#">JMU Book Time Machine</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                      <li><a href="#">Messages</a></li>
+                      <li><a href="#">Profile</a></li> 
+                      <li><a href="#">Notifications</a></li>
+                      <li><a href="#">Logout</a></li>
+                    </ul>
+                  </div>
+                </nav>
+            </div>
             <div class="row">
                 <div class="col-xs-6" id="profile_image">
                     <img class="profile_pic" id="propic" src="" alt="profile_image">
