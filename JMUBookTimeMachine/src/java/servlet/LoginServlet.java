@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if ((username.equals("massarmh") || username.equals("dangior") || username.equals("hinesmj")) && password.equals("websie")) {
+        if ((username.equals("massarmh") || username.equals("dangiomr") || username.equals("hinesmj")) && password.equals("websie")) {
             HttpSession session = request.getSession(true);
             session.setAttribute("loggedIn", true);
             session.setAttribute("username", username);

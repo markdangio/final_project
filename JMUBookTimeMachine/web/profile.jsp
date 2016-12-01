@@ -12,7 +12,8 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
-    <%/*
+    <%
+        
         boolean loggedIn;
         
         if(session.getAttribute("loggedIn") == null){
@@ -22,11 +23,11 @@
             loggedIn = (boolean) session.getAttribute("loggedIn");
         }
         if(!loggedIn)
-        {*/
+        {
             %>
-            <!--jsp:forward page="index.html" />-->
+            <jsp:forward page="index.html" />
             <%
-        //}
+        }
     %>
     <body>
         <div class="container">
