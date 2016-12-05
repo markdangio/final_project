@@ -52,38 +52,50 @@
                 <div class="col-md-6">
                     <form method="post" action="control?action=signup" class="form-signin">
                         <h2 class="form-signin-heading">Sell Book</h2>
-                        <label for="firstname" class="sr-only">First Name</label>
-                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus>
+                        <label for="sellTitle" class="sr-only">Title</label>
+                        <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
                         </br>
-                        <label for="lastname" class="sr-only">Last Name</label>
-                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required autofocus>
+                        <label for="sellAuthor" class="sr-only">Author</label>
+                        <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
                         </br>
-                        <label for="email" class="sr-only">Email Address</label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus>
+                        <label for="sellEdition" class="sr-only">Edition</label>
+                        <input type="text" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
                         </br>
-                        <label for="birthday" class="sr-only">Birthday</label>
-                        <input type="text" name="birthday" id="birthday" class="form-control" placeholder="1995-10-15" required autofocus>
+                        <label for="sellPublisher" class="sr-only">Publisher</label>
+                        <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
                         </br>
-                        <label for="signUpUsername" class="sr-only">User Name</label>
-                        <input type="text" name="signUpUsername" id="signUpUsername" class="form-control" placeholder="User Name" required autofocus>
+                        <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
+                        <input type="text" name="sellCoverPhoto" id="sellCoverPhoto" class="form-control" placeholder="Book Cover Photo" autofocus>
                         </br>
-                        <label for="signUpPassword" class="sr-only">Password</label>
-                        <input type="password" name="signUpPassword" id="signUpPassword" class="form-control" placeholder="Password" required>
+                        <label for="sellPrice" class="sr-only">Price</label>
+                        <input type="text" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
                         </br>
-                        <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
-                        <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
+                        <label for="sellClassName" class="sr-only">Class Name</label>
+                        <input type="text" name="sellClassName" id="sellClassName" class="form-control" placeholder="Class Name" required autofocus>
                         </br>
-                        <label for="avatar" class="sr-only">Profile Picture</label>
-                        <input type="file" name="avatar" id="avatar">
+                        <label for="sellClassSubject" class="sr-only">Class Subject</label>
+                        <input type="text" name="sellClassSubject" id="sellClassSubject" class="form-control" placeholder="Class Subject" required autofocus>
                         </br>
-                        <button class="btn btn-lg btn-primary btn-block" name="adduser" type="submit">Sign up</button>
+                        <label for="sellClassNumber" class="sr-only">Class Number</label>
+                        <input type="text" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
+                        </br>
+                        <label for="sellClassSection" class="sr-only">Class Section</label>
+                        <input type="text" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>
+                        </br>
+                        <label for="sellClassProfessor" class="sr-only">Class Professor</label>
+                        <input type="text" name="sellClassProfessor" id="sellClassProfessor" class="form-control" placeholder="Class Professor" required autofocus>
+                        </br>
+                        <label for="sellClassDescription" class="sr-only">Class Description</label>
+                        <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Section" autofocus>
+                        </br>
+                        <button class="btn btn-lg btn-primary btn-block" name="adduser" type="submit">Post Book</button>
                     </form>
                 </div>
                 <div class="col-md-6">
                     <form method="post" action="control?action=login" class="form-signin">
                         <h2 class="form-signin-heading">Find Book</h2>
                         <label for="bookTitle" class="sr-only">Title</label>
-                        <input type="text" name="bookTitle" id="bookTitle" class="form-control" placeholder="Title" required autofocus>
+                        <input type="text" name="bookTitle" id="bookTitle" class="form-control" placeholder="Title" autofocus>
                         </br>
                         <button class="btn btn-lg btn-primary btn-block" name="bookSearch" type="submit">Search</button>
                     </form>
