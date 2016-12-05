@@ -67,10 +67,10 @@ public class UserPersistence {
         //command += "'" + username + "'";
         //command += " AND password = '" + password + "'";
         try {
-            int resultCount = dbHandler.doCommand(command);
+            ResultSet resultCount = dbHandler.doQuery(command);
             dbHandler.close();
             System.out.println(resultCount);
-            return (resultCount > 0);
+            return (resultCount);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
