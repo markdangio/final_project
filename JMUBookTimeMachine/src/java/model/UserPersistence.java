@@ -16,7 +16,7 @@ import java.sql.*;
 public class UserPersistence {
 
     /**
-     * Add a pet record.
+     * Add a user record.
      *
      * @param user The user to be added
      * @return true iff the database operation succeeded
