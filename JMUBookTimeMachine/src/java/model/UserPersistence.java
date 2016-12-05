@@ -63,14 +63,19 @@ public class UserPersistence {
     public static boolean checkUser(String username, String password) {
         DBHandler dbHandler = new DBHandler();
                 
-        String command = "SELECT * FROM User";// WHERE username = ";
-        //command += "'" + username + "'";
-        //command += " AND password = '" + password + "'";
+        String command = "SELECT * FROM User WHERE username = ";
+        command += "'" + username + "'";
+        command += " AND password = '" + password + "'";
         try {
             ResultSet resultCount = dbHandler.doQuery(command);
-            dbHandler.close();
+            
             System.out.println(resultCount);
-            return (resultCount);
+            int i = 0;
+            while(resultCount.next()) {
+                i++;
+            }
+            dbHandler.close();
+            return (i > 0);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
