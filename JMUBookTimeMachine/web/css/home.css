@@ -21,3 +21,13 @@ div.container{
     width:2em;
     height:2em;
 }
+input[type=text]{
+    width:20em;
+}
+.btn{
+    width:20em;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+
