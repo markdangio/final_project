@@ -17,10 +17,10 @@ public class MessageActions {
         Message newMessage = new Message(content, timeSent);
         return MessagePersistence.addMessage(newMessage);
     }
-
+    /*
     public static boolean checkMessage(String content, Date timeSent) {
 
         return MessagePersistence.checkMessage(content, timeSent);
-    }
+    }*/
 
 }

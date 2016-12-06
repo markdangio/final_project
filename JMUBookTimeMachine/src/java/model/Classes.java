@@ -14,7 +14,7 @@ public class Classes {
     private String name, subject, professor, description;
     private int number, section;
     
-    public Classes (String name, String subject, String professor, String description, int number, int section)
+    public Classes (String name, String subject, int number, int section, String professor, String description)
     {
         this.name = name;
         this.subject = subject;

@@ -22,16 +22,16 @@ public class Books_For_SalePersistence {
      * @param book The book to be used to get the id
      * @return true iff the database operation succeeded
      */
-    public static boolean addBook_For_Sale(Books_For_Sale books_For_Sale, Books books, User user) {
+    public static boolean addBook_For_Sale(Books_For_Sale books_For_Sale) {//, Books books, User user) {
         DBHandler dbHandler = new DBHandler();
         
         String usercommand = "SELECT userId FROM User WHERE username = ";
-        usercommand += "'" + user.getUsername() + "'";
+        //usercommand += "'" + user.getUsername() + "'";
         
         String bookcommand = "SELECT classId FROM Books WHERE title = ";
-        bookcommand += "'" + books.getTitle() + "'";
-        bookcommand += " AND author = '" + books.getAuthor() + "'";
-        bookcommand += " AND edition = " + books.getEdition();
+        //bookcommand += "'" + books.getTitle() + "'";
+        //bookcommand += " AND author = '" + books.getAuthor() + "'";
+        //bookcommand += " AND edition = " + books.getEdition();
         
         try {
             ResultSet resultCountUser = dbHandler.doQuery(usercommand);

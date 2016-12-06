@@ -15,12 +15,12 @@ public class BooksActions {
 
     public static boolean addBooks(String title , String author, int edition, String coverPhoto, String publisher) {
 
-        Books newBooks = new Books (title, author, edition, coverPhoto, publisher);
-        return BooksPersistence.addBooks(newBooks);
+        Books newBooks = new Books(title, author, edition, coverPhoto, publisher);
+        return BooksPersistence.addBook(newBooks);
     }
-
+    /*
     public static boolean checkBooks(String title, String author, int edition) {
 
         return BooksPersistence.checkBooks(title, author, edition);
-    }
+    }*/
 }

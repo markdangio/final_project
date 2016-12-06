@@ -15,12 +15,12 @@ public class ClassesActions {
             String description) {
 
         Classes newClasses = new Classes(name, subject, number, section, professor, description);
-        return ClassesPersistence.addClasses(newClasses);
+        return ClassesPersistence.addClass(newClasses);
     }
-
+    /*
     public static boolean checkClasses(String name, String subject, int number, int section, String professor) {
 
         return ClassesPersistence.checkClasses(name, subject, number, section, professor);
-    }
+    }*/
 
 }

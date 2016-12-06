@@ -21,14 +21,14 @@ public class MessagePersistence {
      * @param message The message to be added
      * @return true iff the database operation succeeded
      */
-    public static boolean addMessage(Message message, User toUser, User fromUser) {
+    public static boolean addMessage(Message message) {//, User toUser, User fromUser) {
         DBHandler dbHandler = new DBHandler();
         
         String toUsercommand = "SELECT userId FROM User WHERE username = ";
-        toUsercommand += "'" + toUser.getUsername() + "'";
+        //toUsercommand += "'" + toUser.getUsername() + "'";
         
         String fromUsercommand = "SELECT userId FROM User WHERE username = ";
-        fromUsercommand += "'" + fromUser.getUsername() + "'";
+        //fromUsercommand += "'" + fromUser.getUsername() + "'";
         
         try {
             ResultSet resultCountToUser = dbHandler.doQuery(toUsercommand);

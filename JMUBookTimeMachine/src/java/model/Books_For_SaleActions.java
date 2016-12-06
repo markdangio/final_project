@@ -14,12 +14,12 @@ public class Books_For_SaleActions {
 
     public static boolean addBooks_For_Sale(Date postedDate, double price, int sold) {
 
-        BFS newBFS = new BFS(postedDate, price, sold);
-        return Books_For_SalePersistence.addBooks_For_Sale(newBFS);
+        Books_For_Sale newBFS = new Books_For_Sale(postedDate, price, sold);
+        return Books_For_SalePersistence.addBook_For_Sale(newBFS);
     }
-
+    /*
     public static boolean checkBooks_For_Sale(Date postedDate, int sold) {
 
         return Books_For_SalePersistence.checkBooks_For_Sale(postedDate, sold);
-    }
+    }*/
 }

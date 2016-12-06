@@ -22,12 +22,12 @@ public class BooksPersistence {
      * @param classes The class to be used to get the id
      * @return true iff the database operation succeeded
      */
-    public static boolean addBook(Books books, Classes classes) {
+    public static boolean addBook(Books books) {//, Classes classes) {
         DBHandler dbHandler = new DBHandler();
         
         String classcommand = "SELECT classId FROM Classes WHERE subject = ";
-        classcommand += "'" + classes.getSubject() + "'";
-        classcommand += " AND number = '" + classes.getNumber() + "'";
+        //classcommand += "'" + classes.getSubject() + "'";
+        //classcommand += " AND number = '" + classes.getNumber() + "'";
         
         try {
             ResultSet resultCountClass = dbHandler.doQuery(classcommand);

@@ -14,7 +14,7 @@ public class Books {
     private String title, author, publisher, coverPhoto;
     private int edition;
     
-    public Books (String title, String author, String publisher, String coverPhoto, int edition)
+    public Books (String title, String author, int edition, String publisher, String coverPhoto)
     {
         this.title = title;
         this.author = author;
