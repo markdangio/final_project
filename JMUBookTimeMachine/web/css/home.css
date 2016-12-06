@@ -26,8 +26,16 @@ input[type=text]{
 }
 .btn{
     width:20em;
+    background-color: purple;
+    border-color: purple;
+    color:white;
+}
+.btn:hover{
+    background-color: purple;
+    color:white;
 }
 .carousel-control.left, .carousel-control.right {
-    background-image: none
+    background-image: none;
+    color: purple;
 }
 

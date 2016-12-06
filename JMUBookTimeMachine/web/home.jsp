@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="javascript/home.js"></script>
         <link rel="stylesheet" href="css/home.css">
     </head>
     <%
@@ -32,7 +33,7 @@
         }
     %>
 
-    <body>
+    <body onload="checkCarousel();">
         <div class="container">
             <div class="row">
                 <nav class="navbar navbar-default">
@@ -40,8 +41,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
                             <li><a href="messages.jsp">Messages</a></li>
-                            <li><a href="profile.jsp">Profile</a></li> 
-                            <li><a href="notifications.jsp">Notifications</a></li>
+                            <li><a href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="logout">Logout</a></li>
@@ -52,7 +52,7 @@
             <div class="row">
                 <div align="center" class="col-md-6">
                     <form method="post" action="control?action=signup" class="form-signin">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                             <!-- Indicators 
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -102,15 +102,15 @@
                                     <label for="sellClassDescription" class="sr-only">Class Description</label>
                                     <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Section" autofocus>
                                     </br>
-                                    <button class="btn btn-primary btn-block" name="adduser" type="submit">Post Book</button>
+                                    <button class="btn btn-block" name="adduser" type="submit">Post Book</button>
                                 </div>
                             </div>
 
                             <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <!--<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
-                            </a>
+                            </a>-->
                             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
                                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
@@ -124,7 +124,7 @@
                         <label for="bookTitle" class="sr-only">Title</label>
                         <input type="text" name="bookTitle" id="bookTitle" class="form-control" placeholder="Title" autofocus>
                         </br>
-                        <button class="btn btn-primary btn-block" name="bookSearch" type="submit">Search</button>
+                        <button class="btn btn-block" name="bookSearch" type="submit">Search</button>
                     </form>
                 </div>
             </div>
