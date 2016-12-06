@@ -20,7 +20,7 @@
         <h1>JMU Book Time Machine</h1>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div align="center" class="col-md-6">
                     <form method="post" action="userControl?action=signup" class="form-signin">
                         <h2 class="form-signin-heading">Sign Up!</h2>
                         <label for="firstname" class="sr-only">First Name</label>
