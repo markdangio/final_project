@@ -7,6 +7,17 @@ and open the template in the editor.
     Created on : Dec 5, 2016, 5:22:00 PM
     Author     : dangiomr
 */
+
+body{
+    background: url('Wilson_Background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:cover;
+
+}
+
+
 h1, h2{
     text-align: center;
 }
