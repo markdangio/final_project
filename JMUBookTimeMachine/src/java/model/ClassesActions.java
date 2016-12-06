@@ -11,11 +11,11 @@ package model;
  */
 public class ClassesActions {
 
-    public static boolean addClasses(String name, String subject, int number, int section, String professor,
+    public static boolean addClass(String classId, String name, String subject, int number, int section, String professor,
             String description) {
 
-        Classes newClasses = new Classes(name, subject, number, section, professor, description);
-        return ClassesPersistence.addClass(newClasses);
+        Classes newClass = new Classes(classId, name, subject, number, section, professor, description);
+        return ClassesPersistence.addClass(newClass);
     }
     /*
     public static boolean checkClasses(String name, String subject, int number, int section, String professor) {

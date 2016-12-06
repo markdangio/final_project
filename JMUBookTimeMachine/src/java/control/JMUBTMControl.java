@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserActions;
-import servlet.LoginServlet;
+import java.util.UUID;
 
 /**
  *
@@ -40,9 +40,6 @@ public class JMUBTMControl extends HttpServlet {
         
         if (action.equals("login")){
             forwardRequest(request, response, "/login");
-        } 
-        else if (action.equals("signup")){
-            handleAdd(request, response);
         }
         else if (action.equals("logout")){
             forwardRequest(request, response, "/logout");
@@ -116,72 +113,8 @@ public class JMUBTMControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("adduser") != null) {
-            handleAdd(request, response);
-        }
+        
     }
-    
-    /*
-     * Add a user to the table.
-     */
-    private void handleAdd(HttpServletRequest request,
-            HttpServletResponse response) throws IOException, ServletException {
-        String addMessage = null;
-        HttpSession session = request.getSession(true);
-
-        // get add-user request parameters
-        String username = request.getParameter("signUpUsername");
-        String password = request.getParameter("signUpPassword");
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String avatar = request.getParameter("avatar");
-        String birthday = request.getParameter("birthday");
-
-        if (username == null || password == null || firstname == null || lastname == null
-                || email == null || birthday == null) {
-            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday;
-        } else if (username.trim().length() == 0) {
-            addMessage = "Userame field must not be blank";
-        } else if (password.trim().length() == 0) {
-            addMessage = "Password field must not be blank";
-        } else if (firstname.trim().length() == 0) {
-            addMessage = "First name field must not be blank";
-        } else if (lastname.trim().length() == 0) {
-            addMessage = "Last name field must not be blank";
-        } else if (email.trim().length() == 0) {
-            addMessage = "Email field must not be blank";
-        } else if (birthday.trim().length() == 0) {
-            addMessage = "Birthday field must not be blank";
-        } else {
-            // execute add transaction
-            boolean addResult = UserActions.addUser(username, password, firstname, lastname, email, avatar, birthday);
-            addMessage = addResult ? "New user added" : "User add failed";
-        }
-        session.setAttribute("addmessage", addMessage);
-        if(addMessage.equals("New user added")){
-            session.setAttribute("loggedIn", true);
-            session.setAttribute("username", username);
-            forwardRequest(request, response, "/home.jsp");
-        }
-        else{
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
-
-        }
-    }
-
     
     /*
      * Forward this request to another component. 

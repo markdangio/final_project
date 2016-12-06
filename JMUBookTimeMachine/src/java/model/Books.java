@@ -11,18 +11,24 @@ package model;
  */
 public class Books {
     
-    private String title, author, publisher, coverPhoto;
+    private String bookId, title, author, publisher, coverPhoto, classId;
     private int edition;
     
-    public Books (String title, String author, int edition, String publisher, String coverPhoto)
+    public Books (String bookId, String title, String author, int edition, String publisher, String coverPhoto, String classId)
     {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.coverPhoto = coverPhoto;
         this.edition = edition;
+        this.classId = classId;
     }
 
+    public String getBookId() {
+        return bookId;
+    }
+    
     public String getTitle() {
         return title;
     }
@@ -41,6 +47,10 @@ public class Books {
 
     public int getEdition() {
         return edition;
+    }
+    
+    public String getClassId() {
+        return classId;
     }
     
 }

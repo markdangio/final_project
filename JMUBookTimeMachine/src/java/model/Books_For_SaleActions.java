@@ -12,9 +12,9 @@ import java.util.Date;
  */
 public class Books_For_SaleActions {
 
-    public static boolean addBooks_For_Sale(Date postedDate, double price, int sold) {
+    public static boolean addBooks_For_Sale(String sellerId, String bookId, String saleId, Date postedDate, double price, int sold) {
 
-        Books_For_Sale newBFS = new Books_For_Sale(postedDate, price, sold);
+        Books_For_Sale newBFS = new Books_For_Sale(sellerId, bookId, saleId, postedDate, price, sold);
         return Books_For_SalePersistence.addBook_For_Sale(newBFS);
     }
     /*

@@ -5,8 +5,7 @@
  */
 package model;
 
-import java.util.*;
-import java.util.UUID;
+//import java.util.*;
 import java.sql.*;
 
 /**
@@ -24,12 +23,8 @@ public class UserPersistence {
     public static boolean addUser(User user) {
         DBHandler dbHandler = new DBHandler();
         
-        String userid = UUID.randomUUID().toString();
-        userid = userid.replace("-","");
-        userid = userid.substring(0, 16);
-        
         String command = "INSERT INTO User VALUES(";
-        command += "'" + userid + "'";
+        command += "'" + user.getUserId() + "'";
         command += ", '" + user.getUsername() + "'";
         command += ", '" + user.getPassword() + "'";
         command += ", '" + user.getFirstName() + "'";

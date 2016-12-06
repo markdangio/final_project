@@ -22,33 +22,22 @@ public class BooksPersistence {
      * @param classes The class to be used to get the id
      * @return true iff the database operation succeeded
      */
-    public static boolean addBook(Books books) {//, Classes classes) {
+    public static boolean addBook(Books book) {//, Classes classes) {
         DBHandler dbHandler = new DBHandler();
         
-        String classcommand = "SELECT classId FROM Classes WHERE subject = ";
-        //classcommand += "'" + classes.getSubject() + "'";
-        //classcommand += " AND number = '" + classes.getNumber() + "'";
-        
         try {
-            ResultSet resultCountClass = dbHandler.doQuery(classcommand);
-            String classid = resultCountClass.getString(1);
-        
-            String bookid = UUID.randomUUID().toString();
-            bookid = bookid.replace("-","");
-            bookid = bookid.substring(0, 16);
-
             String command = "INSERT INTO Books VALUES(";
-            command += "'" + bookid + "'";
-            command += ", '" + books.getTitle() + "'";
-            command += ", '" + books.getAuthor() + "'";
-            command += ", " + books.getEdition();
-            command += ", '" + books.getPublisher() + "'";
+            command += "'" + book.getBookId() + "'";
+            command += ", '" + book.getTitle() + "'";
+            command += ", '" + book.getAuthor() + "'";
+            command += ", " + book.getEdition();
+            command += ", '" + book.getPublisher() + "'";
 
-            command += books.getCoverPhoto().equals("") 
+            command += book.getCoverPhoto().equals("") 
                     ? ", NULL" 
-                    : ", '" + books.getCoverPhoto() + "'";
+                    : ", '" + book.getCoverPhoto() + "'";
 
-            command += ", '" + classid + "'";
+            command += ", '" + book.getClassId() + "'";
             
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();

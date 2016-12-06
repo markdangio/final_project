@@ -11,11 +11,12 @@ package model;
  */
 public class Classes {
     
-    private String name, subject, professor, description;
+    private String classId, name, subject, professor, description;
     private int number, section;
     
-    public Classes (String name, String subject, int number, int section, String professor, String description)
+    public Classes (String classId, String name, String subject, int number, int section, String professor, String description)
     {
+        this.classId = classId;
         this.name = name;
         this.subject = subject;
         this.professor = professor;
@@ -24,6 +25,10 @@ public class Classes {
         this.section = section;
     }
 
+    public String getClassId() {
+        return classId;
+    }
+    
     public String getName() {
         return name;
     }

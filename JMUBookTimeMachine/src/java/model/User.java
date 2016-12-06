@@ -12,11 +12,12 @@ package model;
 
 public class User {
 
-    private String username, password, firstname, lastname, email, avatar, birthday;
+    private String userId, username, password, firstname, lastname, email, avatar, birthday;
 
     /**
      * Initialize a User object.
      *
+     * @param userId The user's id
      * @param username The user's username
      * @param password The user's password
      * @param firstname The user's first name
@@ -25,7 +26,8 @@ public class User {
      * @param avatar The user's profile picture
      * @param birthday The user's birth date in the format YYYY-MM-DD
      */
-    public User(String username, String password, String firstname, String lastname, String email, String avatar, String birthday) {
+    public User(String userId, String username, String password, String firstname, String lastname, String email, String avatar, String birthday) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -33,6 +35,10 @@ public class User {
         this.email = email;
         this.avatar = avatar;
         this.birthday = birthday;
+    }
+    
+    public String getUserId() {
+        return userId;
     }
 
     /**

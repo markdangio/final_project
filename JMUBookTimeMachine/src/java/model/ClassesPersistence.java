@@ -24,12 +24,8 @@ public class ClassesPersistence {
     public static boolean addClass(Classes classes) {
         DBHandler dbHandler = new DBHandler();
         
-        String classid = UUID.randomUUID().toString();
-        classid = classid.replace("-","");
-        classid = classid.substring(0, 16);
-        
         String command = "INSERT INTO Classes VALUES(";
-        command += "'" + classid + "'";
+        command += "'" + classes.getClassId() + "'";
         command += ", '" + classes.getName() + "'";
         command += ", '" + classes.getSubject() + "'";
         command += ", '" + classes.getNumber() + "'";

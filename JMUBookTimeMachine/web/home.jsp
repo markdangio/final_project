@@ -91,7 +91,7 @@
                                     <input type="text" name="sellClassSubject" id="sellClassSubject" class="form-control" placeholder="Class Subject" required autofocus>
                                     </br>
                                     <label for="sellClassNumber" class="sr-only">Class Number</label>
-                                    <input type="text" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
+                                    <input type="number" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
                                     </br>
                                     <label for="sellClassSection" class="sr-only">Class Section</label>
                                     <input type="text" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>

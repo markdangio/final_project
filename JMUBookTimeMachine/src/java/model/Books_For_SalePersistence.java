@@ -25,29 +25,12 @@ public class Books_For_SalePersistence {
     public static boolean addBook_For_Sale(Books_For_Sale books_For_Sale) {//, Books books, User user) {
         DBHandler dbHandler = new DBHandler();
         
-        String usercommand = "SELECT userId FROM User WHERE username = ";
-        //usercommand += "'" + user.getUsername() + "'";
-        
-        String bookcommand = "SELECT classId FROM Books WHERE title = ";
-        //bookcommand += "'" + books.getTitle() + "'";
-        //bookcommand += " AND author = '" + books.getAuthor() + "'";
-        //bookcommand += " AND edition = " + books.getEdition();
-        
         try {
-            ResultSet resultCountUser = dbHandler.doQuery(usercommand);
-            String sellerid = resultCountUser.getString(1);
-            
-            ResultSet resultCountBook = dbHandler.doQuery(bookcommand);
-            String bookid = resultCountBook.getString(1);
-        
-            String saleid = UUID.randomUUID().toString();
-            saleid = saleid.replace("-","");
-            saleid = saleid.substring(0, 16);
 
             String command = "INSERT INTO Books_For_Sale VALUES(";
-            command += "'" + sellerid + "'";
-            command += ", '" + bookid + "'";
-            command += ", '" + saleid + "'";
+            command += "'" + books_For_Sale.getSellerId() + "'";
+            command += ", '" + books_For_Sale.getBookId() + "'";
+            command += ", '" + books_For_Sale.getSaleId() + "'";
             command += ", " + books_For_Sale.getPostedDate();
             command += ", '" + books_For_Sale.getPrice() + "'";
             command += ", '" + books_For_Sale.getSold() + "'";

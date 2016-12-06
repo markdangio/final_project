@@ -13,10 +13,10 @@ import java.sql.*;
  */
 public class BooksActions {
 
-    public static boolean addBooks(String title , String author, int edition, String coverPhoto, String publisher) {
+    public static boolean addBook(String bookId, String title , String author, int edition, String coverPhoto, String publisher, String classId) {
 
-        Books newBooks = new Books(title, author, edition, coverPhoto, publisher);
-        return BooksPersistence.addBook(newBooks);
+        Books newBook = new Books(bookId, title, author, edition, coverPhoto, publisher, classId);
+        return BooksPersistence.addBook(newBook);
     }
     /*
     public static boolean checkBooks(String title, String author, int edition) {
