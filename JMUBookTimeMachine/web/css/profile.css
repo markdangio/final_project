@@ -21,3 +21,6 @@ div.container{
     width:2em;
     height:2em;
 }
+#bar:hover{
+    color: white;
+}

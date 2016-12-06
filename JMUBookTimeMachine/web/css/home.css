@@ -38,4 +38,6 @@ input[type=text]{
     background-image: none;
     color: purple;
 }
-
+#bar:hover{
+    color:white;
+}

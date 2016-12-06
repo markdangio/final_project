@@ -36,15 +36,15 @@
             <div class="row">
                 <nav class="navbar navbar-default">
                   <div class="container-fluid">
-                    <ul class="nav navbar-nav">
-                      <li><a href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                      <li><a href="messages.jsp">Messages</a></li>
-                      <li><a href="profile.jsp">Profile</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#">Logout</a></li>
-                    </ul>
-                  </div>
+                        <ul class="nav navbar-nav">
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
+                            <li><a id="bar" href="messages.jsp">Messages</a></li>
+                            <li><a id="bar" href="profile.jsp">Profile</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a id="bar" href="logout">Logout</a></li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
             <div class="row">

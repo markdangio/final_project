@@ -7,6 +7,12 @@ and open the template in the editor.
     Created on : Dec 5, 2016, 5:22:00 PM
     Author     : dangiomr
 */
+h1, h2{
+    text-align: center;
+}
+input[type=text], input[type=password], input[type=email]{
+    width:20em;
+}
 div.container{
     width: 100%;
 }
@@ -21,3 +27,14 @@ div.container{
     width:2em;
     height:2em;
 }
+.btn{
+    width:20em;
+    background-color: purple;
+    border-color: purple;
+    color:white;
+}
+.btn:hover{
+    background-color: purple;
+    color:white;
+}
+

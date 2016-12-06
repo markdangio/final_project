@@ -20,7 +20,7 @@
         <h1>JMU Book Time Machine</h1>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div align="center" class="col-md-6">
                     <form method="post" action="control?action=signup" class="form-signin">
                         <h2 class="form-signin-heading">Sign Up!</h2>
                         <label for="firstname" class="sr-only">First Name</label>
@@ -47,10 +47,10 @@
                         <label for="avatar" class="sr-only">Profile Picture</label>
                         <input type="file" name="avatar" id="avatar">
                         </br>
-                        <button class="btn btn-lg btn-primary btn-block" name="adduser" type="submit">Sign up</button>
+                        <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
                     </form>
                 </div>
-                <div class="col-md-6">
+                <div align="center" class="col-md-6">
                     <form method="post" action="control?action=login" class="form-signin">
                         <h2 class="form-signin-heading">Please sign in</h2>
                         <label for="loginUsername" class="sr-only">Username</label>
@@ -59,7 +59,7 @@
                         <label for="loginPassword" class="sr-only">Password</label>
                         <input type="password" name="loginPassword" id="loginPassword" class="form-control" placeholder="Password" required>
                         </br>
-                        <button class="btn btn-lg btn-primary btn-block" name="login" type="submit">Sign in</button>
+                        <button class="btn btn-block" name="login" type="submit">Sign in</button>
                     </form>
                 </div>
             </div>
