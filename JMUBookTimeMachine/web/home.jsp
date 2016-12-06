@@ -33,7 +33,7 @@
         }
     %>
 
-    <body onload="checkCarousel();">
+    <body>
         <div class="container">
             <div class="row">
                 <nav class="navbar navbar-default">
@@ -53,37 +53,10 @@
                 <div align="center" class="col-md-6">
                     <form method="post" action="control?action=signup" class="form-signin">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                            <!-- Indicators 
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                            </ol>-->
-
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
-                                    <h2 class="form-signin-heading">Sell Book</h2>
-                                    <label for="sellTitle" class="sr-only">Title</label>
-                                    <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
-                                    </br>
-                                    <label for="sellAuthor" class="sr-only">Author</label>
-                                    <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
-                                    </br>
-                                    <label for="sellEdition" class="sr-only">Edition</label>
-                                    <input type="text" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
-                                    </br>
-                                    <label for="sellPublisher" class="sr-only">Publisher</label>
-                                    <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
-                                    </br>
-                                    <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
-                                    <input type="text" name="sellCoverPhoto" id="sellCoverPhoto" class="form-control" placeholder="Book Cover Photo" autofocus>
-                                    </br>
-                                    <label for="sellPrice" class="sr-only">Price</label>
-                                    <input type="text" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
-                                    </br>
-                                </div>
-                                <div class="item">
-                                    <h2 class="form-signin-heading">Sell Book cont'd</h2>
+                                    <h2 class="form-signin-heading">First, add class info</h2>
                                     <label for="sellClassName" class="sr-only">Class Name</label>
                                     <input type="text" name="sellClassName" id="sellClassName" class="form-control" placeholder="Class Name" required autofocus>
                                     </br>
@@ -100,21 +73,43 @@
                                     <input type="text" name="sellClassProfessor" id="sellClassProfessor" class="form-control" placeholder="Class Professor" required autofocus>
                                     </br>
                                     <label for="sellClassDescription" class="sr-only">Class Description</label>
-                                    <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Section" autofocus>
+                                    <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
                                     </br>
-                                    <button class="btn btn-block" name="adduser" type="submit">Post Book</button>
+                                    <button class="btn btn-block" name="next" type="submit" onclick="moveForward();">Next</button>
                                 </div>
+                                <div class="item">
+                                    <h2 class="form-signin-heading">Add book info</h2>
+                                    <label for="sellTitle" class="sr-only">Title</label>
+                                    <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
+                                    </br>
+                                    <label for="sellAuthor" class="sr-only">Author</label>
+                                    <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
+                                    </br>
+                                    <label for="sellEdition" class="sr-only">Edition</label>
+                                    <input type="text" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
+                                    </br>
+                                    <label for="sellPublisher" class="sr-only">Publisher</label>
+                                    <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
+                                    </br>
+                                    <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
+                                    <input type="text" name="sellCoverPhoto" id="sellCoverPhoto" class="form-control" placeholder="Book Cover Photo" autofocus>
+                                    </br>
+                                    <button class="btn btn-block" name="back" type="submit" onclick="moveBackward();">Back</button>
+                                    </br>
+                                    <button class="btn btn-block" name="next" type="submit" onclick="moveForward();">Next</button>
+                                </div>
+                                <div class="item">
+                                    <h2 class="form-signin-heading">Add price and submit!</h2>
+                                    <label for="sellPrice" class="sr-only">Price</label>
+                                    <input type="text" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
+                                    </br>
+                                    <button class="btn btn-block" name="back" onclick="moveBackward();">Back</button>
+                                    </br>
+                                    <button class="btn btn-block" name="postbook" type="submit">Post Book</button>
+                                    </br>
+                                </div>
+                                
                             </div>
-
-                            <!-- Left and right controls -->
-                            <!--<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>-->
-                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
                         </div>
                     </form>
                 </div>

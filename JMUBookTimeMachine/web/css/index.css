@@ -14,12 +14,12 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size:cover;
+    -moz-opacity: 0.5;
 
 }
-
-
 h1, h2{
     text-align: center;
+    color: white;
 }
 input[type=text], input[type=password], input[type=email]{
     width:20em;

@@ -45,14 +45,14 @@
                         <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
                         </br>
                         <label for="avatar" class="sr-only">Profile Picture</label>
-                        <input type="file" name="avatar" id="avatar">
+                        <input type="file" name="avatar" id="avatar" style="color:white;">
                         </br>
                         <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
                     </form>
                 </div>
                 <div align="center" class="col-md-6">
                     <form method="post" action="control?action=login" class="form-signin">
-                        <h2 class="form-signin-heading">Please sign in</h2>
+                        <h2 class="form-signin-heading">Login</h2>
                         <label for="loginUsername" class="sr-only">Username</label>
                         <input type="text" name="loginUsername" id="loginUsername" class="form-control" placeholder="Username" required autofocus>
                         </br>
