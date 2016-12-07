@@ -51,11 +51,11 @@
             </div>
             <div class="row">
                 <div align="center" class="col-md-6">
-                    <form method="post" action="control?action=signup" class="form-signin">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <form method="post" action="classesControl?action=check" class="form-signin">
                                     <h2 class="form-signin-heading">First, add class info</h2>
                                     <label for="sellClassName" class="sr-only">Class Name</label>
                                     <input type="text" name="sellClassName" id="sellClassName" class="form-control" placeholder="Class Name" required autofocus>
@@ -76,8 +76,10 @@
                                     <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
                                     </br>
                                     <button class="btn btn-block" name="next" type="submit" onclick="moveForward();">Next</button>
-                                </div>
-                                <div class="item">
+                                </form>
+                            </div>
+                            <div class="item">
+                                <form method="post" action="booksControl?action=check" class="form-signin">
                                     <h2 class="form-signin-heading">Add book info</h2>
                                     <label for="sellTitle" class="sr-only">Title</label>
                                     <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
@@ -97,8 +99,10 @@
                                     <button class="btn btn-block" name="back" type="submit" onclick="moveBackward();">Back</button>
                                     </br>
                                     <button class="btn btn-block" name="next" type="submit" onclick="moveForward();">Next</button>
-                                </div>
-                                <div class="item">
+                                </form>
+                            </div>
+                            <div class="item">
+                                <form method="post" action="books_For_SaleControl?action=create" class="form-signin">
                                     <h2 class="form-signin-heading">Add price and submit!</h2>
                                     <label for="sellPrice" class="sr-only">Price</label>
                                     <input type="text" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
@@ -107,11 +111,10 @@
                                     </br>
                                     <button class="btn btn-block" name="postbook" type="submit">Post Book</button>
                                     </br>
-                                </div>
-                                
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div align="center" class="col-md-6">
                     <form method="post" action="control?action=login" class="form-signin">
