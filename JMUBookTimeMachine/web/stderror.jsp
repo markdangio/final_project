@@ -12,7 +12,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-  <head> <title>JMU Book Time Machine</title> </head>
+  <head> <title>Error</title> </head>
 
   <body>
     <p>That request cannot be completed at this time.</p>

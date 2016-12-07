@@ -44,7 +44,15 @@
                         <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
                         <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
                         </br>
+                        </br>
+                        <h3>Security Question</h3>
+                        </br>
+                        <label for="signUpSecurityAnswer" class="sr-only">Security Question</label>
+                        <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus>
+                        </br>
+                        <h3>Profile Picture</h3>
                         <label for="avatar" class="sr-only">Profile Picture</label>
+                        </br>
                         <input type="file" name="avatar" id="avatar" style="color:white;">
                         </br>
                         <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
