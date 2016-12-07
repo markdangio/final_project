@@ -23,6 +23,9 @@ div.container{
     margin-top: 0em;
 }
 /* navbar */
+.navbar{
+    border: 0;
+}
 .navbar-default {
     background-color: purple;
 }

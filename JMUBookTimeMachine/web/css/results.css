@@ -11,6 +11,9 @@ div.container{
     width: 100%;
 }
 /* navbar */
+.navbar{
+    border: 0;
+}
 .navbar-default {
     background-color: purple;
 }
