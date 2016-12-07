@@ -91,6 +91,7 @@ public class UserControl extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
+        String userId = "";
         String username = request.getParameter("signUpUsername");
         String password = request.getParameter("signUpPassword");
         String firstname = request.getParameter("firstname");
@@ -116,7 +117,7 @@ public class UserControl extends HttpServlet {
             addMessage = "Birthday field must not be blank";
         } else {
             // execute add transaction
-            String userId = UUID.randomUUID().toString();
+            userId = UUID.randomUUID().toString();
             userId = userId.replace("-","");
             userId = userId.substring(0, 16);
             
@@ -127,6 +128,7 @@ public class UserControl extends HttpServlet {
         if(addMessage.equals("New user added")){
             session.setAttribute("loggedIn", true);
             session.setAttribute("username", username);
+            session.setAttribute("userId", userId);
             forwardRequest(request, response, "/home.jsp");
         }
         else{

@@ -67,7 +67,7 @@
                                     <input type="number" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
                                     </br>
                                     <label for="sellClassSection" class="sr-only">Class Section</label>
-                                    <input type="text" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>
+                                    <input type="number" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>
                                     </br>
                                     <label for="sellClassProfessor" class="sr-only">Class Professor</label>
                                     <input type="text" name="sellClassProfessor" id="sellClassProfessor" class="form-control" placeholder="Class Professor" required autofocus>
@@ -75,7 +75,7 @@
                                     <label for="sellClassDescription" class="sr-only">Class Description</label>
                                     <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
                                     </br>
-                                    <button class="btn btn-block" name="next" type="submit" onclick="moveForward();">Next</button>
+                                    <button class="btn btn-block" name="next" onclick="moveForward();">Next</button>
                                 </form>
                             </div>
                             <div class="item">
@@ -96,9 +96,9 @@
                                     <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
                                     <input type="text" name="sellCoverPhoto" id="sellCoverPhoto" class="form-control" placeholder="Book Cover Photo" autofocus>
                                     </br>
-                                    <button class="btn btn-block" name="back" type="submit" onclick="moveBackward();">Back</button>
+                                    <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
                                     </br>
-                                    <button class="btn btn-block" name="next" type="submit" onclick="moveForward();">Next</button>
+                                    <button class="btn btn-block" name="next"onclick="moveForward();">Next</button>
                                 </form>
                             </div>
                             <div class="item">

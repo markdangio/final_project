@@ -7,6 +7,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.UUID;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Books_For_SaleActions;
+import model.BooksActions;
+import model.ClassesActions;
 
 /**
  *
@@ -103,8 +106,10 @@ public class Books_For_SaleControl extends HttpServlet {
             addMessage = "Improper add books_for_sale request: " + price;
         } else {
             // execute add transaction
+            
             String sellerId = (String)session.getAttribute("userId");
             String bookId = (String)session.getAttribute("bookId");
+            
             boolean addResult = Books_For_SaleActions.addBooks_For_Sale(sellerId, bookId, saleId, postedDate, price, sold);
             addMessage = addResult ? "New books_for_sale added" : "Books_for_sale add failed";
         }

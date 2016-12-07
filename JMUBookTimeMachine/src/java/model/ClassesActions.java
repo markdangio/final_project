@@ -17,10 +17,15 @@ public class ClassesActions {
         Classes newClass = new Classes(classId, name, subject, number, section, professor, description);
         return ClassesPersistence.addClass(newClass);
     }
-    /*
-    public static boolean checkClasses(String name, String subject, int number, int section, String professor) {
+    
+    public static boolean checkClass(String name, String subject, int number, int section, String professor) {
 
-        return ClassesPersistence.checkClasses(name, subject, number, section, professor);
-    }*/
+        return ClassesPersistence.checkClass(name, subject, number, section, professor);
+    }
+    
+    public static String getClassId(String name, String subject, int number, int section, String professor) {
+
+        return ClassesPersistence.getClassId(name, subject, number, section, professor);
+    }
 
 }

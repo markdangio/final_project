@@ -18,9 +18,14 @@ public class BooksActions {
         Books newBook = new Books(bookId, title, author, edition, coverPhoto, publisher, classId);
         return BooksPersistence.addBook(newBook);
     }
-    /*
-    public static boolean checkBooks(String title, String author, int edition) {
+    
+    public static boolean checkBook(String title, String author, int edition, String publisher) {
 
-        return BooksPersistence.checkBooks(title, author, edition);
-    }*/
+        return BooksPersistence.checkBook(title, author, edition, publisher);
+    }
+    
+    public static String getBookId(String title, String author, int edition, String publisher) {
+
+        return BooksPersistence.getBookId(title, author, edition, publisher);
+    }
 }

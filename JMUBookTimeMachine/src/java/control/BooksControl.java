@@ -41,6 +41,9 @@ public class BooksControl extends HttpServlet {
         if (action.equals("create")){
             handleAdd(request, response);
         }
+        else if (action.equals("check")) {
+            handleCheck(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -136,6 +139,44 @@ public class BooksControl extends HttpServlet {
         }
     }
 
+    /*
+     * Add a user to the table.
+     */
+    private void handleCheck(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String checkMessage = null;
+        HttpSession session = request.getSession(true);
+
+        // get add-user request parameters
+        String title = request.getParameter("sellTitle");
+        String author = request.getParameter("sellAuthor");
+        int edition = Integer.parseInt(request.getParameter("sellEdition"));
+        String publisher = request.getParameter("sellPublisher");
+        String coverPhoto = request.getParameter("sellCoverPhoto");
+
+        if (title == null || author == null || edition <= 0 || publisher == null) {
+            checkMessage = "Improper add user request: " + title + author + edition + publisher;
+        } else if (title.trim().length() == 0) {
+            checkMessage = "Userame field must not be blank";
+        } else if (author.trim().length() == 0) {
+            checkMessage = "Password field must not be blank";
+        } else if (edition <= 0) {
+            checkMessage = "Edition field must not be less than one";
+        } else {
+            // execute add transaction
+            boolean checkResult = BooksActions.checkBook(title, author, edition, publisher);
+            checkMessage = checkResult ? "Book found" : "Book not found";
+        }
+        session.setAttribute("checkMessage", checkMessage);
+        if(checkMessage.equals("Book found")){
+            String bookId = BooksActions.getBookId(title, author, edition, publisher);
+            session.setAttribute("bookId", bookId);
+        }
+        else{
+            handleAdd(request, response);
+        }
+    }
+    
     
     /*
      * Forward this request to another component. 

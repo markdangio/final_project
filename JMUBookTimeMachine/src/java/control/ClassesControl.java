@@ -41,6 +41,9 @@ public class ClassesControl extends HttpServlet {
         if (action.equals("create")){
             handleAdd(request, response);
         }
+        else if (action.equals("check")){
+            handleCheck(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -140,7 +143,49 @@ public class ClassesControl extends HttpServlet {
 
         }
     }
+    
+    /*
+     * Add a user to the table.
+     */
+    private void handleCheck(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String checkMessage = null;
+        HttpSession session = request.getSession(true);
 
+        String name = request.getParameter("sellClassName");
+        String subject = request.getParameter("sellClassSubject");
+        int number = Integer.parseInt(request.getParameter("sellClassNumber"));
+        int section = Integer.parseInt(request.getParameter("sellClassSection"));
+        String professor = request.getParameter("sellClassProfessor");
+        String description = request.getParameter("sellClassDescription");
+
+        if (name == null || subject == null || number <= 0 || section <= 0
+                || professor == null) {
+            checkMessage = "Improper add class request: " + name + subject + number + section + professor + description;
+        } else if (name.trim().length() == 0) {
+            checkMessage = "Name field must not be blank";
+        } else if (subject.trim().length() == 0) {
+            checkMessage = "Subject field must not be blank";
+        } else if (number <= 0) {
+            checkMessage = "Number must be greater than zero";
+        } else if (number <= 0) {
+            checkMessage = "Section must be greater than zero";
+        } else if (professor.trim().length() == 0) {
+            checkMessage = "Professor field must not be blank";
+        } else {
+            // execute add transaction
+            boolean checkResult = ClassesActions.checkClass(name, subject, number, section, professor);
+            checkMessage = checkResult ? "Class found" : "Class not found";
+        }
+        session.setAttribute("checkMessage", checkMessage);
+        if(checkMessage.equals("Class found")){
+            String classId = ClassesActions.getClassId(name, subject, number, section, professor);
+            session.setAttribute("classId", classId);
+        }
+        else{
+            handleAdd(request, response);
+        }
+    }
     
     /*
      * Forward this request to another component. 

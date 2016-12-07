@@ -5,8 +5,7 @@
  */
 package model;
 
-//import java.util.*;
-import java.util.UUID;
+import java.util.*;
 import java.sql.*;
 
 /**
@@ -54,17 +53,18 @@ public class BooksPersistence {
      * @param username The user to be added
      * @param password The user's password
      * @return true iff the database operation succeeded
-     *
-    public static boolean checkUser(String username, String password) {
+     */
+    public static boolean checkBook(String title, String author, int edition, String publisher) {
         DBHandler dbHandler = new DBHandler();
                 
-        String command = "SELECT * FROM User WHERE username = ";
-        command += "'" + username + "'";
-        command += " AND password = '" + password + "'";
+        String command = "SELECT * FROM Books WHERE title = ";
+        command += "'" + title + "'";
+        command += " AND author = '" + author + "'";
+        command += " AND edition = " + edition;
+        command += " AND publisher = '" + publisher + "'";
         try {
             ResultSet resultCount = dbHandler.doQuery(command);
             
-            System.out.println(resultCount);
             int i = 0;
             while(resultCount.next()) {
                 i++;
@@ -75,7 +75,7 @@ public class BooksPersistence {
             ex.printStackTrace();
             return false;
         }
-    }*/
+    }
 
     /**
      * Delete a pet from the Pet table.
@@ -100,34 +100,30 @@ public class BooksPersistence {
      * Returns an ArrayList of all Pet objects.
      *
      * @return an ArrayList of all Pet objects
-     *
-    public static ArrayList<Pet> getAllPets() {
-        String query = "select * from pet";
-        ArrayList<Pet> result = new ArrayList<Pet>();
+     */
+    public static String getBookId(String title, String author, int edition, String publisher) {
+        String result = "";
+        
+        String command = "SELECT bookId FROM Books WHERE title = ";
+        command += "'" + title + "'";
+        command += " AND author = '" + author + "'";
+        command += " AND edition = " + edition;
+        command += " AND publisher = '" + publisher + "'";
 
         // open a connection to the database and a Statement object
         try {
-            DBQueryHandler dbQueryHandler = new DBQueryHandler();
-            ResultSet rs = dbQueryHandler.doQuery(query);
-            ResultSetMetaData rsmd = rs.getMetaData();
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(command);
 
-            while (rs.next()) {
-                int i = 1; // 1st column
-                String name = rs.getString(i++);
-                String owner = rs.getString(i++);
-                String species = rs.getString(i++);
-                String sex = rs.getString(i++);
-                String birth = rs.getString(i++);
-                Pet pet = new Pet(name, owner, species, sex, birth);
-                result.add(pet);
-            }
+            rs.next();
+            result = rs.getString(1);
 
-            dbQueryHandler.close();
+            dbHandler.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
         // return the result
         return result;
-    }*/
+    }
 }
