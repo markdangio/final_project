@@ -25,17 +25,23 @@ public class UserActions {
      * @param email The user's email
      * @param avatar The user's profile picture
      * @param birthday The user's birth data in the format YYY-MM-DD
+     * @param securityAns The users answer to the security question
      */
     public static boolean addUser(String userId, String username, String password, String firstname, String lastname, String email,
-            String avatar, String birthday) {
+            String avatar, String birthday, String securityAns) {
 
-        User newUser = new User(userId, username, password, firstname, lastname, email, avatar, birthday);
+        User newUser = new User(userId, username, password, firstname, lastname, email, avatar, birthday, securityAns);
         return UserPersistence.addUser(newUser);
     }
     
     public static boolean checkUser(String username, String password) {
 
         return UserPersistence.checkUser(username, password);
+    }
+    
+    public static String getUserId(String username) {
+
+        return UserPersistence.getUserId(username);
     }
 
 } // end class

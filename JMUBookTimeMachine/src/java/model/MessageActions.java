@@ -12,9 +12,9 @@ import java.util.Date;
  */
 public class MessageActions {
 
-    public static boolean addMessage(String content, Date timeSent) {
+    public static boolean addMessage(String messageId, String toUserId, String fromUserId, String content, String timeSent) {
 
-        Message newMessage = new Message(content, timeSent);
+        Message newMessage = new Message(messageId, toUserId, fromUserId, content, timeSent);
         return MessagePersistence.addMessage(newMessage);
     }
     /*

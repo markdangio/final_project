@@ -49,7 +49,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         session.setAttribute("loggedIn", true);
-        session.setAttribute("loginUsername", username);
+        session.setAttribute("username", username);
+        
+        session.setAttribute("userId", UserActions.getUserId(username));
         forwardRequest(request, response, "/home.jsp");
     }
     

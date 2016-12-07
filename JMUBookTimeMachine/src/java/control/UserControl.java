@@ -99,10 +99,12 @@ public class UserControl extends HttpServlet {
         String email = request.getParameter("email");
         String avatar = request.getParameter("avatar");
         String birthday = request.getParameter("birthday");
+        String securityAns = request.getParameter("signUpSecurityAnswer");
+        
 
         if (username == null || password == null || firstname == null || lastname == null
-                || email == null || birthday == null) {
-            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday;
+                || email == null || birthday == null || securityAns == null) {
+            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
         } else if (username.trim().length() == 0) {
             addMessage = "Userame field must not be blank";
         } else if (password.trim().length() == 0) {
@@ -115,14 +117,16 @@ public class UserControl extends HttpServlet {
             addMessage = "Email field must not be blank";
         } else if (birthday.trim().length() == 0) {
             addMessage = "Birthday field must not be blank";
-        } else {
+        } else if (securityAns.trim().length() == 0) {
+            addMessage = "Security Answer field must not be blank";
+        }else {
             // execute add transaction
             userId = UUID.randomUUID().toString();
             userId = userId.replace("-","");
             userId = userId.substring(0, 16);
             
-            boolean addResult = UserActions.addUser(userId, username, password, firstname, lastname, email, avatar, birthday);
-            addMessage = addResult ? "New user added" : "User add failed";
+            boolean addResult = UserActions.addUser(userId, username, password, firstname, lastname, email, avatar, birthday, securityAns);
+            addMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
         }
         session.setAttribute("addmessage", addMessage);
         if(addMessage.equals("New user added")){

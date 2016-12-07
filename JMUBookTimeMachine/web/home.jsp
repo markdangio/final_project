@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home Page</title>
+        <title>JMU Book Time Machine Home Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -36,7 +36,7 @@
     <body>
         <div class="container">
             <div class="row">
-                <nav class="navbar navbar-default navbar-static-top">
+                <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
                             <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
@@ -51,11 +51,11 @@
             </div>
             <div class="row">
                 <div align="center" class="col-md-6">
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <form method="post" action="classesControl?action=check" class="form-signin">
+                    <form method="post" action="bbc?action=check" class="form-signin">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active">
                                     <h2 class="form-signin-heading">First, add class info</h2>
                                     <label for="sellClassName" class="sr-only">Class Name</label>
                                     <input type="text" name="sellClassName" id="sellClassName" class="form-control" placeholder="Class Name" required autofocus>
@@ -76,10 +76,9 @@
                                     <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
                                     </br>
                                     <button class="btn btn-block" name="next" onclick="moveForward();">Next</button>
-                                </form>
-                            </div>
-                            <div class="item">
-                                <form method="post" action="booksControl?action=check" class="form-signin">
+                                    </form>
+                                </div>
+                                <div class="item">
                                     <h2 class="form-signin-heading">Add book info</h2>
                                     <label for="sellTitle" class="sr-only">Title</label>
                                     <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
@@ -88,7 +87,7 @@
                                     <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
                                     </br>
                                     <label for="sellEdition" class="sr-only">Edition</label>
-                                    <input type="text" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
+                                    <input type="number" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
                                     </br>
                                     <label for="sellPublisher" class="sr-only">Publisher</label>
                                     <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
@@ -99,33 +98,42 @@
                                     <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
                                     </br>
                                     <button class="btn btn-block" name="next"onclick="moveForward();">Next</button>
-                                </form>
-                            </div>
-                            <div class="item">
-                                <form method="post" action="books_For_SaleControl?action=create" class="form-signin">
+                                </div>
+                                <div class="item">
                                     <h2 class="form-signin-heading">Add price and submit!</h2>
                                     <label for="sellPrice" class="sr-only">Price</label>
-                                    <input type="text" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
+                                    <input type="number" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
                                     </br>
                                     <button class="btn btn-block" name="back" onclick="moveBackward();">Back</button>
                                     </br>
                                     <button class="btn btn-block" name="postbook" type="submit">Post Book</button>
                                     </br>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div align="center" class="col-md-6">
-                    <form method="post" action="control?action=login" class="form-signin">
-                        <h2 class="form-signin-heading">Find Book</h2>
-                        <label for="bookTitle" class="sr-only">Title</label>
-                        <input type="text" name="bookTitle" id="bookTitle" class="form-control" placeholder="Title" autofocus>
-                        </br>
-                        <button class="btn btn-block" name="bookSearch" type="submit">Search</button>
                     </form>
                 </div>
             </div>
+            <div align="center" class="col-md-6">
+                <form method="post" action="bbc?action=search" class="form-signin">
+                    <div class="item">
+                        <h2 class="form-signin-heading">Find Book</h2>
+                        <label for="title" class="sr-only">Title</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
+                        </br>
+                        <label for="author" class="sr-only">Author</label>
+                        <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
+                        </br>
+                        <label for="edition" class="sr-only">Edition</label>
+                        <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
+                        </br>
+                        <label for="publisher" class="sr-only">Publisher</label>
+                        <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
+                        </br>
+                        <button class="btn btn-block" name="bookSearch" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

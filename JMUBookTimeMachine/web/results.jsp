@@ -4,6 +4,8 @@
     Author     : dangiomr
 --%>
 
+<%@page import="java.util.*"%>
+<%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,12 @@
         <title>Results</title>
     </head>
     <body>
+        <%
+            // get a list of all Books searched for
+            ArrayList<Books> books = (ArrayList<Books>)session.getAttribute("bookResults");
+            Iterator<Books> it = books.iterator();
+        %>
+
         <div class="container">
             <div class="row">
                 <nav class="navbar navbar-default navbar-static-top">
@@ -29,6 +37,30 @@
                         </ul>
                     </div>
                 </nav>
+            </div>
+            <div class="row">
+                <table border="1">
+                    <tbody>
+                        <tr><th>Book Id</th><th>Title</th><th>Author</th>
+                            <th>Edition</th><th>Publisher</th><th>Cover Photo</th><th>Class Id</th></tr>
+
+                        <%
+                            while (it.hasNext()) {
+                                Books book = it.next();
+                                out.println("<tr>");
+                                out.println("<td>" + book.getBookId() + "</td>");
+                                out.println("<td>" + book.getTitle() + "</td>");
+                                out.println("<td>" + book.getAuthor() + "</td>");
+                                out.println("<td>" + book.getEdition() + "</td>");
+                                out.println("<td>" + book.getPublisher() + "</td>");
+                                out.println("<td>" + book.getCoverPhoto() + "</td>");
+                                out.println("<td>" + book.getClassId() + "</td>");
+                                out.println("</tr>");
+                            }
+                        %>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>

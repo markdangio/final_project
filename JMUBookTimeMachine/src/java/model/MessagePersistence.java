@@ -8,6 +8,7 @@ package model;
 //import java.util.*;
 import java.util.UUID;
 import java.sql.*;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,26 +25,15 @@ public class MessagePersistence {
     public static boolean addMessage(Message message) {//, User toUser, User fromUser) {
         DBHandler dbHandler = new DBHandler();
         
-        String toUsercommand = "SELECT userId FROM User WHERE username = ";
-        //toUsercommand += "'" + toUser.getUsername() + "'";
-        
-        String fromUsercommand = "SELECT userId FROM User WHERE username = ";
-        //fromUsercommand += "'" + fromUser.getUsername() + "'";
-        
         try {
-            ResultSet resultCountToUser = dbHandler.doQuery(toUsercommand);
-            String toUserid = resultCountToUser.getString(1);
-            ResultSet resultCountFromUser = dbHandler.doQuery(fromUsercommand);
-            String fromUserid = resultCountFromUser.getString(1);
-            
             String messageid = UUID.randomUUID().toString();
             messageid = messageid.replace("-","");
             messageid = messageid.substring(0, 16);
 
             String command = "INSERT INTO Message VALUES(";
             command += "'" + messageid + "'";
-            command += ", '" + toUserid + "'";
-            command += ", '" + fromUserid + "'";
+            command += ", '" + message.getToUserId() + "'";
+            command += ", '" + message.getFromUserId() + "'";
             command += ", '" + message.getContent() + "'";
             command += ", '" + message.getTimeSent() + "'";
             

@@ -11,12 +11,11 @@ import java.util.Date;
  */
 public class Books_For_Sale {
     
-    private String sellerId, bookId, saleId;
-    private Date postedDate;
+    private String sellerId, bookId, saleId, postedDate;
     private double price;
     private int sold;
     
-    public Books_For_Sale(String sellerId, String bookId, String saleId, Date postedDate, double price, int sold)
+    public Books_For_Sale(String sellerId, String bookId, String saleId, String postedDate, double price, int sold)
     {
         this.sellerId = sellerId;
         this.bookId = bookId;
@@ -39,7 +38,7 @@ public class Books_For_Sale {
     }
     
 
-    public Date getPostedDate() {
+    public String getPostedDate() {
         return postedDate;
     }
 

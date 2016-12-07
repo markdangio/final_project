@@ -36,7 +36,7 @@ public class BooksPersistence {
                     ? ", NULL" 
                     : ", '" + book.getCoverPhoto() + "'";
 
-            command += ", '" + book.getClassId() + "'";
+            command += ", '" + book.getClassId() + "')";
             
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();
@@ -123,6 +123,46 @@ public class BooksPersistence {
             ex.printStackTrace();
         }
 
+        // return the result
+        return result;
+    }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static ArrayList<Books> searchBook(String title, String author, int edition, String publisher) {
+        ArrayList<Books> result = new ArrayList<Books>();
+        
+        String command = "SELECT * FROM Books WHERE title = ";
+        command += "'" + title + "'";
+        command += " OR author = '" + author + "'";
+        command += " OR edition = " + edition;
+        command += " OR publisher = '" + publisher + "'";
+
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(command);
+
+            while (rs.next()) {
+                int i = 1; // 1st column
+                String bookIdB = rs.getString(i++);
+                String titleB = rs.getString(i++);
+                String authorB = rs.getString(i++);
+                int editionB = rs.getInt(i++);
+                String publisherB = rs.getString(i++);
+                String coverPhotoB = rs.getString(i++);
+                String classIdB = rs.getString(i++);
+                Books book = new Books(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, classIdB);
+                result.add(book);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         // return the result
         return result;
     }

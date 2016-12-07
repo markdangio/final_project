@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,5 +28,10 @@ public class BooksActions {
     public static String getBookId(String title, String author, int edition, String publisher) {
 
         return BooksPersistence.getBookId(title, author, edition, publisher);
+    }
+    
+    public static ArrayList<Books> searchBook(String title, String author, int edition, String publisher) {
+
+        return BooksPersistence.searchBook(title, author, edition, publisher);
     }
 }

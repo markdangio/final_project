@@ -25,7 +25,6 @@ public class UserPersistence {
         
         String command = "INSERT INTO User VALUES(";
         command += "'" + user.getUserId() + "'";
-        command += ", '" + user.getUsername() + "'";
         command += ", '" + user.getPassword() + "'";
         command += ", '" + user.getFirstName() + "'";
         command += ", '" + user.getLastName() + "'";
@@ -36,6 +35,8 @@ public class UserPersistence {
                 ? ", NULL" 
                 : ", '" + user.getAvatar() + "'";
         command += ", '" + user.getBirthday() + "'";
+        command += ", '" + user.getUsername() + "'";
+        command += ", '" + user.getSecurityAnswer() + "'";
         command += ")";
 
         try {
@@ -100,34 +101,25 @@ public class UserPersistence {
      * Returns an ArrayList of all Pet objects.
      *
      * @return an ArrayList of all Pet objects
-     *
-    public static ArrayList<Pet> getAllPets() {
-        String query = "select * from pet";
-        ArrayList<Pet> result = new ArrayList<Pet>();
+     */
+    public static String getUserId(String username) {
+        String query = "SELECT userId FROM User WHERE username = '" + username + "'";
+        String result = "";
 
         // open a connection to the database and a Statement object
         try {
-            DBQueryHandler dbQueryHandler = new DBQueryHandler();
-            ResultSet rs = dbQueryHandler.doQuery(query);
-            ResultSetMetaData rsmd = rs.getMetaData();
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(query);
 
-            while (rs.next()) {
-                int i = 1; // 1st column
-                String name = rs.getString(i++);
-                String owner = rs.getString(i++);
-                String species = rs.getString(i++);
-                String sex = rs.getString(i++);
-                String birth = rs.getString(i++);
-                Pet pet = new Pet(name, owner, species, sex, birth);
-                result.add(pet);
-            }
+            rs.next();
+            result = rs.getString(1);
 
-            dbQueryHandler.close();
+            dbHandler.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
         // return the result
         return result;
-    }*/
+    }
 }

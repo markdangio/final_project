@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package model;
-import java.util.Date;
 
 /**
  *
@@ -12,20 +11,34 @@ import java.util.Date;
  */
 public class Message {
     
-    private String content;
-    private Date timeSent;
+    private String messageId, toUserId, fromUserId, content, timeSent;
     
-    public Message (String content, Date timeSent)
+    public Message (String messageId, String toUserId, String fromUserId, String content, String timeSent)
     {
+        this.messageId = messageId;
+        this.toUserId = toUserId;
+        this.fromUserId = fromUserId;
         this.content = content;
         this.timeSent = timeSent;
     }
-
+    
+    public String getMessageId() {
+        return messageId;
+    }
+    
+    public String getToUserId() {
+        return toUserId;
+    }
+    
+    public String getFromUserId() {
+        return fromUserId;
+    }
+    
     public String getContent() {
         return content;
     }
 
-    public Date getTimeSent() {
+    public String getTimeSent() {
         return timeSent;
     }
     

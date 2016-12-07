@@ -27,13 +27,13 @@ public class Books_For_SalePersistence {
         
         try {
 
-            String command = "INSERT INTO Books_For_Sale VALUES(";
+            String command = "INSERT INTO Books_for_Sale VALUES(";
             command += "'" + books_For_Sale.getSellerId() + "'";
             command += ", '" + books_For_Sale.getBookId() + "'";
             command += ", '" + books_For_Sale.getSaleId() + "'";
-            command += ", " + books_For_Sale.getPostedDate();
-            command += ", '" + books_For_Sale.getPrice() + "'";
-            command += ", '" + books_For_Sale.getSold() + "'";
+            command += ", '" + books_For_Sale.getPostedDate() + "'";
+            command += ", " + books_For_Sale.getPrice();
+            command += ", " + books_For_Sale.getSold() + ")";
             
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();

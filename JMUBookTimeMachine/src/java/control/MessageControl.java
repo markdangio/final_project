@@ -7,7 +7,9 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.UUID;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UserActions;
+import model.MessageActions;
 
 /**
  *
@@ -93,43 +95,27 @@ public class MessageControl extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
-        String username = request.getParameter("signUpUsername");
-        String password = request.getParameter("signUpPassword");
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String avatar = request.getParameter("avatar");
-        String birthday = request.getParameter("birthday");
+        String fromUserId = (String)session.getAttribute("userId");
+        String toUserId = (String)session.getAttribute("userPageId");
+        String content = request.getParameter("content");
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timeSent = sdf.format(today);
 
-        if (username == null || password == null || firstname == null || lastname == null
-                || email == null || birthday == null) {
-            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday;
-        } else if (username.trim().length() == 0) {
-            addMessage = "Userame field must not be blank";
-        } else if (password.trim().length() == 0) {
-            addMessage = "Password field must not be blank";
-        } else if (firstname.trim().length() == 0) {
-            addMessage = "First name field must not be blank";
-        } else if (lastname.trim().length() == 0) {
-            addMessage = "Last name field must not be blank";
-        } else if (email.trim().length() == 0) {
-            addMessage = "Email field must not be blank";
-        } else if (birthday.trim().length() == 0) {
-            addMessage = "Birthday field must not be blank";
+        if (content == null) {
+            addMessage = "Improper add user request: " + content;
         } else {
             // execute add transaction
-            String userId = UUID.randomUUID().toString();
-            userId = userId.replace("-","");
-            userId = userId.substring(0, 16);
+            String messageId = UUID.randomUUID().toString();
+            messageId = messageId.replace("-","");
+            messageId = messageId.substring(0, 16);
             
-            boolean addResult = UserActions.addUser(userId, username, password, firstname, lastname, email, avatar, birthday);
-            addMessage = addResult ? "New user added" : "User add failed";
+            boolean addResult = MessageActions.addMessage(messageId, toUserId, fromUserId, content, timeSent);
+            addMessage = addResult ? "New message added" : "Message add failed";
         }
         session.setAttribute("addmessage", addMessage);
-        if(addMessage.equals("New user added")){
-            session.setAttribute("loggedIn", true);
-            session.setAttribute("username", username);
-            forwardRequest(request, response, "/home.jsp");
+        if(addMessage.equals("New message added")){
+            forwardRequest(request, response, "/messages.jsp");
         }
         else{
             response.setContentType("text/html;charset=UTF-8");
