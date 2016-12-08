@@ -45,13 +45,12 @@
                 %>
                 <div class="col-md-1"></div>
                 <div class="col-md-2 book result">
-                    <div class="row">Owner: username</div>
-                    <div class="row">Send Message</div>
                     <%
-                        
+                        out.println("<div class=\"row\">Owner: username</div>");
+                        out.println("<div class=\"row\">Send Message</div>");
                     %>
                 </div>
-                <div class="col-md-5 book result">
+                <div class="col-md-6 book result">
                     <%
                             out.println("<div class=\"row\">");
                             out.println("<div class=\"col-md-3\">" + book.getTitle() + "</div>");
@@ -67,9 +66,8 @@
                     %>
                 </div>
                 <div class="col-md-2 result">
-                    <button class="btn btn-block" name="reserve" onClick="alert('I have been clicked!')">Reserve</button>
                     <%
-                        
+                        out.println("<div class=\"row\"><button class=\"btn btn-block\" name=\"reserve\" onClick=\"alert('I have been clicked!')\">Reserve</button></div>");
                     %>
                 </div>
                 <div class="col-md-1"></div>
