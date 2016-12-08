@@ -51,6 +51,7 @@
             </div>
             <div class="row">
                 <div align="center" class="col-md-6">
+                    <h2 class="form-signin-heading">Sell a Book</h2>
                     <form method="post" action="bbc?action=check" class="form-signin">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                             <!-- Wrapper for slides -->
@@ -75,7 +76,7 @@
                                     <label for="sellClassDescription" class="sr-only">Class Description</label>
                                     <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
                                     </br>
-                                    <button class="btn btn-block" name="next" onclick="moveForward();">Next</button>
+                                    <button class="btn btn-block" name="next" onclick="moveForwardClass();">Next</button>
                                     </form>
                                 </div>
                                 <div class="item">
@@ -93,11 +94,11 @@
                                     <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
                                     </br>
                                     <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
-                                    <input type="text" name="sellCoverPhoto" id="sellCoverPhoto" class="form-control" placeholder="Book Cover Photo" autofocus>
+                                    <input type="file" name="sellCoverPhoto" id="sellCoverPhoto" autofocus>
                                     </br>
                                     <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
                                     </br>
-                                    <button class="btn btn-block" name="next"onclick="moveForward();">Next</button>
+                                    <button class="btn btn-block" name="next"onclick="moveForwardInfo();">Next</button>
                                 </div>
                                 <div class="item">
                                     <h2 class="form-signin-heading">Add price and submit!</h2>

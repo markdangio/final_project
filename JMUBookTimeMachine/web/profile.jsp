@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="model.*" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,8 +32,9 @@
             <jsp:forward page="index.jsp" />
             <%
         }
+        User u = (User)session.getAttribute("userObj");
+        String username = (String)session.getAttribute("username"); //eventually not needed
         
-        String username = (String)session.getAttribute("username");
     %>
     <body>
         <div class="container">
@@ -55,15 +58,26 @@
                     <p id="username">
                         <%
                             out.println(username);
+                            //out.println(u.getUsername());
                         %>
                     </p>
-                    <p id="email"></p>
+                    <p id="email">
+                    <%
+                            //out.println(u.getEmail());
+                    %>
+                    </p>
+                    <p id="name">
+                        <%
+                            //out.print(u.getFirstName()+ " ");
+                            //out.println(u.getLastName());
+                        %>
+                    </p>
                 </div>
-                <div class="col-xs-4" id="books_selling">
-                    
+                <div align="center" class="col-xs-4" id="books_selling">
+                    <h2>Books Selling</h2>
                 </div>
-                <div class="col-xs-4" id="books_reserved">
-                    
+                <div align="center" class="col-xs-4" id="books_reserved">
+                    <h2>Books Reserved</h2>
                 </div>
             </div>
         </div>

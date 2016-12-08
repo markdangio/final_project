@@ -23,37 +23,32 @@
                 <div align="center" class="col-md-6">
                     <form method="post" action="userControl?action=signup" class="form-signin">
                         <h2 class="form-signin-heading">Sign Up!</h2>
-                        <label for="firstname" class="sr-only">First Name</label>
-                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus>
+                        <label for="firstname">First Name
+                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus></label>
                         </br>
-                        <label for="lastname" class="sr-only">Last Name</label>
-                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required autofocus>
+                        <label for="lastname">Last Name
+                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required autofocus></label>
                         </br>
-                        <label for="email" class="sr-only">Email Address</label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus>
+                        <label for="email">Email Address
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus></label>
                         </br>
-                        <label for="birthday" class="sr-only">Birthday</label>
-                        <input type="text" name="birthday" id="birthday" class="form-control" placeholder="1995-10-15" required autofocus>
+                        <label for="birthday">Birthday
+                        <input type="text" name="birthday" id="birthday" class="form-control" placeholder="1995-10-15" required autofocus></label>
                         </br>
-                        <label for="signUpUsername" class="sr-only">User Name</label>
-                        <input type="text" name="signUpUsername" id="signUpUsername" class="form-control" placeholder="User Name" required autofocus>
+                        <label for="signUpUsername">User Name
+                        <input type="text" name="signUpUsername" id="signUpUsername" class="form-control" placeholder="User Name" required autofocus></label>
                         </br>
-                        <label for="signUpPassword" class="sr-only">Password</label>
-                        <input type="password" name="signUpPassword" id="signUpPassword" class="form-control" placeholder="Password" required>
+                        <label for="signUpPassword">Password
+                        <input type="password" name="signUpPassword" id="signUpPassword" class="form-control" placeholder="Password" required></label>
                         </br>
-                        <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
-                        <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required>
+                        <label for="signUpPasswordConfirm">Confirm Password
+                        <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required></label>
                         </br>
+                        <label for="signUpSecurityAnswer">Security Question
+                        <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus></label>
                         </br>
-                        <h3>Security Question</h3>
-                        </br>
-                        <label for="signUpSecurityAnswer" class="sr-only">Security Question</label>
-                        <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus>
-                        </br>
-                        <h3>Profile Picture</h3>
-                        <label for="avatar" class="sr-only">Profile Picture</label>
-                        </br>
-                        <input type="file" name="avatar" id="avatar" style="color:white;">
+                        <label for="avatar">Profile Picture
+                        <input type="file" name="avatar" id="avatar" style="color:white;"></label>
                         </br>
                         <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
                     </form>
@@ -61,11 +56,11 @@
                 <div align="center" class="col-md-6">
                     <form method="post" action="control?action=login" class="form-signin">
                         <h2 class="form-signin-heading">Login</h2>
-                        <label for="loginUsername" class="sr-only">Username</label>
-                        <input type="text" name="loginUsername" id="loginUsername" class="form-control" placeholder="Username" required autofocus>
+                        <label for="loginUsername">Username
+                        <input type="text" name="loginUsername" id="loginUsername" class="form-control" placeholder="Username" required autofocus></label>
                         </br>
-                        <label for="loginPassword" class="sr-only">Password</label>
-                        <input type="password" name="loginPassword" id="loginPassword" class="form-control" placeholder="Password" required>
+                        <label for="loginPassword">Password
+                        <input type="password" name="loginPassword" id="loginPassword" class="form-control" placeholder="Password" required></label>
                         </br>
                         <button class="btn btn-block" name="login" type="submit">Sign in</button>
                     </form>
