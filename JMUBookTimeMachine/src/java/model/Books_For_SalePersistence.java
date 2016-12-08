@@ -8,6 +8,7 @@ package model;
 //import java.util.*;
 import java.util.UUID;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,7 +34,8 @@ public class Books_For_SalePersistence {
             command += ", '" + books_For_Sale.getSaleId() + "'";
             command += ", '" + books_For_Sale.getPostedDate() + "'";
             command += ", " + books_For_Sale.getPrice();
-            command += ", " + books_For_Sale.getSold() + ")";
+            command += ", " + books_For_Sale.getSold();
+            command += ", '" + books_For_Sale.getReserverId() + "')";
             
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();
@@ -96,34 +98,43 @@ public class Books_For_SalePersistence {
      * Returns an ArrayList of all Pet objects.
      *
      * @return an ArrayList of all Pet objects
-     *
-    public static ArrayList<Pet> getAllPets() {
-        String query = "select * from pet";
-        ArrayList<Pet> result = new ArrayList<Pet>();
+     */
+    public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books) {
+        ArrayList<BookInfo> result = new ArrayList<BookInfo>();
+        
+        for (Books tempBook : books) {
 
-        // open a connection to the database and a Statement object
-        try {
-            DBQueryHandler dbQueryHandler = new DBQueryHandler();
-            ResultSet rs = dbQueryHandler.doQuery(query);
-            ResultSetMetaData rsmd = rs.getMetaData();
+            String command = "SELECT * FROM Books_for_Sale WHERE bookId = ";
+            command += "'" + tempBook.getBookId() + "'";
+            command += " AND sold = 0";
 
-            while (rs.next()) {
-                int i = 1; // 1st column
-                String name = rs.getString(i++);
-                String owner = rs.getString(i++);
-                String species = rs.getString(i++);
-                String sex = rs.getString(i++);
-                String birth = rs.getString(i++);
-                Pet pet = new Pet(name, owner, species, sex, birth);
-                result.add(pet);
+            // open a connection to the database and a Statement object
+            try {
+                DBHandler dbHandler = new DBHandler();
+                ResultSet rs = dbHandler.doQuery(command);
+
+                while (rs.next()) {
+                    int i = 4; // 1st column
+                    String bookIdB = tempBook.getBookId();
+                    String titleB = tempBook.getTitle();
+                    String authorB = tempBook.getAuthor();
+                    int editionB = tempBook.getEdition();
+                    String publisherB = tempBook.getPublisher();
+                    String coverPhotoB = tempBook.getCoverPhoto();
+                    String postedDate = rs.getString(i++);
+                    double price = rs.getDouble(i++);
+                    int sold = rs.getInt(i++);
+                    String sellerId = rs.getString(i++);
+                    BookInfo book = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerId);
+                    result.add(book);
+                }
+
+                dbHandler.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-
-            dbQueryHandler.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
+    }
         // return the result
         return result;
-    }*/
+    }
 }

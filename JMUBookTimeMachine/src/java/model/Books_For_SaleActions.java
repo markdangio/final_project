@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package model;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,9 +13,9 @@ import java.util.Date;
  */
 public class Books_For_SaleActions {
 
-    public static boolean addBooks_For_Sale(String sellerId, String bookId, String saleId, String postedDate, double price, int sold) {
+    public static boolean addBooks_For_Sale(String sellerId, String bookId, String saleId, String postedDate, double price, int sold, String reserverId) {
 
-        Books_For_Sale newBFS = new Books_For_Sale(sellerId, bookId, saleId, postedDate, price, sold);
+        Books_For_Sale newBFS = new Books_For_Sale(sellerId, bookId, saleId, postedDate, price, sold, reserverId);
         return Books_For_SalePersistence.addBook_For_Sale(newBFS);
     }
     /*
@@ -22,4 +23,9 @@ public class Books_For_SaleActions {
 
         return Books_For_SalePersistence.checkBooks_For_Sale(postedDate, sold);
     }*/
+    
+    public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books) {
+
+        return Books_For_SalePersistence.searchBook_For_Sale(books);
+    }
 }

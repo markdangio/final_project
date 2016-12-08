@@ -16,15 +16,15 @@
     <body>
         <div align="center" class="container">
             <h1>JMU Book Time Machine</h1>
-            <form method="post" action="control?action=login" class="form-signin">
+            <form method="post" action="userControl?action=checkUpdatePass" class="form-signin">
                 <h2 class="form-signin-heading">Password Recovery</h2>
-                <label for="loginUsername" class="sr-only">Username</label>
+                <label for="recoveryUserName" class="sr-only">Username</label>
                 <input type="text" name="recoveryUserName" id="username" class="form-control" placeholder="Username" required autofocus>
                 </br>
-                <label for="loginPassword" class="sr-only">Security Question</label>
-                <input type="text" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required>
+                <label for="recoverySQ" class="sr-only">Security Question</label>
+                <input type="password" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required>
                 </br>
-                <button class="btn btn-block" name="recover" type="submit">Recover</button>
+                <button class="btn btn-block" name="recover" type="submit">Change Password</button>
             </form>
         </div>
     </body>

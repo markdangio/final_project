@@ -11,11 +11,11 @@ import java.util.Date;
  */
 public class Books_For_Sale {
     
-    private String sellerId, bookId, saleId, postedDate;
+    private String sellerId, bookId, saleId, postedDate, reserverId;
     private double price;
     private int sold;
     
-    public Books_For_Sale(String sellerId, String bookId, String saleId, String postedDate, double price, int sold)
+    public Books_For_Sale(String sellerId, String bookId, String saleId, String postedDate, double price, int sold, String reserverId)
     {
         this.sellerId = sellerId;
         this.bookId = bookId;
@@ -23,7 +23,7 @@ public class Books_For_Sale {
         this.postedDate = postedDate;
         this.price = price;
         this.sold = sold;
-       
+       this.reserverId = reserverId;
     }
     
     public String getSellerId() {
@@ -48,5 +48,9 @@ public class Books_For_Sale {
 
     public int getSold() {
         return sold;
+    }
+    
+    public String getReserverId() {
+        return reserverId;
     }
 }

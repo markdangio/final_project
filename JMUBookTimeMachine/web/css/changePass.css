@@ -4,37 +4,27 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Dec 6, 2016, 5:48:58 PM
+    Created on : Dec 7, 2016, 8:12:50 AM
     Author     : dangiomr
 */
-
+div.container{
+    width: 100%;
+}
 body{
     background: url('Wilson_Background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size:cover;
+    -moz-opacity: 0.5;
 
 }
-
-div.container{
-    width: 100%;
-}
-/* navbar */
-.navbar{
-    border: 0;
-}
-.navbar-default {
-    background-color: purple;
-}
-.navbar-default .navbar-nav > li > a {
+h1, h2{
+    text-align: center;
     color: white;
 }
-#logo{
-    width:2em;
-    height:2em;
-}
 .btn{
+    width:20em;
     background-color: purple;
     border-color: purple;
     color:white;
@@ -43,20 +33,6 @@ div.container{
     background-color: purple;
     color:white;
 }
-#bar:hover{
-    color:white;
-}
-
-div.book {
-    background-color: white;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: purple;
-    font-size: 1em;
-    color:purple;
-}
-
-div.result{
-    margin: 0.5em;
+input[type=text]{
+    width:20em;
 }

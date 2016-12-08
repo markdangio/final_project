@@ -19,8 +19,8 @@
     <body>
         <%
             // get a list of all Books searched for
-            ArrayList<Books> books = (ArrayList<Books>)session.getAttribute("bookResults");
-            Iterator<Books> it = books.iterator();
+            ArrayList<BookInfo> books = (ArrayList<BookInfo>)session.getAttribute("bookResults");
+            Iterator<BookInfo> it = books.iterator();
         %>
 
         <div class="container">
@@ -39,28 +39,43 @@
                 </nav>
             </div>
             <div class="row">
-                <table border="1">
-                    <tbody>
-                        <tr><th>Book Id</th><th>Title</th><th>Author</th>
-                            <th>Edition</th><th>Publisher</th><th>Cover Photo</th><th>Class Id</th></tr>
-
-                        <%
-                            while (it.hasNext()) {
-                                Books book = it.next();
-                                out.println("<tr>");
-                                out.println("<td>" + book.getBookId() + "</td>");
-                                out.println("<td>" + book.getTitle() + "</td>");
-                                out.println("<td>" + book.getAuthor() + "</td>");
-                                out.println("<td>" + book.getEdition() + "</td>");
-                                out.println("<td>" + book.getPublisher() + "</td>");
-                                out.println("<td>" + book.getCoverPhoto() + "</td>");
-                                out.println("<td>" + book.getClassId() + "</td>");
-                                out.println("</tr>");
-                            }
-                        %>
-
-                    </tbody>
-                </table>
+                <%
+                    while (it.hasNext()) {
+                        BookInfo book = it.next();
+                %>
+                <div class="col-md-1"></div>
+                <div class="col-md-2 book result">
+                    <div class="row">Owner: username</div>
+                    <div class="row">Send Message</div>
+                    <%
+                        
+                    %>
+                </div>
+                <div class="col-md-5 book result">
+                    <%
+                            out.println("<div class=\"row\">");
+                            out.println("<div class=\"col-md-3\">" + book.getTitle() + "</div>");
+                            out.println("<div class=\"col-md-3\">" + book.getAuthor() + "</div>");
+                            out.println("<div class=\"col-md-3\">" + book.getEdition() + "</div>");
+                            out.println("<div class=\"col-md-3\">" + book.getPublisher() + "</div>");
+                            out.println("</div>");
+                            out.println("<div class=\"row\">");
+                            out.println("<div class=\"col-md-3\">" + "</div>");
+                            out.println("<div class=\"col-md-6\">" + book.getPostedDate() + "</div>");
+                            out.println("<div class=\"col-md-3\">$" + book.getPrice() + "</div>");
+                            out.println("</div>");
+                    %>
+                </div>
+                <div class="col-md-2 result">
+                    <button class="btn btn-block" name="reserve" onClick="alert('I have been clicked!')">Reserve</button>
+                    <%
+                        
+                    %>
+                </div>
+                <div class="col-md-1"></div>
+                <%
+                    }
+                %>
             </div>
         </div>
     </body>

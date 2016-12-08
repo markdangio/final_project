@@ -30,6 +30,8 @@
             <jsp:forward page="index.jsp" />
             <%
         }
+        
+        String username = (String)session.getAttribute("username");
     %>
     <body>
         <div class="container">
@@ -48,15 +50,19 @@
                 </nav>
             </div>
             <div class="row">
-                <div class="col-xs-6" id="profile_image">
+                <div class="col-xs-4" id="profile_image">
                     <img class="profile_pic" id="propic" src="" alt="profile_image">
-                    <p id="name">test</p>
+                    <p id="username">
+                        <%
+                            out.println(username);
+                        %>
+                    </p>
                     <p id="email"></p>
-                    <p id="age"></p>
-                    <p id="sex"></p>
-                    <p id="grade"></p>
                 </div>
-                <div class="col-xs-6" id="books_selling">
+                <div class="col-xs-4" id="books_selling">
+                    
+                </div>
+                <div class="col-xs-4" id="books_reserved">
                     
                 </div>
             </div>

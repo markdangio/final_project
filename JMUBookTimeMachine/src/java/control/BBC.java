@@ -18,11 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Books;
-import model.Books_For_SaleActions;
-import model.BooksActions;
-import model.ClassesActions;
-import model.UserActions;
+import model.*;
 
 /**
  *
@@ -261,8 +257,9 @@ public class BBC extends HttpServlet {
         int edition = Integer.parseInt(request.getParameter("edition"));
         String publisher = request.getParameter("publisher");
 
-        ArrayList<Books> checkResult = BooksActions.searchBook(title, author, edition, publisher);
-        session.setAttribute("bookResults", checkResult);
+        ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
+        ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults);
+        session.setAttribute("bookResults", bookSaleResults);
         forwardRequest(request, response, "/results.jsp");
     }
     
@@ -283,6 +280,7 @@ public class BBC extends HttpServlet {
         String postedDate = sdf.format(today);
         double price = Double.parseDouble(request.getParameter("sellPrice"));
         int sold = 0;
+        String reserverId = null;
 
         if (price <= 0) {
             addMessage = "Improper add books_for_sale request: " + price;
@@ -292,8 +290,8 @@ public class BBC extends HttpServlet {
             String sellerId = (String)session.getAttribute("userId");
             String bookId = (String)session.getAttribute("bookId");
             
-            boolean addResult = Books_For_SaleActions.addBooks_For_Sale(sellerId, bookId, saleId, postedDate, price, sold);
-            addMessage = addResult ? "New books_for_sale added" : "Books_for_sale add failed " + sellerId + bookId + saleId + postedDate + price + sold;
+            boolean addResult = Books_For_SaleActions.addBooks_For_Sale(sellerId, bookId, saleId, postedDate, price, sold, reserverId);
+            addMessage = addResult ? "New books_for_sale added" : "Books_for_sale add failed " + sellerId + bookId + saleId + postedDate + price + sold + reserverId;
         }
         session.setAttribute("addmessage", addMessage);
         if(addMessage.equals("New books_for_sale added")){
