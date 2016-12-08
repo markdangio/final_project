@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UserActions;
+import model.*;
 
 /**
  *
@@ -131,8 +131,8 @@ public class UserControl extends HttpServlet {
         session.setAttribute("addmessage", addMessage);
         if(addMessage.equals("New user added")){
             session.setAttribute("loggedIn", true);
-            session.setAttribute("username", username);
-            session.setAttribute("userId", userId);
+            User userObj = UserActions.getUser(userId);
+            session.setAttribute("userObj", userObj);
             forwardRequest(request, response, "/home.jsp");
         }
         else{

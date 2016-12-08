@@ -43,5 +43,10 @@ public class UserActions {
 
         return UserPersistence.getUserId(username);
     }
+    
+    public static User getUser(String userId) {
+
+        return UserPersistence.getUser(userId);
+    }
 
 } // end class

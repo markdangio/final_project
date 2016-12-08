@@ -121,10 +121,11 @@ public class Books_For_SalePersistence {
                     int editionB = tempBook.getEdition();
                     String publisherB = tempBook.getPublisher();
                     String coverPhotoB = tempBook.getCoverPhoto();
+                    String sellerId = rs.getString(1);
                     String postedDate = rs.getString(i++);
                     double price = rs.getDouble(i++);
                     int sold = rs.getInt(i++);
-                    String sellerId = rs.getString(i++);
+                    
                     BookInfo book = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerId);
                     result.add(book);
                 }

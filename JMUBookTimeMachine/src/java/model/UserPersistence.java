@@ -122,4 +122,40 @@ public class UserPersistence {
         // return the result
         return result;
     }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static User getUser(String userId) {
+        String query = "SELECT * FROM User WHERE userId = '" + userId + "'";
+        User result = null;
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(query);
+
+            while (rs.next()) {
+                int i = 1; // 1st column
+                String userIdU = rs.getString(i++);
+                String password = "";
+                String firstName = rs.getString(i++);
+                String lastName = rs.getString(i++);
+                String email = rs.getString(i++);
+                String avatar = rs.getString(i++);
+                String birthday =rs.getString(i++);
+                String username = rs.getString(i++);
+                String securityAns = "";
+                result = new User(userIdU, password, firstName, lastName, email, birthday, avatar, username, securityAns);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        // return the result
+        return result;
+    }
 }

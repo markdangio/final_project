@@ -42,23 +42,25 @@
                 <%
                     while (it.hasNext()) {
                         BookInfo book = it.next();
+                        User seller = (User)UserActions.getUser(book.getSellerId());
+                        out.println("<div class=\"row\">");
                 %>
                 <div class="col-md-1"></div>
                 <div class="col-md-2 book result">
                     <%
-                        out.println("<div class=\"row\">Owner: username</div>");
-                        out.println("<div class=\"row\">Send Message</div>");
+                        out.println("<div class=\"row result\">Owner: " + seller.getFirstName() + " " + seller.getLastName() + "</div>");
+                        out.println("<div class=\"row result\"><a href=\"newMessage.jsp?" + seller.getUserId() + "\">Send Message</a></div>");
                     %>
                 </div>
                 <div class="col-md-6 book result">
                     <%
-                            out.println("<div class=\"row\">");
+                            out.println("<div class=\"row result\">");
                             out.println("<div class=\"col-md-3\">" + book.getTitle() + "</div>");
                             out.println("<div class=\"col-md-3\">" + book.getAuthor() + "</div>");
                             out.println("<div class=\"col-md-3\">" + book.getEdition() + "</div>");
                             out.println("<div class=\"col-md-3\">" + book.getPublisher() + "</div>");
                             out.println("</div>");
-                            out.println("<div class=\"row\">");
+                            out.println("<div class=\"row result\">");
                             out.println("<div class=\"col-md-3\">" + "</div>");
                             out.println("<div class=\"col-md-6\">" + book.getPostedDate() + "</div>");
                             out.println("<div class=\"col-md-3\">$" + book.getPrice() + "</div>");
@@ -67,11 +69,12 @@
                 </div>
                 <div class="col-md-2 result">
                     <%
-                        out.println("<div class=\"row\"><button class=\"btn btn-block\" name=\"reserve\" onClick=\"alert('I have been clicked!')\">Reserve</button></div>");
+                        out.println("<div class=\"row result\"><button class=\"btn btn-block\" name=\"reserve\" onClick=\"alert('I have been clicked!')\">Reserve</button></div>");
                     %>
                 </div>
                 <div class="col-md-1"></div>
                 <%
+                    out.println("</div>");
                     }
                 %>
             </div>
