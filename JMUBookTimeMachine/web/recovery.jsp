@@ -22,7 +22,7 @@
                 <input type="text" name="recoveryUserName" id="username" class="form-control" placeholder="Username" required autofocus>
                 </br>
                 <label for="recoverySQ" class="sr-only">Security Question</label>
-                <input type="password" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required>
+                <input type="text" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required>
                 </br>
                 <button class="btn btn-block" name="recover" type="submit">Change Password</button>
             </form>

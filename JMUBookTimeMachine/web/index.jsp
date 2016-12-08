@@ -69,7 +69,7 @@
                         </br>
                         <button class="btn btn-block" name="login" type="submit">Sign in</button>
                     </form>
-                    <a href="recovery.jsp"><p>Forgot Password</p></a>
+                    <a href="recovery.jsp" style="color:purple;"><p>Forgot Password?</p></a>
                 </div>
             </div>
         </div>
