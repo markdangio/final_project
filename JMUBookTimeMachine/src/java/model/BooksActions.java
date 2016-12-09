@@ -30,6 +30,11 @@ public class BooksActions {
         return BooksPersistence.getBookId(title, author, edition, publisher);
     }
     
+    public static Books getBook(String bookId) {
+
+        return BooksPersistence.getBook(bookId);
+    }
+    
     public static ArrayList<Books> searchBook(String title, String author, int edition, String publisher) {
 
         return BooksPersistence.searchBook(title, author, edition, publisher);

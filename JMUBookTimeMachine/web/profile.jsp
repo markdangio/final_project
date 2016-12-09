@@ -32,10 +32,16 @@
             <jsp:forward page="index.jsp" />
             <%
         }
-        User u = (User)session.getAttribute("userObj");
-        String username = (String)session.getAttribute("username"); //eventually not needed
         
-    %>
+        String userId = (String)session.getAttribute("userId");
+        User u = UserActions.getUser(userId);
+        
+        ArrayList<BookInfo> books = Books_For_SaleActions.searchBook_For_SaleSelling(userId);
+        Iterator<BookInfo> it = books.iterator();
+
+        ArrayList<BookInfo> books2 = Books_For_SaleActions.searchBook_For_SaleReserved(userId);
+        Iterator<BookInfo> it2 = books2.iterator();
+        %>
     <body>
         <div class="container">
             <div class="row">
@@ -53,31 +59,84 @@
                 </nav>
             </div>
             <div class="row">
-                <div class="col-xs-4" id="profile_image">
+                <div class="col-md-4" id="profile_image">
                     <img class="profile_pic" id="propic" src="" alt="profile_image">
                     <p id="username">
+                        Username: 
                         <%
-                            out.println(username);
-                            //out.println(u.getUsername());
+                            out.println(u.getUsername());
                         %>
                     </p>
                     <p id="email">
+                        Email: 
                     <%
-                            //out.println(u.getEmail());
+                            out.println(u.getEmail());
                     %>
                     </p>
                     <p id="name">
+                        Name: 
                         <%
-                            //out.print(u.getFirstName()+ " ");
-                            //out.println(u.getLastName());
+                            out.print(u.getFirstName() + " " + u.getLastName());
                         %>
                     </p>
                 </div>
-                <div align="center" class="col-xs-4" id="books_selling">
-                    <h2>Books Selling</h2>
+                <div align="center" class="col-md-4" id="books_selling">
+                    <div class="panel panel-default">
+                        <div class=panel-heading>Books Selling</div>
+                        <table class=table> 
+                            <thead> 
+                                <tr> 
+                                    <th>Title</th> 
+                                    <th>Author</th> 
+                                    <th>Edition</th> 
+                                    <th>Sold</th> 
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <%
+                                    while (it.hasNext()) {
+                                        BookInfo book = it.next();
+
+                                        out.println("<tr>");
+                                        out.println("<td>" + book.getTitle() + "</td>");
+                                        out.println("<td>" + book.getAuthor() + "</td>");
+                                        out.println("<td>" + book.getEdition() + "</td>");
+                                        out.println("<td>$" + book.getSold() + "</td>");
+                                        out.println("</tr>");
+                                    }
+                                %>
+                            </tbody> 
+                        </table> 
+                    </div>
                 </div>
-                <div align="center" class="col-xs-4" id="books_reserved">
-                    <h2>Books Reserved</h2>
+                <div align="center" class="col-md-4" id="books_reserved">
+                    <div class="panel panel-default">
+                        <div class=panel-heading>Books Reserved</div>
+                        <table class=table> 
+                            <thead> 
+                                <tr>
+                                    <th>Title</th> 
+                                    <th>Author</th> 
+                                    <th>Edition</th> 
+                                    <th>Price</th> 
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <%
+                                    while (it2.hasNext()) {
+                                        BookInfo book2 = it2.next();
+
+                                        out.println("<tr>");
+                                        out.println("<td>" + book2.getTitle() + "</td>");
+                                        out.println("<td>" + book2.getAuthor() + "</td>");
+                                        out.println("<td>" + book2.getEdition() + "</td>");
+                                        out.println("<td>$" + book2.getPrice() + "</td>");
+                                        out.println("</tr>");
+                                    }
+                                %>
+                            </tbody> 
+                        </table> 
+                    </div>
                 </div>
             </div>
         </div>

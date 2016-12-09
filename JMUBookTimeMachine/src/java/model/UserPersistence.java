@@ -140,6 +140,7 @@ public class UserPersistence {
                 int i = 1; // 1st column
                 String userIdU = rs.getString(i++);
                 String password = "";
+                i++;
                 String firstName = rs.getString(i++);
                 String lastName = rs.getString(i++);
                 String email = rs.getString(i++);

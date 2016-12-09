@@ -19,7 +19,8 @@
     <body>
         <%
             // get a list of all Books searched for
-            ArrayList<BookInfo> books = (ArrayList<BookInfo>)session.getAttribute("bookResults");
+            String userId = (String)session.getAttribute("userId");
+            ArrayList<BookInfo> books = (ArrayList<BookInfo>) session.getAttribute("bookResults");
             Iterator<BookInfo> it = books.iterator();
         %>
 
@@ -39,44 +40,48 @@
                 </nav>
             </div>
             <div class="row">
-                <%
-                    while (it.hasNext()) {
-                        BookInfo book = it.next();
-                        User seller = (User)UserActions.getUser(book.getSellerId());
-                        out.println("<div class=\"row\">");
-                %>
                 <div class="col-md-1"></div>
-                <div class="col-md-2 book result">
-                    <%
-                        out.println("<div class=\"row result\">Owner: " + seller.getFirstName() + " " + seller.getLastName() + "</div>");
-                        out.println("<div class=\"row result\"><a href=\"newMessage.jsp?" + seller.getUserId() + "\">Send Message</a></div>");
-                    %>
-                </div>
-                <div class="col-md-6 book result">
-                    <%
-                            out.println("<div class=\"row result\">");
-                            out.println("<div class=\"col-md-3\">" + book.getTitle() + "</div>");
-                            out.println("<div class=\"col-md-3\">" + book.getAuthor() + "</div>");
-                            out.println("<div class=\"col-md-3\">" + book.getEdition() + "</div>");
-                            out.println("<div class=\"col-md-3\">" + book.getPublisher() + "</div>");
-                            out.println("</div>");
-                            out.println("<div class=\"row result\">");
-                            out.println("<div class=\"col-md-3\">" + "</div>");
-                            out.println("<div class=\"col-md-6\">" + book.getPostedDate() + "</div>");
-                            out.println("<div class=\"col-md-3\">$" + book.getPrice() + "</div>");
-                            out.println("</div>");
-                    %>
-                </div>
-                <div class="col-md-2 result">
-                    <%
-                        out.println("<div class=\"row result\"><button class=\"btn btn-block\" name=\"reserve\" onClick=\"alert('I have been clicked!')\">Reserve</button></div>");
-                    %>
+                <div class="col-md-10">
+                    <div class="panel panel-default">
+                        <div class=panel-heading>Results of Books For Sale</div>
+                        <table class=table> 
+                            <thead> 
+                                <tr> 
+                                    <th>Owner</th>
+                                    <th></th>
+                                    <th>Title</th> 
+                                    <th>Author</th> 
+                                    <th>Edition</th> 
+                                    <th>Publisher</th>
+                                    <th>Posted Date</th> 
+                                    <th>Price</th> 
+                                    <th></th> 
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <%
+                                    while (it.hasNext()) {
+                                        BookInfo book = it.next();
+                                        User seller = (User) UserActions.getUser(book.getSellerId());
+
+                                        out.println("<tr>");
+                                        out.println("<td>" + seller.getFirstName() + " " + seller.getLastName() + "</td>");
+                                        out.println("<td><form method=\"post\" action=\"messagesControl\"><button class=\"btn btn-block\" name=\"message\" onClick=\"/messages.jsp?" + seller.getUserId() + "\">Message</button></form></td>");
+                                        out.println("<td>" + book.getTitle() + "</td>");
+                                        out.println("<td>" + book.getAuthor() + "</td>");
+                                        out.println("<td>" + book.getEdition() + "</td>");
+                                        out.println("<td>" + book.getPublisher() + "</td>");
+                                        out.println("<td>" + book.getPostedDate() + "</td>");
+                                        out.println("<td>$" + book.getPrice() + "</td>");
+                                        out.println("<td><form method=\"post\" action=\"bbc?action=reserve\"><button class=\"btn btn-block\" name=\"reserve\" type=\"submit\">Reserve</button></form></td>");
+                                        out.println("</tr>");
+                                    }
+                                %>
+                            </tbody> 
+                        </table> 
+                    </div> 
                 </div>
                 <div class="col-md-1"></div>
-                <%
-                    out.println("</div>");
-                    }
-                %>
             </div>
         </div>
     </body>

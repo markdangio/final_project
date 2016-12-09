@@ -50,7 +50,6 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("loggedIn", true);
         session.setAttribute("username", username);
-        
         session.setAttribute("userId", UserActions.getUserId(username));
         forwardRequest(request, response, "/home.jsp");
     }

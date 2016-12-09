@@ -134,7 +134,93 @@ public class Books_For_SalePersistence {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        }
+        // return the result
+        return result;
     }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static ArrayList<BookInfo> searchBook_For_SaleReserved(String reserverId) {
+        ArrayList<BookInfo> result = new ArrayList<BookInfo>();
+        
+        String command = "SELECT * FROM Books_for_Sale WHERE reserverId = ";
+        command += "'" + reserverId + "'";
+        
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(command);
+
+            while (rs.next()) {
+                int i = 4; // 1st column
+                String bookIdB = rs.getString(2);
+                
+                Books book = BooksActions.getBook(bookIdB);
+                
+                String titleB = book.getTitle();
+                String authorB = book.getAuthor();
+                int editionB = book.getEdition();
+                String publisherB = book.getPublisher();
+                String coverPhotoB = book.getCoverPhoto();
+                String sellerIdB = rs.getString(1);
+                String postedDate = rs.getString(i++);
+                double price = rs.getDouble(i++);
+                int sold = rs.getInt(i++);
+                BookInfo bookInfo = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerIdB);
+                result.add(bookInfo);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        // return the result
+        return result;
+    }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static ArrayList<BookInfo> searchBook_For_SaleSelling(String sellerId) {
+        ArrayList<BookInfo> result = new ArrayList<BookInfo>();
+        
+        String command = "SELECT * FROM Books_for_Sale WHERE sellerId = ";
+        command += "'" + sellerId + "'";
+        
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(command);
+
+            while (rs.next()) {
+                int i = 4; // 1st column
+                String bookIdB = rs.getString(2);
+                
+                Books book = BooksActions.getBook(bookIdB);
+                
+                String titleB = book.getTitle();
+                String authorB = book.getAuthor();
+                int editionB = book.getEdition();
+                String publisherB = book.getPublisher();
+                String coverPhotoB = book.getCoverPhoto();
+                String sellerIdB = rs.getString(1);
+                String postedDate = rs.getString(i++);
+                double price = rs.getDouble(i++);
+                int sold = rs.getInt(i++);
+                BookInfo bookInfo = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerIdB);
+                result.add(bookInfo);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         // return the result
         return result;
     }

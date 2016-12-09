@@ -132,6 +132,40 @@ public class BooksPersistence {
      *
      * @return an ArrayList of all Pet objects
      */
+    public static Books getBook(String bookId) {
+        String query = "SELECT * FROM Books WHERE bookId = '" + bookId + "'";
+        Books result = null;
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(query);
+
+            while (rs.next()) {
+                int i = 1; // 1st column
+                String bookIdB = rs.getString(i++);
+                String title = rs.getString(i++);
+                String author = rs.getString(i++);
+                int edition = rs.getInt(i++);
+                String publisher = rs.getString(i++);
+                String cpverPhoto = rs.getString(i++);
+                String classId =rs.getString(i++);
+                result = new Books(bookIdB, title, author, edition, publisher, cpverPhoto, classId);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        // return the result
+        return result;
+    }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
     public static ArrayList<Books> searchBook(String title, String author, int edition, String publisher) {
         ArrayList<Books> result = new ArrayList<Books>();
         

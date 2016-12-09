@@ -28,4 +28,14 @@ public class Books_For_SaleActions {
 
         return Books_For_SalePersistence.searchBook_For_Sale(books);
     }
+    
+    public static ArrayList<BookInfo> searchBook_For_SaleReserved(String reserverId) {
+
+        return Books_For_SalePersistence.searchBook_For_SaleReserved(reserverId);
+    }
+    
+    public static ArrayList<BookInfo> searchBook_For_SaleSelling(String sellerId) {
+
+        return Books_For_SalePersistence.searchBook_For_SaleSelling(sellerId);
+    }
 }
