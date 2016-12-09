@@ -38,54 +38,57 @@
                 get('firstnamee').innerHTML = ''
                 if (! /^[\a-zA-Z]*$/.test(firstname)) {
                     valid = false
-                    get('firstnamee').innerHTML = 'First name can contain only a-z, A-Z'
+                    get('firstnamee').innerHTML = "<span style='color: red;'>First name can contain only a-z, A-Z </span>"
                 }
 
                 var lastname = get('lastname').value
                 get('lastnamee').innerHTML = ''
                 if (! /^[\a-zA-Z]*$/.test(lastname)) {
                     valid = false
-                    get('lastnamee').innerHTML = 'Last name can contain only a-z, A-Z'
+                    get('lastnamee').innerHTML = "<span style='color: red;'>Last name can contain only a-z, A-Z </span>"
                 }
                 
                 var email = get('email').value
                 get('emaile').innerHTML = ''
                 if (! /^[\a-zA-Z0-9.@]*$/.test(email)) {
                     valid = false
-                    get('emaile').innerHTML = 'Email can contain only a-z, A-Z, ., and @'
+                    get('emaile').innerHTML = "<span style='color: red;'>Email can contain only a-z, A-Z, ., and @ </span>"
                 }
                 
                 var birthday = get('birthday').value
                 get('birthdaye').innerHTML = ''
                 if (! /^[\-0-9]*$/.test(birthday)) {
                     valid = false
-                    get('birthdaye').innerHTML = 'Birthday can contain only 0-9 and hyphen'
+                    get('birthdaye').innerHTML = "<span style='color: red;'>Birthday can contain only 0-9 and hyphen</span>"
                 }
 
                 var username = get('signUpUsername').value
                 get('signUpUsernamee').innerHTML = ''
                 if (! /^[\a-zA-Z0-9]*$/.test(username)) {
                     valid = false
-                    get('signUpUsernamee').innerHTML = 'Username can contain only a-z, A-Z, and 0-9'
+                    get('signUpUsernamee').innerHTML = "<span style='color: red;'>Username can contain only a-z, A-Z, and 0-9 </span>"
                 }
                 
                 var password = get('signUpPassword').value
                 get('signUpPassworde').innerHTML = ''
                 if (! /^[\a-zA-Z0-9]*$/.test(password)) {
                     valid = false
-                    get('signUpPassworde').innerHTML = 'Password can contain only a-z, A-Z, and 0-9'
+                    get('signUpPassworde').innerHTML = "<span style='color: red;'>Password can contain only a-z, A-Z, and 0-9</span>"
                 }
                 
                 var password = get('signUpPassword').value
                 var passwordC = get('signUpPasswordConfirm').value
                 if (password !== passwordC  ) {
                     valid = false
-                    get('signUpPassworde').innerHTML = 'Password must match'
+                    get('signUpPassworde').innerHTML = "<span style='color: red;'>Password must match!</span>"
                 }
                 
-                
-                
-                
+                var security = get('signUpSecurityAnswer').value
+                get('signUpSecurityAnswere').innerHTML = ''
+                if (! /^[\a-zA-Z ]*$/.test(security)) {
+                    valid = false
+                    get('signUpSecurityAnswere').innerHTML ="<span style='color: red;'>Security Answer can contain only a-z, A-Z, and a space</span>";
+                }                
                 
                 return valid;
             }
@@ -137,10 +140,7 @@
                             <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
                             <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required onchange="this.value = this.value.trim();">                      
                         </p>
-                        </br>
-
                         <h3>Security Question</h3>
-                        </br>
                         <p>
                             <label for="signUpSecurityAnswer" class="sr-only">Security Question</label>
                             <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus onchange="this.value = this.value.trim();">
