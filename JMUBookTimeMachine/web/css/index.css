@@ -17,9 +17,22 @@ body{
     -moz-opacity: 0.5;
 
 }
+#wrapper{
+    background: white; 
+    width: 350px; 
+    border-radius: 5px;
+    padding-top: 5px;
+}
+#wrapper2{
+    background:white;
+    width:350px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 h1, h2, h3{
     text-align: center;
-    color: white;
+    
 }
 input[type=text], input[type=password], input[type=email]{
     width:20em;

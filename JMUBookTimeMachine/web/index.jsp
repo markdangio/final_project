@@ -102,71 +102,74 @@
         <h1>JMU Book Time Machine</h1>
         <div class="container">
             <div class="row">
-                <div align="center" class="col-md-6">
-                    <form method="post" action="userControl?action=signup" class="form-signin" onsubmit="return validateForm()">
-                        <h2 class="form-signin-heading">Sign Up!</h2>
-
-                        <p>
-                            <label for="firstname" class="sr-only">First Name</label>
-                            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus onchange="this.value = this.value.trim();"/>
-                            <span id="firstnamee" class="errmsg"> </span>
-                        </p>
-                        <p>
-                            <label for="lastname" class="sr-only">Last Name</label>
-                            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required autofocus onchange="this.value = this.value.trim();">
-                            <span id="lastnamee" class="errmsg"> </span>
-                        </p>
-                        <p>
-                            <label for="email" class="sr-only">Email Address</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus onchange="this.value = this.value.trim();">
-                            <span id="emaile" class="errmsg"> </span>
-                        </p>
-                        <p>
-                            <label for="birthday" class="sr-only">Birthday</label>
-                            <input type="text" name="birthday" id="birthday" class="form-control" placeholder="10-31-1994" required autofocus onchange="this.value = this.value.trim();">
-                            <span id="birthdaye" class="errmsg"> </span>
-                        </p>
-                        <p>
-                            <label for="signUpUsername" class="sr-only">User Name</label>
-                            <input type="text" name="signUpUsername" id="signUpUsername" class="form-control" placeholder="User Name" required autofocus onchange="this.value = this.value.trim();">
-                            <span id="signUpUsernamee" class="errmsg"> </span>                        
-                        </p>
-                        <p>
-                            <label for="signUpPassword" class="sr-only">Password</label>
-                            <input type="password" name="signUpPassword" id="signUpPassword" class="form-control" placeholder="Password" required onchange="this.value = this.value.trim();">
-                            <span id="signUpPassworde" class="errmsg"> </span>                       
-                        </p>
-                        <p>
-                            <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
-                            <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required onchange="this.value = this.value.trim();">                      
-                        </p>
-                        <h3>Security Question</h3>
-                        <p>
-                            <label for="signUpSecurityAnswer" class="sr-only">Security Question</label>
-                            <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus onchange="this.value = this.value.trim();">
-                            <span id="signUpSecurityAnswere" class="errmsg"> </span>                       
-                        </p>
-                        <h3>Profile Picture</h3>
-                        <label for="avatar" class="sr-only">Profile Picture</label>
-                        </br>
-                        <input type="file" name="avatar" id="avatar" style="color:white;">
-
-                        </br>
-                        <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
-                    </form>
+                <div align="center" class="col-md-6" >
+                    <div id="wrapper">
+                        <form method="post" action="userControl?action=signup" class="form-signin" onsubmit="return validateForm()">
+                            <h2 class="form-signin-heading">Sign Up!</h2>
+                            <p>
+                                <label for="firstname" class="sr-only">First Name</label>
+                                <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus onchange="this.value = this.value.trim();"/>
+                                <span id="firstnamee" class="errmsg"> </span>
+                            </p>
+                            <p>
+                                <label for="lastname" class="sr-only">Last Name</label>
+                                <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required autofocus onchange="this.value = this.value.trim();">
+                                <span id="lastnamee" class="errmsg"> </span>
+                            </p>
+                            <p>
+                                <label for="email" class="sr-only">Email Address</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required autofocus onchange="this.value = this.value.trim();">
+                                <span id="emaile" class="errmsg"> </span>
+                            </p>
+                            <p>
+                                <label for="birthday" class="sr-only">Birthday</label>
+                                <input type="text" name="birthday" id="birthday" class="form-control" placeholder="10-31-1994" required autofocus onchange="this.value = this.value.trim();">
+                                <span id="birthdaye" class="errmsg"> </span>
+                            </p>
+                            <p>
+                                <label for="signUpUsername" class="sr-only">User Name</label>
+                                <input type="text" name="signUpUsername" id="signUpUsername" class="form-control" placeholder="User Name" required autofocus onchange="this.value = this.value.trim();">
+                                <span id="signUpUsernamee" class="errmsg"> </span>                        
+                            </p>
+                            <p>
+                                <label for="signUpPassword" class="sr-only">Password</label>
+                                <input type="password" name="signUpPassword" id="signUpPassword" class="form-control" placeholder="Password" required onchange="this.value = this.value.trim();">
+                                <span id="signUpPassworde" class="errmsg"> </span>                       
+                            </p>
+                            <p>
+                                <label for="signUpPasswordConfirm" class="sr-only">Confirm Password</label>
+                                <input type="password" name="signUpPasswordConfirm" id="signUpPasswordConfirm" class="form-control" placeholder="Repeat Password" required onchange="this.value = this.value.trim();">                      
+                            </p>
+                            <h3>Security Question</h3>
+                            <p>
+                                <label for="signUpSecurityAnswer" class="sr-only">Security Question</label>
+                                <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus onchange="this.value = this.value.trim();">
+                                <span id="signUpSecurityAnswere" class="errmsg"> </span>                       
+                            </p>
+                            <h3>Profile Picture</h3>
+                            <label for="avatar" class="sr-only">Profile Picture</label>
+                            </br>
+                            <input type="file" name="avatar" id="avatar">
+                            </br>
+                            <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
+                            </br>
+                        </form>
+                    </div>
                 </div>
                 <div align="center" class="col-md-6">
-                    <form method="post" action="control?action=login" class="form-signin">
-                        <h2 class="form-signin-heading">Login</h2>
-                        <label for="loginUsername">Username
-                        <input type="text" name="loginUsername" id="loginUsername" class="form-control" placeholder="Username" required autofocus></label>
-                        </br>
-                        <label for="loginPassword">Password
-                        <input type="password" name="loginPassword" id="loginPassword" class="form-control" placeholder="Password" required></label>
-                        </br>
-                        <button class="btn btn-block" name="login" type="submit">Sign in</button>
-                    </form>
-                    <a href="recovery.jsp" style="color:purple;"><p>Forgot Password?</p></a>
+                    <div id="wrapper2">
+                        <form method="post" action="control?action=login" class="form-signin">
+                            <h2 class="form-signin-heading">Login</h2>
+                            <label for="loginUsername">Username
+                                <input type="text" name="loginUsername" id="loginUsername" class="form-control" placeholder="Username" required autofocus></label>
+                            </br>
+                            <label for="loginPassword">Password
+                                <input type="password" name="loginPassword" id="loginPassword" class="form-control" placeholder="Password" required></label>
+                            </br>
+                            <button class="btn btn-block" name="login" type="submit">Sign in</button>
+                        </form>
+                        <a href="recovery.jsp" style="color:purple;"><p>Forgot Password?</p></a>
+                    </div>
                 </div>
             </div>
         </div>
