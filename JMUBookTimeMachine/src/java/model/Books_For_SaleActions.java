@@ -38,4 +38,9 @@ public class Books_For_SaleActions {
 
         return Books_For_SalePersistence.searchBook_For_SaleSelling(sellerId);
     }
+    
+    public static boolean reserveBook_For_Sale(String saleId, String reserverId) {
+
+        return Books_For_SalePersistence.reserveBook_For_Sale(saleId, reserverId);
+    }
 }

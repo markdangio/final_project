@@ -45,6 +45,8 @@ public class BBC extends HttpServlet {
             handleClassCheck(request, response);
         } else if (action.equals("search")){
             handleBookSearch(request, response);
+        } else if (action.equals("reserve")){
+            handleBookReserve(request, response);
         }
     }
 
@@ -261,6 +263,37 @@ public class BBC extends HttpServlet {
         ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults);
         session.setAttribute("bookResults", bookSaleResults);
         forwardRequest(request, response, "/results.jsp");
+    }
+    
+    private void handleBookReserve(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String reserveMessage = null;
+        HttpSession session = request.getSession(true);
+        
+        String saleId = request.getParameter("saleId");
+        String reserverId = request.getParameter("reserverId");
+        
+        boolean checkResult = Books_For_SaleActions.reserveBook_For_Sale(saleId, reserverId);
+        reserveMessage = checkResult ? "Book reserved" : "Book not reserved" + saleId + reserverId;
+        session.setAttribute("reserveMessage", reserveMessage);
+        if(reserveMessage.equals("Book reserved")){
+            forwardRequest(request, response, "/profile.jsp");
+        }
+        else{
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Results</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>" + session.getAttribute("reserveMessage") + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
+        }
     }
     
     /*

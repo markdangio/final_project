@@ -25,7 +25,7 @@ public class Books_For_SalePersistence {
      */
     public static boolean addBook_For_Sale(Books_For_Sale books_For_Sale) {//, Books books, User user) {
         DBHandler dbHandler = new DBHandler();
-        
+
         try {
 
             String command = "INSERT INTO Books_for_Sale VALUES(";
@@ -36,16 +36,16 @@ public class Books_For_SalePersistence {
             command += ", " + books_For_Sale.getPrice();
             command += ", " + books_For_Sale.getSold();
             command += ", '" + books_For_Sale.getReserverId() + "')";
-            
+
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();
             return (resultCount > 0);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        } 
+        }
     }
-    
+
     /**
      * Add a pet record.
      *
@@ -53,47 +53,32 @@ public class Books_For_SalePersistence {
      * @param password The user's password
      * @return true iff the database operation succeeded
      *
-    public static boolean checkUser(String username, String password) {
-        DBHandler dbHandler = new DBHandler();
-                
-        String command = "SELECT * FROM User WHERE username = ";
-        command += "'" + username + "'";
-        command += " AND password = '" + password + "'";
-        try {
-            ResultSet resultCount = dbHandler.doQuery(command);
-            
-            System.out.println(resultCount);
-            int i = 0;
-            while(resultCount.next()) {
-                i++;
-            }
-            dbHandler.close();
-            return (i > 0);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }*/
-
+     * public static boolean checkUser(String username, String password) {
+     * DBHandler dbHandler = new DBHandler();
+     *
+     * String command = "SELECT * FROM User WHERE username = "; command += "'" +
+     * username + "'"; command += " AND password = '" + password + "'"; try {
+     * ResultSet resultCount = dbHandler.doQuery(command);
+     *
+     * System.out.println(resultCount); int i = 0; while(resultCount.next()) {
+     * i++; } dbHandler.close(); return (i > 0); } catch (SQLException ex) {
+     * ex.printStackTrace(); return false; }
+    }
+     */
     /**
      * Delete a pet from the Pet table.
-     * 
+     *
      * @param pet The Pet to be deleted, identified by the name field only.
      * @return true iff the database operation succeeded
      *
-    public static boolean deletePet(Pet pet) {
-        DBCommandHandler dbCommandHandler = new DBCommandHandler();
-        try {
-            String command = "delete from pet where name = '" + pet.getName() + "'";
-            int result = dbCommandHandler.doCommand(command);
-            dbCommandHandler.close();
-            return (result > 0);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-    }*/
-    
+     * public static boolean deletePet(Pet pet) { DBCommandHandler
+     * dbCommandHandler = new DBCommandHandler(); try { String command = "delete
+     * from pet where name = '" + pet.getName() + "'"; int result =
+     * dbCommandHandler.doCommand(command); dbCommandHandler.close(); return
+     * (result > 0); } catch (SQLException ex) {
+     * System.out.println(ex.getMessage()); return false; }
+    }
+     */
     /**
      * Returns an ArrayList of all Pet objects.
      *
@@ -101,7 +86,7 @@ public class Books_For_SalePersistence {
      */
     public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
-        
+
         for (Books tempBook : books) {
 
             String command = "SELECT * FROM Books_for_Sale WHERE bookId = ";
@@ -114,7 +99,7 @@ public class Books_For_SalePersistence {
                 ResultSet rs = dbHandler.doQuery(command);
 
                 while (rs.next()) {
-                    int i = 4; // 1st column
+                    int i = 3; // 1st column
                     String bookIdB = tempBook.getBookId();
                     String titleB = tempBook.getTitle();
                     String authorB = tempBook.getAuthor();
@@ -122,11 +107,13 @@ public class Books_For_SalePersistence {
                     String publisherB = tempBook.getPublisher();
                     String coverPhotoB = tempBook.getCoverPhoto();
                     String sellerId = rs.getString(1);
+                    String saleId = rs.getString(i++);
                     String postedDate = rs.getString(i++);
                     double price = rs.getDouble(i++);
                     int sold = rs.getInt(i++);
-                    
-                    BookInfo book = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerId);
+                    String reserverId = rs.getString(i++);
+
+                    BookInfo book = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerId, saleId, reserverId);
                     result.add(book);
                 }
 
@@ -138,7 +125,30 @@ public class Books_For_SalePersistence {
         // return the result
         return result;
     }
-    
+
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static boolean reserveBook_For_Sale(String saleId, String reserverId) {
+        DBHandler dbHandler = new DBHandler();
+        try {
+
+            String command = "UPDATE Books_for_Sale SET reserverId = ";
+            command += "'" + reserverId + "'";
+            command += " WHERE saleId = '" + saleId + "'";
+            //command += " AND reserverId = NULL";
+
+            int resultCount = dbHandler.doCommand(command);
+            dbHandler.close();
+            return (resultCount > 0);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Returns an ArrayList of all Pet objects.
      *
@@ -146,31 +156,34 @@ public class Books_For_SalePersistence {
      */
     public static ArrayList<BookInfo> searchBook_For_SaleReserved(String reserverId) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
-        
+
         String command = "SELECT * FROM Books_for_Sale WHERE reserverId = ";
         command += "'" + reserverId + "'";
-        
+
         // open a connection to the database and a Statement object
         try {
             DBHandler dbHandler = new DBHandler();
             ResultSet rs = dbHandler.doQuery(command);
 
             while (rs.next()) {
-                int i = 4; // 1st column
+                int i = 3; // 1st column
                 String bookIdB = rs.getString(2);
-                
+
                 Books book = BooksActions.getBook(bookIdB);
-                
+
                 String titleB = book.getTitle();
                 String authorB = book.getAuthor();
                 int editionB = book.getEdition();
                 String publisherB = book.getPublisher();
                 String coverPhotoB = book.getCoverPhoto();
                 String sellerIdB = rs.getString(1);
+                String saleId = rs.getString(i++);
                 String postedDate = rs.getString(i++);
                 double price = rs.getDouble(i++);
                 int sold = rs.getInt(i++);
-                BookInfo bookInfo = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerIdB);
+                String reserverIdB = rs.getString(i++);
+                
+                BookInfo bookInfo = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerIdB, saleId, reserverIdB);
                 result.add(bookInfo);
             }
 
@@ -181,7 +194,7 @@ public class Books_For_SalePersistence {
         // return the result
         return result;
     }
-    
+
     /**
      * Returns an ArrayList of all Pet objects.
      *
@@ -189,31 +202,34 @@ public class Books_For_SalePersistence {
      */
     public static ArrayList<BookInfo> searchBook_For_SaleSelling(String sellerId) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
-        
+
         String command = "SELECT * FROM Books_for_Sale WHERE sellerId = ";
         command += "'" + sellerId + "'";
-        
+
         // open a connection to the database and a Statement object
         try {
             DBHandler dbHandler = new DBHandler();
             ResultSet rs = dbHandler.doQuery(command);
 
             while (rs.next()) {
-                int i = 4; // 1st column
+                int i = 3; // 1st column
                 String bookIdB = rs.getString(2);
-                
+
                 Books book = BooksActions.getBook(bookIdB);
-                
+
                 String titleB = book.getTitle();
                 String authorB = book.getAuthor();
                 int editionB = book.getEdition();
                 String publisherB = book.getPublisher();
                 String coverPhotoB = book.getCoverPhoto();
                 String sellerIdB = rs.getString(1);
+                String saleId = rs.getString(i++);
                 String postedDate = rs.getString(i++);
                 double price = rs.getDouble(i++);
                 int sold = rs.getInt(i++);
-                BookInfo bookInfo = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerIdB);
+                String reserverId = rs.getString(i++);
+                
+                BookInfo bookInfo = new BookInfo(bookIdB, titleB, authorB, editionB, publisherB, coverPhotoB, postedDate, price, sold, sellerIdB, saleId, reserverId);
                 result.add(bookInfo);
             }
 

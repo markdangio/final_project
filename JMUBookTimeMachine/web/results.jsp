@@ -20,6 +20,7 @@
         <%
             // get a list of all Books searched for
             String userId = (String)session.getAttribute("userId");
+            User u = UserActions.getUser(userId);
             ArrayList<BookInfo> books = (ArrayList<BookInfo>) session.getAttribute("bookResults");
             Iterator<BookInfo> it = books.iterator();
         %>
@@ -55,7 +56,7 @@
                                     <th>Publisher</th>
                                     <th>Posted Date</th> 
                                     <th>Price</th> 
-                                    <th></th> 
+                                    <th>Reserved</th> 
                                 </tr> 
                             </thead> 
                             <tbody>
@@ -73,7 +74,12 @@
                                         out.println("<td>" + book.getPublisher() + "</td>");
                                         out.println("<td>" + book.getPostedDate() + "</td>");
                                         out.println("<td>$" + book.getPrice() + "</td>");
-                                        out.println("<td><form method=\"post\" action=\"bbc?action=reserve\"><button class=\"btn btn-block\" name=\"reserve\" type=\"submit\">Reserve</button></form></td>");
+                                        if(book.getReserverId() == null){
+                                            out.println("<td><form method=\"post\" action=\"bbc?action=reserve&saleId=" + book.getSaleId() + "&reserverId=" + u.getUserId() + "\"><button class=\"btn btn-block\" name=\"reserve\" type=\"submit\">Reserve</button></form></td>");
+                                        }
+                                        else {
+                                           out.println("<td></td>"); 
+                                        }
                                         out.println("</tr>");
                                     }
                                 %>

@@ -11,11 +11,11 @@ package model;
  */
 public class BookInfo {
     
-    private String bookId, title, author, publisher, coverPhoto, classId, postedDate, sellerId;
+    private String bookId, title, author, publisher, coverPhoto, classId, postedDate, sellerId, saleId, reserverId;
     private int edition, sold;
     private double price;
     
-    public BookInfo (String bookId, String title, String author, int edition, String publisher, String coverPhoto, String postedDate, double price, int sold, String sellerId)
+    public BookInfo (String bookId, String title, String author, int edition, String publisher, String coverPhoto, String postedDate, double price, int sold, String sellerId, String saleId, String reserverId)
     {
         this.bookId = bookId;
         this.title = title;
@@ -27,6 +27,8 @@ public class BookInfo {
         this.price = price;
         this.sold = sold;
         this.sellerId = sellerId;
+        this.saleId = saleId;
+        this.reserverId = reserverId;
     }
 
     public String getBookId() {
@@ -67,6 +69,14 @@ public class BookInfo {
     
     public String getSellerId() {
         return sellerId;
+    }
+    
+    public String getSaleId() {
+        return saleId;
+    }
+    
+    public String getReserverId() {
+        return reserverId;
     }
     
 }
