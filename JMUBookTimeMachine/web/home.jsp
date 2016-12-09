@@ -39,58 +39,73 @@
             get('sellClassNamee').innerHTML = ''
             if (! /^[\a-zA-Z0-9 ]*$/.test(sellClassName)) {
             valid = false
-            get('sellClassNamee').innerHTML = "<span style='color: red;'>Class name can contain only a-z, A-Z, 0-9 and a space. </span>"
+            get('sellClassNamee').innerHTML = "<span style='color: red;'>Class name can contain only a-z, A-Z, 0-9 and spaces </span>"
             }
 
             var sellClassSubject = get('sellClassSubject').value
             get('sellClassSubjecte').innerHTML = ''
-            if (! /^[\a-zA-Z]*$/.test(sellClassSubject)) {
+            if (! /^[\A-Z]*$/.test(sellClassSubject)) {
             valid = false
-            get('sellClassSubjecte').innerHTML = "<span style='color: red;'>Class subject can contain only a-z, A-Z </span>"
+            get('sellClassSubjecte').innerHTML = "<span style='color: red;'>Class subject can contain only A-Z </span>"
             }
 
-            var email = get('email').value
-            get('emaile').innerHTML = ''
-            if (! /^[\a-zA-Z0-9.@]*$/.test(email)) {
+            var sellClassProfessor = get('sellClassProfessor').value
+            get('sellClassProfessore').innerHTML = ''
+            if (! /^[\a-zA-Z ]*$/.test(sellClassProfessor)) {
             valid = false
-            get('emaile').innerHTML = "<span style='color: red;'>Email can contain only a-z, A-Z, ., and @ </span>"
+            get('sellClassProfessore').innerHTML = "<span style='color: red;'>Class professor can contain only a-z, A-Z, and spaces</span>"
             }
 
-            var birthday = get('birthday').value
-            get('birthdaye').innerHTML = ''
-            if (! /^[\-0-9]*$/.test(birthday)) {
+            var sellClassDescription = get('sellClassDescription').value
+            get('sellClassDescriptione').innerHTML = ''
+            if (! /^[\a-zA-Z., ]*$/.test(sellClassDescription)) {
             valid = false
-            get('birthdaye').innerHTML = "<span style='color: red;'>Birthday can contain only 0-9 and hyphen</span>"
+            get('sellClassDescriptione').innerHTML = "<span style='color: red;'>Class description can contain only a-z, A-Z, ., and spaces </span>"
             }
 
-            var username = get('signUpUsername').value
-            get('signUpUsernamee').innerHTML = ''
-            if (! /^[\a-zA-Z0-9]*$/.test(username)) {
+            var sellTitle = get('sellTitle').value
+            get('sellTitlee').innerHTML = ''
+            if (! /^[\a-zA-Z0-9 ]*$/.test(sellTitle)) {
             valid = false
-            get('signUpUsernamee').innerHTML = "<span style='color: red;'>Username can contain only a-z, A-Z, and 0-9 </span>"
+            get('sellTitlee').innerHTML ="<span style='color: red;'>Title can contain only a-z, A-Z, 0-9, and spaces</span>";
             }
-
-            var password = get('signUpPassword').value
-            get('signUpPassworde').innerHTML = ''
-            if (! /^[\a-zA-Z0-9]*$/.test(password)) {
+            
+            var sellAuthor = get('sellAuthor').value
+            get('sellAuthore').innerHTML = ''
+            if (! /^[\a-zA-Z ]*$/.test(sellAuthor)) {
             valid = false
-            get('signUpPassworde').innerHTML = "<span style='color: red;'>Password can contain only a-z, A-Z, and 0-9</span>"
-            }
-
-            var password = get('signUpPassword').value
-            var passwordC = get('signUpPasswordConfirm').value
-            if (password !== passwordC  ) {
+            get('sellAuthore').innerHTML ="<span style='color: red;'>Author can contain only a-z, A-Z, and spaces</span>";
+            }  
+            
+            var sellPublisher = get('sellPublisher').value
+            get('sellPublishere').innerHTML = ''
+            if (! /^[\a-zA-Z ]*$/.test(sellPublisher)) {
             valid = false
-            get('signUpPassworde').innerHTML = "<span style='color: red;'>Password must match!</span>"
-            }
-
-            var security = get('signUpSecurityAnswer').value
-            get('signUpSecurityAnswere').innerHTML = ''
-            if (! /^[\a-zA-Z ]*$/.test(security)) {
+            get('sellPublishere').innerHTML ="<span style='color: red;'>Publisher can contain only a-z, A-Z, and spaces</span>";
+            }   
+            
+            var title = get('title').value
+            get('titlee').innerHTML = ''
+            if (! /^[\a-zA-Z0-9 ]*$/.test(title)) {
             valid = false
-            get('signUpSecurityAnswere').innerHTML ="<span style='color: red;'>Security Answer can contain only a-z, A-Z, and a space</span>";
-            }                
-
+            get('titlee').innerHTML ="<span style='color: red;'>Title can contain only a-z, A-Z, 0-9, and spaces</span>";
+            }      
+            
+            var author = get('author').value
+            get('authore').innerHTML = ''
+            if (! /^[\a-zA-Z ]*$/.test(author)) {
+            valid = false
+            get('authore').innerHTML ="<span style='color: red;'>Author can contain only a-z, A-Z, and spaces</span>";
+            }            
+            
+            var publisher = get('publisher').value
+            get('publishere').innerHTML = ''
+            if (! /^[\a-zA-Z ]*$/.test(publisher)) {
+            valid = false
+            get('publishere').innerHTML ="<span style='color: red;'>Publisher can contain only 0-9</span>";
+            }            
+            
+            
             return valid;
             }
 
@@ -149,48 +164,44 @@
                                     </br>
                                     <label for="sellClassNumber" class="sr-only">Class Number</label>
                                     <input type="number" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
                                     </br>
                                     <label for="sellClassSection" class="sr-only">Class Section</label>
                                     <input type="number" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
                                     </br>
                                     <label for="sellClassProfessor" class="sr-only">Class Professor</label>
                                     <input type="text" name="sellClassProfessor" id="sellClassProfessor" class="form-control" placeholder="Class Professor" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
+                                    <span id="sellClassProfessore" class="errmsg"> </span>
                                     </br>
                                     <label for="sellClassDescription" class="sr-only">Class Description</label>
                                     <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
+                                    <span id="sellClassDescriptione" class="errmsg"> </span>
                                     </br>
-                                    <button class="btn btn-block" name="next" onclick="moveForwardClass();">Next</button>
+                                    <button class="btn btn-block" name="next" onclick="moveForwardClass(); return validateForm();">Next</button>
                                     </form>
                                 </div>
                                 <div class="item">
                                     <h2 class="form-signin-heading">Add book info</h2>
                                     <label for="sellTitle" class="sr-only">Title</label>
                                     <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
+                                    <span id="sellTitlee" class="errmsg"> </span>
                                     </br>
                                     <label for="sellAuthor" class="sr-only">Author</label>
                                     <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
+                                    <span id="sellAuthore" class="errmsg"> </span>
                                     </br>
                                     <label for="sellEdition" class="sr-only">Edition</label>
                                     <input type="number" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
                                     </br>
                                     <label for="sellPublisher" class="sr-only">Publisher</label>
                                     <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
+                                    <span id="sellPublishere" class="errmsg"> </span>
                                     </br>
                                     <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
                                     <input type="file" name="sellCoverPhoto" id="sellCoverPhoto" autofocus>
-                                    <span id="lastnamee" class="errmsg"> </span>
                                     </br>
                                     <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
                                     </br>
-                                    <button class="btn btn-block" name="next"onclick="moveForwardInfo();">Next</button>
+                                    <button class="btn btn-block" name="next"onclick="moveForwardInfo();return validateForm();">Next</button>
                                 </div>
                                 <div class="item">
                                     <h2 class="form-signin-heading">Add price and submit!</h2>
@@ -199,7 +210,7 @@
                                     </br>
                                     <button class="btn btn-block" name="back" onclick="moveBackward();">Back</button>
                                     </br>
-                                    <button class="btn btn-block" name="postbook" type="submit">Post Book</button>
+                                    <button class="btn btn-block" name="postbook" type="submit" onclick="return validateForm();">Post Book</button>
                                     </br>
                                 </div>
                             </div>
@@ -212,21 +223,20 @@
                         <h2 class="form-signin-heading">Find Book</h2>
                         <label for="title" class="sr-only">Title</label>
                         <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
-                        <span id="lastnamee" class="errmsg"> </span>
+                        <span id="titlee" class="errmsg"> </span>
                         </br>
                         <label for="author" class="sr-only">Author</label>
                         <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
-                        <span id="lastnamee" class="errmsg"> </span>
+                        <span id="authore" class="errmsg"> </span>
                         </br>
                         <label for="edition" class="sr-only">Edition</label>
                         <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
-                        <span id="lastnamee" class="errmsg"> </span>
                         </br>
                         <label for="publisher" class="sr-only">Publisher</label>
                         <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
-                        <span id="lastnamee" class="errmsg"> </span>
+                        <span id="publishere" class="errmsg"> </span>
                         </br>
-                        <button class="btn btn-block" name="bookSearch" type="submit">Search</button>
+                        <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
                     </div>
                 </form>
             </div>
