@@ -19,7 +19,7 @@
             <form method="post" action="userControl?action=updatePass" class="form-signin">
                 <h2 class="form-signin-heading">Change Password</h2>
                 <label for="newPassword" class="sr-only">New Password</label>
-                <input type="newPassword" name="newPassword" id="username" class="form-control" placeholder="New Password" required autofocus>
+                <input type="password" name="newPassword" id="username" class="form-control" placeholder="New Password" required autofocus>
                 </br>
                 <label for="newPasswordConfirm" class="sr-only">Confirm New Password</label>
                 <input type="password" name="newPasswordConfirm" id="sq" class="form-control" placeholder="Confirm New Password" required>
