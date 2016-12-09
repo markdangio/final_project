@@ -84,7 +84,7 @@ public class Books_For_SalePersistence {
      *
      * @return an ArrayList of all Pet objects
      */
-    public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books) {
+    public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books, String userId) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
 
         for (Books tempBook : books) {
@@ -92,6 +92,7 @@ public class Books_For_SalePersistence {
             String command = "SELECT * FROM Books_for_Sale WHERE bookId = ";
             command += "'" + tempBook.getBookId() + "'";
             command += " AND sold = 0";
+            command += " AND sellerId != '" + userId + "'";
 
             // open a connection to the database and a Statement object
             try {

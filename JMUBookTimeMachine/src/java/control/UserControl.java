@@ -41,6 +41,9 @@ public class UserControl extends HttpServlet {
         if (action.equals("signup")){
             handleAdd(request, response);
         }
+        else if (action.equals("checkUpdatePass")){
+            checkUserSecurity(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -125,7 +128,7 @@ public class UserControl extends HttpServlet {
             userId = userId.replace("-","");
             userId = userId.substring(0, 16);
             
-            boolean addResult = UserActions.addUser(userId, username, password, firstname, lastname, email, avatar, birthday, securityAns);
+            boolean addResult = UserActions.addUser(userId, password, firstname, lastname, email, avatar, birthday, username, securityAns);
             addMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
         }
         session.setAttribute("addmessage", addMessage);
@@ -146,6 +149,52 @@ public class UserControl extends HttpServlet {
                 out.println("</head>");
                 out.println("<body>");
                 out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
+
+        }
+    }
+    
+    /*
+     * Add a user to the table.
+     */
+    private void checkUserSecurity(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String securityMessage = null;
+        HttpSession session = request.getSession(true);
+
+        // get add-user request parameters
+        String username = request.getParameter("recoveryUserName");
+        String securityAns = request.getParameter("recoverySQ");
+        
+
+        if (username == null || securityAns == null) {
+            securityMessage = "Improper check user security request: " + username + securityAns;
+        } else if (username.trim().length() == 0) {
+            securityMessage = "Userame field must not be blank";
+        } else if (securityAns.trim().length() == 0) {
+            securityMessage = "Security Answer field must not be blank";
+        }else {
+            
+            boolean checkSecurityResult = UserActions.checkUserSecurity(username, securityAns);
+            securityMessage = checkSecurityResult ? "Reset Password" : "Cannot Reset Password" + username+ securityAns;
+        }
+        session.setAttribute("securityMessage", securityMessage);
+        if(securityMessage.equals("Reset Password")){
+            forwardRequest(request, response, "/changePass.jsp");
+        }
+        else{
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Results</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>" + session.getAttribute("securityMessage") + "</h1>");
                 out.println("</body>");
                 out.println("</html>");
             }

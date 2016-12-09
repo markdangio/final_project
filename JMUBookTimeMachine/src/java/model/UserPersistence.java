@@ -148,7 +148,7 @@ public class UserPersistence {
                 String birthday =rs.getString(i++);
                 String username = rs.getString(i++);
                 String securityAns = "";
-                result = new User(userIdU, password, firstName, lastName, email, birthday, avatar, username, securityAns);
+                result = new User(userIdU, password, firstName, lastName, email, avatar, birthday, username, securityAns);
             }
 
             dbHandler.close();

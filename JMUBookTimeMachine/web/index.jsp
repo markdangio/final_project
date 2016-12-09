@@ -123,7 +123,7 @@
                             </p>
                             <p>
                                 <label for="birthday" class="sr-only">Birthday</label>
-                                <input type="text" name="birthday" id="birthday" class="form-control" placeholder="10-31-1994" required autofocus onchange="this.value = this.value.trim();">
+                                <input type="text" name="birthday" id="birthday" class="form-control" placeholder="1994-12-23" required autofocus onchange="this.value = this.value.trim();">
                                 <span id="birthdaye" class="errmsg"> </span>
                             </p>
                             <p>
@@ -143,7 +143,7 @@
                             <h3>Security Question</h3>
                             <p>
                                 <label for="signUpSecurityAnswer" class="sr-only">Security Question</label>
-                                <input type="text" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus onchange="this.value = this.value.trim();">
+                                <input type="password" name="signUpSecurityAnswer" id="signUpSecurityAnswer" class="form-control" placeholder="Mother's Maiden Name" required autofocus onchange="this.value = this.value.trim();">
                                 <span id="signUpSecurityAnswere" class="errmsg"> </span>                       
                             </p>
                             <h3>Profile Picture</h3>

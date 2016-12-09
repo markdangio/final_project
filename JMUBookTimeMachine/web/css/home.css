@@ -7,6 +7,27 @@ and open the template in the editor.
     Created on : Dec 1, 2016, 3:32:36 PM
     Author     : dangiomr
 */
+body {
+    background: url('Wilson_Background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:cover;
+    -moz-opacity: 0.5;
+}
+
+#wrapper{
+    background: white; 
+    width: 350px; 
+    border-radius: 5px;
+    padding-top: 5px;
+}
+#wrapper2{
+    background:white;
+    width:350px;
+    border-radius: 5px;
+    padding: 5px;
+}
 div.container{
     width: 100%;
 }

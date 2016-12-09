@@ -24,9 +24,9 @@ public class Books_For_SaleActions {
         return Books_For_SalePersistence.checkBooks_For_Sale(postedDate, sold);
     }*/
     
-    public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books) {
+    public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books, String userId) {
 
-        return Books_For_SalePersistence.searchBook_For_Sale(books);
+        return Books_For_SalePersistence.searchBook_For_Sale(books, userId);
     }
     
     public static ArrayList<BookInfo> searchBook_For_SaleReserved(String reserverId) {

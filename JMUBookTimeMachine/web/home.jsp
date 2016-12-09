@@ -69,43 +69,43 @@
             valid = false
             get('sellTitlee').innerHTML ="<span style='color: red;'>Title can contain only a-z, A-Z, 0-9, and spaces</span>";
             }
-            
+
             var sellAuthor = get('sellAuthor').value
             get('sellAuthore').innerHTML = ''
             if (! /^[\a-zA-Z ]*$/.test(sellAuthor)) {
             valid = false
             get('sellAuthore').innerHTML ="<span style='color: red;'>Author can contain only a-z, A-Z, and spaces</span>";
             }  
-            
+
             var sellPublisher = get('sellPublisher').value
             get('sellPublishere').innerHTML = ''
             if (! /^[\a-zA-Z ]*$/.test(sellPublisher)) {
             valid = false
             get('sellPublishere').innerHTML ="<span style='color: red;'>Publisher can contain only a-z, A-Z, and spaces</span>";
             }   
-            
+
             var title = get('title').value
             get('titlee').innerHTML = ''
             if (! /^[\a-zA-Z0-9 ]*$/.test(title)) {
             valid = false
             get('titlee').innerHTML ="<span style='color: red;'>Title can contain only a-z, A-Z, 0-9, and spaces</span>";
             }      
-            
+
             var author = get('author').value
             get('authore').innerHTML = ''
             if (! /^[\a-zA-Z ]*$/.test(author)) {
             valid = false
             get('authore').innerHTML ="<span style='color: red;'>Author can contain only a-z, A-Z, and spaces</span>";
             }            
-            
+
             var publisher = get('publisher').value
             get('publishere').innerHTML = ''
             if (! /^[\a-zA-Z ]*$/.test(publisher)) {
             valid = false
             get('publishere').innerHTML ="<span style='color: red;'>Publisher can contain only 0-9</span>";
             }            
-            
-            
+
+
             return valid;
             }
 
@@ -147,98 +147,107 @@
             </div>
             <div class="row">
                 <div align="center" class="col-md-6">
-                    <h2 class="form-signin-heading">Sell a Book</h2>
-                    <form method="post" action="bbc?action=check" class="form-signin">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <h2 class="form-signin-heading">First, add class info</h2>
-                                    <label for="sellClassName" class="sr-only">Class Name</label>
-                                    <input type="text" name="sellClassName" id="sellClassName" class="form-control" placeholder="Class Name" required autofocus>
-                                    <span id="sellClassNamee" class="errmsg"> </span>
-                                    </br>
-                                    <label for="sellClassSubject" class="sr-only">Class Subject</label>
-                                    <input type="text" name="sellClassSubject" id="sellClassSubject" class="form-control" placeholder="Class Subject" required autofocus>
-                                    <span id="sellClassSubjecte" class="errmsg"> </span>
-                                    </br>
-                                    <label for="sellClassNumber" class="sr-only">Class Number</label>
-                                    <input type="number" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
-                                    </br>
-                                    <label for="sellClassSection" class="sr-only">Class Section</label>
-                                    <input type="number" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>
-                                    </br>
-                                    <label for="sellClassProfessor" class="sr-only">Class Professor</label>
-                                    <input type="text" name="sellClassProfessor" id="sellClassProfessor" class="form-control" placeholder="Class Professor" required autofocus>
-                                    <span id="sellClassProfessore" class="errmsg"> </span>
-                                    </br>
-                                    <label for="sellClassDescription" class="sr-only">Class Description</label>
-                                    <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
-                                    <span id="sellClassDescriptione" class="errmsg"> </span>
-                                    </br>
-                                    <button class="btn btn-block" name="next" onclick="moveForwardClass(); return validateForm();">Next</button>
-                                    </form>
+                    <div id="wrapper">
+                        <h2 class="form-signin-heading">Sell a Book</h2>
+                        <form method="post" action="bbc?action=check" class="form-signin">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <h2 class="form-signin-heading">First, add class info</h2>
+                                        <label for="sellClassName" class="sr-only">Class Name</label>
+                                        <input type="text" name="sellClassName" id="sellClassName" class="form-control" placeholder="Class Name" required autofocus>
+                                        <span id="sellClassNamee" class="errmsg"> </span>
+                                        </br>
+                                        <label for="sellClassSubject" class="sr-only">Class Subject</label>
+                                        <input type="text" name="sellClassSubject" id="sellClassSubject" class="form-control" placeholder="Class Subject" required autofocus>
+                                        <span id="sellClassSubjecte" class="errmsg"> </span>
+                                        </br>
+                                        <label for="sellClassNumber" class="sr-only">Class Number</label>
+                                        <input type="number" name="sellClassNumber" id="sellClassNumber" class="form-control" placeholder="Class Number" required autofocus>
+                                        </br>
+                                        <label for="sellClassSection" class="sr-only">Class Section</label>
+                                        <input type="number" name="sellClassSection" id="sellClassSection" class="form-control" placeholder="Class Section" required autofocus>
+                                        </br>
+                                        <label for="sellClassProfessor" class="sr-only">Class Professor</label>
+                                        <input type="text" name="sellClassProfessor" id="sellClassProfessor" class="form-control" placeholder="Class Professor" required autofocus>
+                                        <span id="sellClassProfessore" class="errmsg"> </span>
+                                        </br>
+                                        <label for="sellClassDescription" class="sr-only">Class Description</label>
+                                        <input type="text" name="sellClassDescription" id="sellClassDescription" class="form-control" placeholder="Class Description" autofocus>
+                                        <span id="sellClassDescriptione" class="errmsg"> </span>
+                                        </br>
+                                        <button class="btn btn-block" name="next" onclick="moveForwardClass();
+    return validateForm();">Next</button>
+                                        </br>
+                                        </form>
+                                    </div>
+                                    <div class="item">
+                                        <h2 class="form-signin-heading">Add book info</h2>
+                                        <label for="sellTitle" class="sr-only">Title</label>
+                                        <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
+                                        <span id="sellTitlee" class="errmsg"> </span>
+                                        </br>
+                                        <label for="sellAuthor" class="sr-only">Author</label>
+                                        <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
+                                        <span id="sellAuthore" class="errmsg"> </span>
+                                        </br>
+                                        <label for="sellEdition" class="sr-only">Edition</label>
+                                        <input type="number" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
+                                        </br>
+                                        <label for="sellPublisher" class="sr-only">Publisher</label>
+                                        <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
+                                        <span id="sellPublishere" class="errmsg"> </span>
+                                        </br>
+                                        <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
+                                        <input type="file" name="sellCoverPhoto" id="sellCoverPhoto" autofocus>
+                                        </br>
+                                        <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
+                                        </br>
+                                        <button class="btn btn-block" name="next"onclick="moveForwardInfo();
+                                                return validateForm();">Next</button>
+                                        </br>
+                                    </div>
+                                    <div class="item">
+                                        <h2 class="form-signin-heading">Add price and submit!</h2>
+                                        <label for="sellPrice" class="sr-only">Price</label>
+                                        <input type="number" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
+                                        </br>
+                                        <button class="btn btn-block" name="back" onclick="moveBackward();">Back</button>
+                                        </br>
+                                        <button class="btn btn-block" name="postbook" type="submit" onclick="return validateForm();">Post Book</button>
+                                        </br>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <h2 class="form-signin-heading">Add book info</h2>
-                                    <label for="sellTitle" class="sr-only">Title</label>
-                                    <input type="text" name="sellTitle" id="sellTitle" class="form-control" placeholder="Title" required autofocus>
-                                    <span id="sellTitlee" class="errmsg"> </span>
-                                    </br>
-                                    <label for="sellAuthor" class="sr-only">Author</label>
-                                    <input type="text" name="sellAuthor" id="sellAuthor" class="form-control" placeholder="Author" required autofocus>
-                                    <span id="sellAuthore" class="errmsg"> </span>
-                                    </br>
-                                    <label for="sellEdition" class="sr-only">Edition</label>
-                                    <input type="number" name="sellEdition" id="sellEdition" class="form-control" placeholder="Edition" required autofocus>
-                                    </br>
-                                    <label for="sellPublisher" class="sr-only">Publisher</label>
-                                    <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
-                                    <span id="sellPublishere" class="errmsg"> </span>
-                                    </br>
-                                    <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
-                                    <input type="file" name="sellCoverPhoto" id="sellCoverPhoto" autofocus>
-                                    </br>
-                                    <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
-                                    </br>
-                                    <button class="btn btn-block" name="next"onclick="moveForwardInfo();return validateForm();">Next</button>
-                                </div>
-                                <div class="item">
-                                    <h2 class="form-signin-heading">Add price and submit!</h2>
-                                    <label for="sellPrice" class="sr-only">Price</label>
-                                    <input type="number" name="sellPrice" id="sellPrice" class="form-control" placeholder="Price" required autofocus>
-                                    </br>
-                                    <button class="btn btn-block" name="back" onclick="moveBackward();">Back</button>
-                                    </br>
-                                    <button class="btn btn-block" name="postbook" type="submit" onclick="return validateForm();">Post Book</button>
-                                    </br>
-                                </div>
-                            </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div align="center" class="col-md-6">
-                <form method="post" action="bbc?action=search" class="form-signin">
-                    <div class="item">
-                        <h2 class="form-signin-heading">Find Book</h2>
-                        <label for="title" class="sr-only">Title</label>
-                        <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
-                        <span id="titlee" class="errmsg"> </span>
-                        </br>
-                        <label for="author" class="sr-only">Author</label>
-                        <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
-                        <span id="authore" class="errmsg"> </span>
-                        </br>
-                        <label for="edition" class="sr-only">Edition</label>
-                        <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
-                        </br>
-                        <label for="publisher" class="sr-only">Publisher</label>
-                        <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
-                        <span id="publishere" class="errmsg"> </span>
-                        </br>
-                        <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
-                    </div>
-                </form>
+                <div id="wrapper2">
+                    <form method="post" action="bbc?action=search" class="form-signin">
+                        <div class="item">
+                            <h2 class="form-signin-heading">Find Book</h2>
+                            <label for="title" class="sr-only">Title</label>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
+                            <span id="titlee" class="errmsg"> </span>
+                            </br>
+                            <label for="author" class="sr-only">Author</label>
+                            <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
+                            <span id="authore" class="errmsg"> </span>
+                            </br>
+                            <label for="edition" class="sr-only">Edition</label>
+                            <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
+                            </br>
+                            <label for="publisher" class="sr-only">Publisher</label>
+                            <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
+                            <span id="publishere" class="errmsg"> </span>
+                            </br>
+                            <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
+                            </br>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

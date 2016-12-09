@@ -252,6 +252,7 @@ public class BBC extends HttpServlet {
             HttpServletResponse response) throws IOException, ServletException {
         String searchMessage = null;
         HttpSession session = request.getSession(true);
+        String userId = (String)session.getAttribute("userId");
 
         // get add-user request parameters
         String title = request.getParameter("title");
@@ -260,7 +261,7 @@ public class BBC extends HttpServlet {
         String publisher = request.getParameter("publisher");
 
         ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
-        ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults);
+        ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults, userId);
         session.setAttribute("bookResults", bookSaleResults);
         forwardRequest(request, response, "/results.jsp");
     }
