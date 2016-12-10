@@ -19,11 +19,19 @@
             <div id="wrapper">
                 <form method="post" action="userControl?action=checkUpdatePass" class="form-signin">
                     <h2 class="form-signin-heading">Password Recovery</h2>
-                    <label for="recoveryUserName" class="sr-only">Username</label>
-                    <input type="text" name="recoveryUserName" id="username" class="form-control" placeholder="Username" required autofocus>
+                    <label for="loginUsername" class="sr-only">Username</label>
+                    <input type="text" name="loginUsername" id="username" class="form-control" placeholder="Username" required autofocus>
                     </br>
                     <label for="recoverySQ" class="sr-only">Security Question</label>
                     <input type="text" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required>
+                    </br>
+                    </br>
+                    <h2 class="form-signin-heading">Change Password</h2>
+                    <label for="loginPassword" class="sr-only">New Password</label>
+                    <input type="password" name="loginPassword" id="password" class="form-control" placeholder="New Password" required autofocus>
+                    </br>
+                    <label for="newPasswordConfirm" class="sr-only">Confirm New Password</label>
+                    <input type="password" name="newPasswordConfirm" id="confirmPassword" class="form-control" placeholder="Confirm New Password" required>
                     </br>
                     <button class="btn btn-block" name="recover" type="submit">Change Password</button>
                     </br>

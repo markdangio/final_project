@@ -39,6 +39,16 @@ public class UserActions {
         return UserPersistence.checkUser(username, password);
     }
     
+    public static boolean checkUserSecurity(String username, String securityAns) {
+
+        return UserPersistence.checkUserSecurity(username, securityAns);
+    }
+    
+    public static boolean changePass(String username, String password) {
+
+        return UserPersistence.changePass(username, password);
+    }
+    
     public static String getUserId(String username) {
 
         return UserPersistence.getUserId(username);

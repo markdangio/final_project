@@ -44,6 +44,9 @@ public class UserControl extends HttpServlet {
         else if (action.equals("checkUpdatePass")){
             checkUserSecurity(request, response);
         }
+        else if (action.equals("updatePass")){
+            changePass(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -165,7 +168,7 @@ public class UserControl extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
-        String username = request.getParameter("recoveryUserName");
+        String username = request.getParameter("loginUsername");
         String securityAns = request.getParameter("recoverySQ");
         
 
@@ -178,11 +181,11 @@ public class UserControl extends HttpServlet {
         }else {
             
             boolean checkSecurityResult = UserActions.checkUserSecurity(username, securityAns);
-            securityMessage = checkSecurityResult ? "Reset Password" : "Cannot Reset Password" + username+ securityAns;
+            securityMessage = checkSecurityResult ? "Reset Password" : "Cannot Reset Password" + username + securityAns;
         }
         session.setAttribute("securityMessage", securityMessage);
         if(securityMessage.equals("Reset Password")){
-            forwardRequest(request, response, "/changePass.jsp");
+            changePass(request, response);
         }
         else{
             response.setContentType("text/html;charset=UTF-8");
@@ -199,6 +202,37 @@ public class UserControl extends HttpServlet {
                 out.println("</html>");
             }
 
+        }
+    }
+    
+    private void changePass(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String changeMessage = null;
+        HttpSession session = request.getSession(true);
+        
+        String username = request.getParameter("loginUsername");
+        String password = request.getParameter("loginPassword");
+        
+        boolean checkResult = UserActions.changePass(username, password);
+        changeMessage = checkResult ? "Password changed" : "Password not changed" + username + password;
+        session.setAttribute("changeMessage", changeMessage);
+        if(changeMessage.equals("Password changed")){
+            forwardRequest(request, response, "/login");
+        }
+        else{
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Results</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>" + session.getAttribute("changeMessage") + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
     }
 

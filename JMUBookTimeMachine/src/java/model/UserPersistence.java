@@ -65,13 +65,64 @@ public class UserPersistence {
         try {
             ResultSet resultCount = dbHandler.doQuery(command);
             
-            System.out.println(resultCount);
             int i = 0;
             while(resultCount.next()) {
                 i++;
             }
             dbHandler.close();
             return (i > 0);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Add a pet record.
+     *
+     * @param username The user to be added
+     * @param securityAns The user's security password
+     * @return true iff the database operation succeeded
+     */
+    
+    public static boolean checkUserSecurity(String username, String securityAns) {
+        DBHandler dbHandler = new DBHandler();
+                
+        String command = "SELECT * FROM User WHERE username = ";
+        command += "'" + username + "'";
+        command += " AND securityAns = '" + securityAns + "'";
+        try {
+            ResultSet resultCount = dbHandler.doQuery(command);
+            
+            int i = 0;
+            while(resultCount.next()) {
+                i++;
+            }
+            dbHandler.close();
+            return (i > 0);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static boolean changePass(String username, String password) {
+        DBHandler dbHandler = new DBHandler();
+        try {
+
+            String command = "UPDATE User SET password = ";
+            command += "'" + password + "'";
+            command += " WHERE username = '" + username + "'";
+            //command += " AND reserverId = NULL";
+
+            int resultCount = dbHandler.doCommand(command);
+            dbHandler.close();
+            return (resultCount > 0);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
