@@ -129,7 +129,7 @@
         }
         
         String addmessage = (String)session.getAttribute("addmessage");
-        String searchmessage = (String)session.getAttribute("addmessage");
+        String searchmessage = (String)session.getAttribute("searchmessage");
     %>
 
     <body>

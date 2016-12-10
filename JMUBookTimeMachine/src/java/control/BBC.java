@@ -283,7 +283,7 @@ public class BBC extends HttpServlet {
         String author = request.getParameter("author");
         int edition = 0;
         try{
-            edition = Integer.parseInt(request.getParameter("sellEdition"));
+            edition = Integer.parseInt(request.getParameter("edition"));
         }
         catch(NumberFormatException e){}
         
