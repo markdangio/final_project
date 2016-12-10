@@ -3,7 +3,8 @@
     Created on : Nov 30, 2016, 10:01:47 PM
     Author     : Mitch
 --%>
-
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.Properties"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -149,7 +150,7 @@
                             <h3>Profile Picture</h3>
                             <label for="avatar" class="sr-only">Profile Picture</label>
                             </br>
-                            <input type="file" name="avatar" id="avatar">
+                            <input type="file" name="file" id="file">
                             </br>
                             <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
                             </br>
