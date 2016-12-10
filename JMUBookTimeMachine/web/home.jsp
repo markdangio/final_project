@@ -127,6 +127,9 @@
     <jsp:forward page="index.jsp" />
     <%
         }
+        
+        String addmessage = (String)session.getAttribute("addmessage");
+        String searchmessage = (String)session.getAttribute("addmessage");
     %>
 
     <body>
@@ -178,7 +181,7 @@
                                         <span id="sellClassDescriptione" class="errmsg"> </span>
                                         </br>
                                         <button class="btn btn-block" name="next" onclick="moveForwardClass();
-    return validateForm();">Next</button>
+                                                return validateForm();">Next</button>
                                         </br>
                                         </form>
                                     </div>
@@ -219,37 +222,44 @@
                                         </br>
                                     </div>
                                 </div>
+                            </div>
                         </form>
+                        <%
+                            if(addmessage != null){out.println("<div class=\"wrapper\">" + addmessage + "</div></br>");}
+                        %>
+                    </div>
+                    </br>
+                </div>
+                <div align="center" class="col-md-6">
+                    <div id="wrapper2">
+                        <form method="post" action="bbc?action=search" class="form-signin">
+                            <div class="item">
+                                <h2 class="form-signin-heading">Find Book</h2>
+                                <label for="title" class="sr-only">Title</label>
+                                <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
+                                <span id="titlee" class="errmsg"> </span>
+                                </br>
+                                <label for="author" class="sr-only">Author</label>
+                                <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
+                                <span id="authore" class="errmsg"> </span>
+                                </br>
+                                <label for="edition" class="sr-only">Edition</label>
+                                <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
+                                </br>
+                                <label for="publisher" class="sr-only">Publisher</label>
+                                <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
+                                <span id="publishere" class="errmsg"> </span>
+                                </br>
+                                <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
+                                </br>
+                            </div>
+                        </form>
+                        <%
+                            if(searchmessage != null){out.println("<div class=\"wrapper\">" + searchmessage + "</div></br>");}
+                        %>
                     </div>
                 </div>
             </div>
-            <div align="center" class="col-md-6">
-                <div id="wrapper2">
-                    <form method="post" action="bbc?action=search" class="form-signin">
-                        <div class="item">
-                            <h2 class="form-signin-heading">Find Book</h2>
-                            <label for="title" class="sr-only">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
-                            <span id="titlee" class="errmsg"> </span>
-                            </br>
-                            <label for="author" class="sr-only">Author</label>
-                            <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
-                            <span id="authore" class="errmsg"> </span>
-                            </br>
-                            <label for="edition" class="sr-only">Edition</label>
-                            <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
-                            </br>
-                            <label for="publisher" class="sr-only">Publisher</label>
-                            <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
-                            <span id="publishere" class="errmsg"> </span>
-                            </br>
-                            <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
-                            </br>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

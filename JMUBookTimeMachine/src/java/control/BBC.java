@@ -64,48 +64,55 @@ public class BBC extends HttpServlet {
         classId = classId.substring(0, 16);
         String name = request.getParameter("sellClassName");
         String subject = request.getParameter("sellClassSubject");
-        int number = Integer.parseInt(request.getParameter("sellClassNumber"));
-        int section = Integer.parseInt(request.getParameter("sellClassSection"));
+        int number = 0;
+        int section = 0;
+        try{
+            number = Integer.parseInt(request.getParameter("sellClassNumber"));
+            section = Integer.parseInt(request.getParameter("sellClassSection"));
+        }
+        catch(NumberFormatException e){}
+        
         String professor = request.getParameter("sellClassProfessor");
         String description = request.getParameter("sellClassDescription");
 
-        if (name == null || subject == null || number <= 0 || section <= 0
-                || professor == null) {
-            addMessage = "Improper add class request";
+        if (name == null || subject == null || professor == null) {
+            addMessage = "No Class Field can be left empty";
         } else if (name.trim().length() == 0) {
-            addMessage = "Name field must not be blank";
+            addMessage = "Class Name field must not be blank";
         } else if (subject.trim().length() == 0) {
-            addMessage = "Subject field must not be blank";
+            addMessage = "Class Subject field must not be blank";
         } else if (number <= 0) {
-            addMessage = "Number must be greater than zero";
-        } else if (number <= 0) {
-            addMessage = "Section must be greater than zero";
+            addMessage = "Class Number must be greater than zero";
+        } else if (section <= 0) {
+            addMessage = "Class Section must be greater than zero";
         } else if (professor.trim().length() == 0) {
-            addMessage = "Professor field must not be blank";
+            addMessage = "Class Professor field must not be blank";
         } else {
             // execute add transaction
             boolean addResult = ClassesActions.addClass(classId, name, subject, number, section, professor, description);
-            addMessage = addResult ? "New class added" : "Class add failed";
+            addMessage = addResult ? "New class added" : "Class was not added successfully";
         }
-        session.setAttribute("addmessage", addMessage);
+        
         if(addMessage.equals("New class added")){
             session.setAttribute("classId", classId);
             handleBookCheck(request, response);
         }
         else{
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("addmessage", addMessage);
+            forwardRequest(request, response, "/home.jsp");
+//            response.setContentType("text/html;charset=UTF-8");
+//            try (PrintWriter out = response.getWriter()) {
+//                /* TODO output your page here. You may use following sample code. */
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Results</title>");            
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
+//                out.println("</body>");
+//                out.println("</html>");
+//            }
 
         }
     }
@@ -120,8 +127,13 @@ public class BBC extends HttpServlet {
 
         String name = request.getParameter("sellClassName");
         String subject = request.getParameter("sellClassSubject");
-        int number = Integer.parseInt(request.getParameter("sellClassNumber"));
-        int section = Integer.parseInt(request.getParameter("sellClassSection"));
+        int number = 0;
+        int section = 0;
+        try{
+            number = Integer.parseInt(request.getParameter("sellClassNumber"));
+            section = Integer.parseInt(request.getParameter("sellClassSection"));
+        }
+        catch(NumberFormatException e){}
         String professor = request.getParameter("sellClassProfessor");
         String description = request.getParameter("sellClassDescription");
 
@@ -168,43 +180,50 @@ public class BBC extends HttpServlet {
         bookId = bookId.substring(0, 16);
         String title = request.getParameter("sellTitle");
         String author = request.getParameter("sellAuthor");
-        int edition = Integer.parseInt(request.getParameter("sellEdition"));
+        int edition = 0;
+        try{
+            edition = Integer.parseInt(request.getParameter("sellEdition"));
+        }
+        catch(NumberFormatException e){}
+        
         String publisher = request.getParameter("sellPublisher");
         String coverPhoto = request.getParameter("sellCoverPhoto");
 
         if (title == null || author == null || edition <= 0 || publisher == null) {
-            addMessage = "Improper add user request: " + title + author + edition + publisher;
+            addMessage = "No Book field can be left empty";
         } else if (title.trim().length() == 0) {
-            addMessage = "Userame field must not be blank";
+            addMessage = "Book Title field must not be blank";
         } else if (author.trim().length() == 0) {
-            addMessage = "Password field must not be blank";
+            addMessage = "Book Author field must not be blank";
         } else if (edition <= 0) {
-            addMessage = "Edition field must not be less than one";
+            addMessage = "Book Edition field must not be less than one";
         } else {
             // execute add transaction
             String classId = (String)session.getAttribute("classId");
             boolean addResult = BooksActions.addBook(bookId, title, author, edition, publisher, coverPhoto, classId);
-            addMessage = addResult ? "New book added" : "Book add failed" + bookId + title + author + edition + publisher + coverPhoto + classId;
+            addMessage = addResult ? "New book added" : "Book was not added successfully";
         }
-        session.setAttribute("addmessage", addMessage);
+        
         if(addMessage.equals("New book added")){
             session.setAttribute("bookId", bookId);
             handleBook_For_SaleAdd(request, response);
         }
         else{
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("addmessage", addMessage);
+            forwardRequest(request, response, "/home.jsp");
+//            response.setContentType("text/html;charset=UTF-8");
+//            try (PrintWriter out = response.getWriter()) {
+//                /* TODO output your page here. You may use following sample code. */
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Results</title>");            
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
+//                out.println("</body>");
+//                out.println("</html>");
+//            }
 
         }
     }
@@ -220,18 +239,23 @@ public class BBC extends HttpServlet {
         // get add-user request parameters
         String title = request.getParameter("sellTitle");
         String author = request.getParameter("sellAuthor");
-        int edition = Integer.parseInt(request.getParameter("sellEdition"));
+        int edition = 0;
+        try{
+            edition = Integer.parseInt(request.getParameter("sellEdition"));
+        }
+        catch(NumberFormatException e){}
+        
         String publisher = request.getParameter("sellPublisher");
         String coverPhoto = request.getParameter("sellCoverPhoto");
 
-        if (title == null || author == null || edition <= 0 || publisher == null) {
-            checkMessage = "Improper add user request: " + title + author + edition + publisher;
+        if (title == null || author == null || publisher == null) {
+            checkMessage = "Improper check book request: " + title + author + edition + publisher;
         } else if (title.trim().length() == 0) {
-            checkMessage = "Userame field must not be blank";
+            checkMessage = "Book Title field must not be blank";
         } else if (author.trim().length() == 0) {
-            checkMessage = "Password field must not be blank";
+            checkMessage = "Book Author field must not be blank";
         } else if (edition <= 0) {
-            checkMessage = "Edition field must not be less than one";
+            checkMessage = "Book Edition field must not be less than one";
         } else {
             // execute add transaction
             boolean checkResult = BooksActions.checkBook(title, author, edition, publisher);
@@ -250,20 +274,45 @@ public class BBC extends HttpServlet {
     
     private void handleBookSearch(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        String searchMessage = null;
+        String searchmessage = null;
         HttpSession session = request.getSession(true);
         String userId = (String)session.getAttribute("userId");
 
         // get add-user request parameters
         String title = request.getParameter("title");
         String author = request.getParameter("author");
-        int edition = Integer.parseInt(request.getParameter("edition"));
+        int edition = 0;
+        try{
+            edition = Integer.parseInt(request.getParameter("sellEdition"));
+        }
+        catch(NumberFormatException e){}
+        
         String publisher = request.getParameter("publisher");
-
-        ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
-        ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults, userId);
-        session.setAttribute("bookResults", bookSaleResults);
-        forwardRequest(request, response, "/results.jsp");
+        
+        if (title == null || author == null || publisher == null) {
+            searchmessage = "Improper check book request: " + title + author + edition + publisher;
+        } else if (title.trim().length() == 0) {
+            searchmessage = "Book Title field must not be blank";
+        } else if (author.trim().length() == 0) {
+            searchmessage = "Book Author field must not be blank";
+        } else if (edition <= 0) {
+            searchmessage = "Book Edition field must not be less than one";
+        } else {
+            // execute add transaction
+            ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
+            ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults, userId);
+            session.setAttribute("bookResults", bookSaleResults);
+            
+            searchmessage = "Book search complete";
+        }
+        
+        if(searchmessage.equals("Book search complete")){
+            forwardRequest(request, response, "/results.jsp");
+        }
+        else{
+            session.setAttribute("searchmessage", searchmessage);
+            forwardRequest(request, response, "/home.jsp");
+        }
     }
     
     private void handleBookReserve(HttpServletRequest request,
@@ -312,12 +361,18 @@ public class BBC extends HttpServlet {
         Date today = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String postedDate = sdf.format(today);
+        int edition = 0;
+        try{
+            edition = Integer.parseInt(request.getParameter("sellEdition"));
+        }
+        catch(NumberFormatException e){}
+        
         double price = Double.parseDouble(request.getParameter("sellPrice"));
         int sold = 0;
         String reserverId = null;
 
         if (price <= 0) {
-            addMessage = "Improper add books_for_sale request: " + price;
+            addMessage = "Book Price cannot be below zero";
         } else {
             // execute add transaction
             
@@ -325,26 +380,28 @@ public class BBC extends HttpServlet {
             String bookId = (String)session.getAttribute("bookId");
             
             boolean addResult = Books_For_SaleActions.addBooks_For_Sale(sellerId, bookId, saleId, postedDate, price, sold, reserverId);
-            addMessage = addResult ? "New books_for_sale added" : "Books_for_sale add failed " + sellerId + bookId + saleId + postedDate + price + sold + reserverId;
+            addMessage = addResult ? "New books_for_sale added" : "Book was not posted for sale successfully";
         }
-        session.setAttribute("addmessage", addMessage);
+        
         if(addMessage.equals("New books_for_sale added")){
             forwardRequest(request, response, "/profile.jsp");
         }
         else{
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("addmessage", addMessage);
+            forwardRequest(request, response, "/home.jsp");
+//            response.setContentType("text/html;charset=UTF-8");
+//            try (PrintWriter out = response.getWriter()) {
+//                /* TODO output your page here. You may use following sample code. */
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Results</title>");            
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
+//                out.println("</body>");
+//                out.println("</html>");
+//            }
 
         }
     }
