@@ -104,7 +104,7 @@
             <div class="row">
                 <div align="center" class="col-md-6" >
                     <div id="wrapper">
-                        <form method="post" action="userControl?action=signup" class="form-signin" onsubmit="return validateForm()">
+                        <form method="post" action="userControl?action=signup" class="form-signin" onsubmit="return validateForm()" enctype="multipart/form-data">
                             <h2 class="form-signin-heading">Sign Up!</h2>
                             <p>
                                 <label for="firstname" class="sr-only">First Name</label>
