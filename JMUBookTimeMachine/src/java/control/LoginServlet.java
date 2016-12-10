@@ -6,6 +6,9 @@
 package control;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 //import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,6 +39,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("loginUsername");
         String password = request.getParameter("loginPassword");
+        password = hashPassword(password);
 
         if (UserActions.checkUser(username, password)) {
             loginUser(request, response, username, password);
@@ -63,6 +67,21 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
                 forwardUrl);
         dispatcher.forward(request, response);
+    }
+    
+    private static String hashPassword(String password) {
+
+        String digest;
+        try {
+            MessageDigest md = MessageDigest.getInstance("md5");
+            md.reset();
+            byte[] bytes = md.digest(password.getBytes());
+            digest = new BigInteger(1, bytes).toString(16);
+        } catch (NoSuchAlgorithmException nsae) {
+            nsae.printStackTrace();
+            digest = null;
+        }
+        return digest;
     }
 
 }

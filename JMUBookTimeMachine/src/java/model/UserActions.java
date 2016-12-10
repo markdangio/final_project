@@ -27,10 +27,10 @@ public class UserActions {
      * @param birthday The user's birth data in the format YYY-MM-DD
      * @param securityAns The users answer to the security question
      */
-    public static boolean addUser(String userId, String password, String firstname, String lastname, String email,
-            String avatar, String birthday, String username, String securityAns) {
+    public static boolean addUser(String userId, String firstname, String lastname, String email,
+            String avatar, String birthday, String username, String securityAns, String password) {
 
-        User newUser = new User(userId, password, firstname, lastname, email, avatar, birthday, username, securityAns);
+        User newUser = new User(userId, firstname, lastname, email, avatar, birthday, username, securityAns, password);
         return UserPersistence.addUser(newUser);
     }
     

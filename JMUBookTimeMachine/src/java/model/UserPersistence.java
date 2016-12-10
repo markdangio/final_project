@@ -25,7 +25,7 @@ public class UserPersistence {
         
         String command = "INSERT INTO User VALUES(";
         command += "'" + user.getUserId() + "'";
-        command += ", '" + user.getPassword() + "'";
+        
         command += ", '" + user.getFirstName() + "'";
         command += ", '" + user.getLastName() + "'";
         command += ", '" + user.getEmail() + "'";
@@ -37,6 +37,7 @@ public class UserPersistence {
         command += ", '" + user.getBirthday() + "'";
         command += ", '" + user.getUsername() + "'";
         command += ", '" + user.getSecurityAnswer() + "'";
+        command += ", '" + user.getPassword() + "'";
         command += ")";
 
         try {
@@ -190,8 +191,7 @@ public class UserPersistence {
             while (rs.next()) {
                 int i = 1; // 1st column
                 String userIdU = rs.getString(i++);
-                String password = "";
-                i++;
+                
                 String firstName = rs.getString(i++);
                 String lastName = rs.getString(i++);
                 String email = rs.getString(i++);
@@ -199,7 +199,10 @@ public class UserPersistence {
                 String birthday =rs.getString(i++);
                 String username = rs.getString(i++);
                 String securityAns = "";
-                result = new User(userIdU, password, firstName, lastName, email, avatar, birthday, username, securityAns);
+                i++;
+                String password = "";
+                i++;
+                result = new User(userIdU, firstName, lastName, email, avatar, birthday, username, securityAns, password);
             }
 
             dbHandler.close();

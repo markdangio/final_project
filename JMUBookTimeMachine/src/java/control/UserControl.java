@@ -12,6 +12,9 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import model.*;
+
 @MultipartConfig
 /**
  *
@@ -42,7 +46,6 @@ public class UserControl extends HttpServlet {
      * @param request The HTTP request object
      * @param response The HTTP resonse object
      */
-
     @Override
     public void service(HttpServletRequest request,
             HttpServletResponse response) throws IOException,
@@ -70,8 +73,7 @@ public class UserControl extends HttpServlet {
      *
      * @Override protected void doGet(HttpServletRequest request,
      * HttpServletResponse response) throws ServletException, IOException {
-     * processRequest(request, response);
-    }
+     * processRequest(request, response); }
      */
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -112,9 +114,7 @@ public class UserControl extends HttpServlet {
                 || !fileName.endsWith(".png") || !fileName.endsWith(".gif")) {
             //alert maybe?;
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
@@ -132,6 +132,7 @@ public class UserControl extends HttpServlet {
         String userId = "";
         String username = request.getParameter("signUpUsername");
         String password = request.getParameter("signUpPassword");
+        password = hashPassword(password);
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
@@ -149,11 +150,11 @@ public class UserControl extends HttpServlet {
 
         final Part filePart = request.getPart("file");
         final String fileName = getFileName(filePart);
-        
-        avatar = "/images/" + fileName; 
+
+        avatar = "/images/" + fileName;
         if (checkFile(fileName)) {
             try {
-            //out = new FileOutputStream(new File(path + File.separator
+                //out = new FileOutputStream(new File(path + File.separator
                 //       + userName + "-" + fileName));
                 filecontent = filePart.getInputStream();
 
@@ -205,7 +206,7 @@ public class UserControl extends HttpServlet {
             userId = UUID.randomUUID().toString();
             userId = userId.replace("-", "");
             userId = userId.substring(0, 16);
-            boolean addResult = UserActions.addUser(userId, password, firstname, lastname, email, avatar, birthday, username, securityAns);
+            boolean addResult = UserActions.addUser(userId, firstname, lastname, email, avatar, birthday, username, securityAns, password);
             addMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
         }
         session.setAttribute("addmessage", addMessage);
@@ -283,6 +284,7 @@ public class UserControl extends HttpServlet {
 
         String username = request.getParameter("loginUsername");
         String password = request.getParameter("loginPassword");
+        password = hashPassword(password);
 
         boolean checkResult = UserActions.changePass(username, password);
         changeMessage = checkResult ? "Password changed" : "Password not changed" + username + password;
@@ -315,6 +317,21 @@ public class UserControl extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
                 forwardUrl);
         dispatcher.forward(request, response);
+    }
+
+    private static String hashPassword(String password) {
+
+        String digest;
+        try {
+            MessageDigest md = MessageDigest.getInstance("md5");
+            md.reset();
+            byte[] bytes = md.digest(password.getBytes());
+            digest = new BigInteger(1, bytes).toString(16);
+        } catch (NoSuchAlgorithmException nsae) {
+            nsae.printStackTrace();
+            digest = null;
+        }
+        return digest;
     }
 
 }
