@@ -239,10 +239,10 @@ public class BBC extends HttpServlet {
         InputStream filecontent = null;
         OutputStream out = null;
 
-        //String tomcatBase = System.getProperty("catalina.home");
+        String tomcatBase = System.getProperty("catalina.home");
         //where the image will be saved
-        String path = "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
-        //= tomcatBase + "/webapps/uploader/images";
+        String path = tomcatBase + "/webapps/uploader/images";
+        //= "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
 
         Part filePart = request.getPart("file");
         String fileName = getFileName(filePart);
@@ -384,19 +384,8 @@ public class BBC extends HttpServlet {
         catch(NumberFormatException e){}
         
         String publisher = request.getParameter("publisher");
-        /*
-        String className = request.getParameter("className");
-        String classSubject = request.getParameter("classSubject");
-        int classNumber = 0;
-        int classSection = 0;
-        try{
-            classNumber = Integer.parseInt(request.getParameter("classNumber"));
-            classSection = Integer.parseInt(request.getParameter("classSection"));
-        }
-        catch(NumberFormatException e) {}
         
-        String classProfessor = request.getParameter("classclassProfessor");
-        */
+        
         if (title == null || author == null || publisher == null) { // || className == null || classSubject == null || classProfessor == null) {
             searchmessage = "Improper check book request: " + title + author + edition + publisher;
         } else if (title.trim().length() == 0) {
@@ -407,17 +396,7 @@ public class BBC extends HttpServlet {
             searchmessage = "Book Edition field must not be less than one";
         } else if (publisher.trim().length() == 0) {
             searchmessage = "Book Publisher field must not be blank";
-        }/*else if (className.trim().length() == 0) {
-            searchmessage = "Class Name field must not be blank";
-        } else if (classSubject.trim().length() == 0) {
-            searchmessage = "Class Subject field must not be blank";
-        }else if (classNumber <= 0) {
-            searchmessage = "Class Number field must not be less than one";
-        }else if (classSection <= 0) {
-            searchmessage = "Class Section field must not be less than one";
-        }else if (classProfessor.trim().length() == 0) {
-            searchmessage = "Class Professir field must not be blank";
-        }*/else {
+        } else {
             // execute add transaction
             ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
             ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults, userId);

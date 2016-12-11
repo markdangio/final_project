@@ -125,10 +125,10 @@ public class UserControl extends HttpServlet {
         InputStream filecontent = null;
         OutputStream out = null;
 
-        //String tomcatBase = System.getProperty("catalina.home");
+        String tomcatBase = System.getProperty("catalina.home");
         //where the image will be saved
-        String path = "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
-        //= tomcatBase + "/webapps/uploader/images";
+        String path = tomcatBase + "/webapps/uploader/images";
+        //= "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
 
         Part filePart = request.getPart("file");
         String fileName = getFileName(filePart);
