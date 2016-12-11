@@ -62,21 +62,18 @@
                 <div align="center" class="col-md-8">
                     <div class="list-group">
                         <%
+                            int i = 0;
                             while (it.hasNext()) {
+                                i++;
                                 User messagesUser = it.next();
                                 out.println("<a href=\"/messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
                                 out.println(messagesUser.getFirstName() + " " + messagesUser.getLastName());
                                 out.println("</a>");
                             }
+                            if(i == 0){
+                                out.println("<p>You have no messages.</p>");
+                            }
                         %>
-                    </div>
-                    <!-- <form method="post" action="control?action=signup" class="form-signin"> -->
-                    <div class="messages">
-                        <h2 class="form-signin-heading">Messages</h2>
-                        <label for="sellAuthor" class="sr-only">Message</label>
-                        </br>
-                        <input type = "text" name="message" id="message" class="form-control" placeholder="Message" required autofocus/> 
-                        <button class="btn btn-block" name="addMsg" type="submit">Send Message</button>
                     </div>
                 </div>
                 <div class="col-md-2"></div>

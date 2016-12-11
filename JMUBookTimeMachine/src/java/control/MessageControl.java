@@ -123,9 +123,8 @@ public class MessageControl extends HttpServlet {
         // get add-user request parameters
         String fromUserId = (String)session.getAttribute("userId");
         String toUserId = request.getParameter("toUserId");
-        
-        ArrayList<User> userResults = MessageActions.showAllUsersMessage(toUserId, fromUserId);
-        session.setAttribute("userResults", userResults);
+        ArrayList<User> messagesUsers = MessageActions.showAllUsersMessage(toUserId, fromUserId);
+        session.setAttribute("messagesUsers", messagesUsers);
         
         forwardRequest(request, response, "/messages.jsp");
     }
@@ -140,7 +139,7 @@ public class MessageControl extends HttpServlet {
 
         // get add-user request parameters
         String fromUserId = (String)session.getAttribute("userId");
-        String toUserId = request.getParameter("toUserId");
+        String toUserId = (String)session.getAttribute("toUserId");
         String content = request.getParameter("content");
         Date today = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -155,7 +154,7 @@ public class MessageControl extends HttpServlet {
             messageId = messageId.substring(0, 16);
             
             boolean addResult = MessageActions.addMessage(messageId, toUserId, fromUserId, content, timeSent);
-            addMessage = addResult ? "New message added" : "Message add failed";
+            addMessage = addResult ? "New message added" : "Message add failed" + messageId + toUserId + fromUserId + content + timeSent;
         }
         session.setAttribute("addmessage", addMessage);
         if(addMessage.equals("New message added")){

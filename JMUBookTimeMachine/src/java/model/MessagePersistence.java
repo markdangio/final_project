@@ -36,7 +36,7 @@ public class MessagePersistence {
             command += ", '" + message.getToUserId() + "'";
             command += ", '" + message.getFromUserId() + "'";
             command += ", '" + message.getContent() + "'";
-            command += ", '" + message.getTimeSent() + "'";
+            command += ", '" + message.getTimeSent() + "')";
             
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();
@@ -57,7 +57,7 @@ public class MessagePersistence {
 
         String myUserId = fromUserId;
         
-        String command = "SELECT * FROM Messages WHERE (";
+        String command = "SELECT * FROM Message WHERE (";
         command += "toUserId = '" + toUserId + "'";
         command += " AND fromUserId = '" + fromUserId + "') OR";
         command += "(toUserId = '" + fromUserId + "'";
@@ -103,7 +103,7 @@ public class MessagePersistence {
     public static ArrayList<Message> getMessages(String toUserId, String fromUserId) {
         ArrayList<Message> result = new ArrayList<Message>();
         
-        String command = "SELECT * FROM Messages WHERE (";
+        String command = "SELECT * FROM Message WHERE (";
         command += "toUserId = '" + toUserId + "'";
         command += " AND fromUserId = '" + fromUserId + "') OR";
         command += "(toUserId = '" + fromUserId + "'";

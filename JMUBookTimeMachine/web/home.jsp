@@ -139,7 +139,7 @@
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
                             <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="/messageControl?action=showMessages">Messages</a></li>
+                            <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">

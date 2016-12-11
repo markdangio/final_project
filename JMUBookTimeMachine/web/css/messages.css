@@ -74,3 +74,11 @@ div.container{
     width:2em;
     height:2em;
 }
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}

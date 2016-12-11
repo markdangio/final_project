@@ -59,13 +59,20 @@
             </div>
             <div class="row">
                 <div class="col-md-2"></div>
+                
                 <div align="center" class="col-md-8">
                     <h2 class="form-signin-heading">Messages</h2>
-                    <div class="row messages">
+                    <div class="row messages" id="wrapper">
                         <%
+                            out.println("<p>HI</p>");
                             while (it.hasNext()) {
                                 Message message = it.next();
-                                out.println("<p>" + message.getContent() + "</p>");
+                                if(message.getFromUserId().equals(userId)){
+                                    out.println("<p class=\"right\">" + message.getContent() + "</p>");
+                                }
+                                else{
+                                    out.println("<p class=\"left\">" + message.getContent() + "</p>");
+                                }
                                 out.println("</br>");
                             }
                         %>

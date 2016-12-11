@@ -114,7 +114,7 @@
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         out.println("<td>$" + book.getSold() + "</td>");
-                                        if (book.getReserverId() != null) {
+                                        if (!book.getReserverId().equals("null")) {
                                             out.println("<td><a href=\"messagesControl?action=create&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
                                         } else {
                                             out.println("<td></td>");
