@@ -23,6 +23,8 @@ body {
 }
 #propic{
     border-radius: 50%;
+    width: 100px;
+    height: 100px;
 }
 div.container{
     width: 100%;

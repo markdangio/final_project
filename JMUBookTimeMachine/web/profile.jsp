@@ -32,9 +32,22 @@
         }
 
         String userId = (String) session.getAttribute("userId");
+        System.out.println(userId);
         User u = UserActions.getUser(userId);
+        String imageSrc;
         
-        String imageSrc = (String) session.getAttribute("avatar");
+        if(u.getAvatar() == null || u.getAvatar().equals(""))
+        {
+            imageSrc = "";
+            System.out.println("lol its null or empty ya dick");
+        }
+        else
+        {
+            
+            imageSrc = u.getAvatar();
+            System.out.println("...uhshouldbegoodbro");
+            System.out.println(imageSrc);
+        }
 
         ArrayList<BookInfo> books = Books_For_SaleActions.searchBook_For_SaleSelling(userId);
         Iterator<BookInfo> it = books.iterator();
@@ -62,7 +75,7 @@
                 <div class="wrapper">
                     <div class="col-md-4">
                         <ul class="list-group">
-                            <li class="list-group-item" id="profile_image"><img class="profile_pic" id="propic" src="<%out.print(imageSrc);%>" alt="profile_image"></li>
+                            <li class="list-group-item" id="profile_image"><img class="profile_pic" id="propic" src="<%out.println(imageSrc);%>" alt="profile_image"></li>
                             <li class="list-group-item">
                                 Name: 
                                 <%
