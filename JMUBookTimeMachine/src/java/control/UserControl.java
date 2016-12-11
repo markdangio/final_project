@@ -213,7 +213,8 @@ public class UserControl extends HttpServlet {
         if (addUserMessage.equals("New user added")) {
             session.setAttribute("addUserMessage", null);
             session.setAttribute("loggedIn", true);
-            session.setAttribute("userId", userId);
+            User userObj = UserActions.getUser(userId);
+            session.setAttribute("userObj", userObj);
             forwardRequest(request, response, "/home.jsp");
         } else {
             session.setAttribute("addUserMessage", addUserMessage);
