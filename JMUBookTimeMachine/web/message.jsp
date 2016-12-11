@@ -48,7 +48,7 @@
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
                             <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="messages.jsp">Messages</a></li>
+                            <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -64,7 +64,6 @@
                     <h2 class="form-signin-heading">Messages</h2>
                     <div class="row messages" id="wrapper">
                         <%
-                            out.println("<p>HI</p>");
                             while (it.hasNext()) {
                                 Message message = it.next();
                                 if(message.getFromUserId().equals(userId)){
@@ -77,6 +76,7 @@
                             }
                         %>
                     </div>
+                    </br>
                     <form method="post" action="messageControl?action=create" class="form-signin">
                         <input type = "text" name="content" id="message" class="form-control" placeholder="Message" required autofocus/> 
                         <button class="btn btn-block" name="addMsg" type="submit">Send Message</button>

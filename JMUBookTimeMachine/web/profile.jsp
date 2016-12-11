@@ -32,22 +32,9 @@
         }
 
         String userId = (String) session.getAttribute("userId");
-        System.out.println(userId);
         User u = UserActions.getUser(userId);
-        String imageSrc;
         
-        if(u.getAvatar() == null || u.getAvatar().equals(""))
-        {
-            imageSrc = "";
-            System.out.println("lol its null or empty ya dick");
-        }
-        else
-        {
-            
-            imageSrc = u.getAvatar();
-            System.out.println("...uhshouldbegoodbro");
-            System.out.println(imageSrc);
-        }
+        String imageSrc = (String) session.getAttribute("avatar");
 
         ArrayList<BookInfo> books = Books_For_SaleActions.searchBook_For_SaleSelling(userId);
         Iterator<BookInfo> it = books.iterator();
@@ -62,7 +49,7 @@
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
                             <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="messages.jsp">Messages</a></li>
+                            <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -73,9 +60,9 @@
             </div>
             <div class="row">
                 <div class="wrapper">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <ul class="list-group">
-                            <li class="list-group-item" id="profile_image"><img class="profile_pic" id="propic" src="<%out.println(imageSrc);%>" alt="profile_image"></li>
+                            <li class="list-group-item" id="profile_image"><img class="profile_pic" id="propic" src="<%out.print(imageSrc);%>" alt="profile_image"></li>
                             <li class="list-group-item">
                                 Name: 
                                 <%
@@ -103,7 +90,7 @@
                         </ul>
                     </div>
                 </div>
-                <div align="center" class="col-md-4" id="books_selling">
+                <div align="center" class="col-md-6" id="books_selling">
                     <div class="panel panel-default">
                         <div class=panel-heading>Books Selling</div>
                         <table class=table> 

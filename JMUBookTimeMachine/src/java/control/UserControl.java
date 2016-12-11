@@ -6,7 +6,6 @@
 package control;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -111,11 +110,12 @@ public class UserControl extends HttpServlet {
     }
 
     private boolean checkFile(String fileName) {
-        String ext = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
-        if (ext.equals("jpg") || ext.equals("jpeg") || ext.equals("png") || ext.equals("gif")) {
-            return true;
-        } else {
+        if (!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg")
+                || !fileName.endsWith(".png") || !fileName.endsWith(".gif")) {
+            //alert maybe?;
             return false;
+        } else {
+            return true;
         }
     }
     /*
@@ -142,57 +142,48 @@ public class UserControl extends HttpServlet {
 
         InputStream filecontent = null;
         OutputStream out = null;
-
         //String tomcatBase = System.getProperty("catalina.home");
+
         //where the image will be saved
-        String path = "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
+        final String path = "/Users/dangiomr/NetBeansProjects/final_project/web/images";
         //= tomcatBase + "/webapps/uploader/images";
 
-        Part filePart = request.getPart("file");
-        String fileName = getFileName(filePart);
+        final Part filePart = request.getPart("file");
+        final String fileName = getFileName(filePart);
 
-        if (fileName == null || fileName.equals("") || filePart == null) {
-            avatar = "";
-        } 
-        else if (checkFile(fileName)) {
-            {
-                avatar = "images/" + username + "-" + fileName;
+        avatar = "/images/" + fileName;
+        if (checkFile(fileName)) {
+            try {
+                //out = new FileOutputStream(new File(path + File.separator
+                //       + userName + "-" + fileName));
+                filecontent = filePart.getInputStream();
 
-                try {
-                    out = new FileOutputStream(new File(path + "/" + username + "-" +fileName));
-                    filecontent = filePart.getInputStream();
+                int read = 0;
+                int size = 0;
+                final byte[] bytes = new byte[1024];
 
-                    int read = 0;
-                    int size = 0;
-                    final byte[] bytes = new byte[1024];
+                while ((read = filecontent.read(bytes)) != -1) {
+                    size += read;
+                    out.write(bytes, 0, read);
+                }
+                LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+                        new Object[]{fileName, path});
 
-                    while ((read = filecontent.read(bytes)) != -1) {
-                        size += read;
-                        out.write(bytes, 0, read);
-                    }
-                    LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
-                            new Object[]{fileName, path});
+            } catch (FileNotFoundException fne) {
 
-                } catch (FileNotFoundException fne) {
+                LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+                        new Object[]{fne.getMessage()});
 
-                    LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
-                            new Object[]{fne.getMessage()});
-
-                } finally {
-                    if (out != null) {
-                        out.close();
-                    }
-                    if (filecontent != null) {
-                        filecontent.close();
-                    }
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+                if (filecontent != null) {
+                    filecontent.close();
                 }
             }
         }
-        else
-        {
-            avatar = "";
-        }
-        System.out.println(avatar);
+
         if (username == null || password == null || firstname == null || lastname == null
                 || email == null || birthday == null || securityAns == null) {
             addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
@@ -220,6 +211,7 @@ public class UserControl extends HttpServlet {
         }
         session.setAttribute("addmessage", addMessage);
         if (addMessage.equals("New user added")) {
+            
             session.setAttribute("loggedIn", true);
             session.setAttribute("userId", userId);
             forwardRequest(request, response, "/home.jsp");

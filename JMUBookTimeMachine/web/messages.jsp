@@ -48,7 +48,7 @@
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
                             <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="messages.jsp">Messages</a></li>
+                            <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -66,7 +66,7 @@
                             while (it.hasNext()) {
                                 i++;
                                 User messagesUser = it.next();
-                                out.println("<a href=\"/messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
+                                out.println("<a href=\"messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
                                 out.println(messagesUser.getFirstName() + " " + messagesUser.getLastName());
                                 out.println("</a>");
                             }

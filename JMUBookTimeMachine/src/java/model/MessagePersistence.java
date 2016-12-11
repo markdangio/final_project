@@ -9,6 +9,8 @@ package model;
 import java.util.UUID;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -25,10 +27,10 @@ public class MessagePersistence {
      */
     public static boolean addMessage(Message message) {//, User toUser, User fromUser) {
         DBHandler dbHandler = new DBHandler();
-        
+
         try {
             String messageid = UUID.randomUUID().toString();
-            messageid = messageid.replace("-","");
+            messageid = messageid.replace("-", "");
             messageid = messageid.substring(0, 16);
 
             String command = "INSERT INTO Message VALUES(";
@@ -37,7 +39,7 @@ public class MessagePersistence {
             command += ", '" + message.getFromUserId() + "'";
             command += ", '" + message.getContent() + "'";
             command += ", '" + message.getTimeSent() + "')";
-            
+
             int resultCount = dbHandler.doCommand(command);
             dbHandler.close();
             return (resultCount > 0);
@@ -46,22 +48,19 @@ public class MessagePersistence {
             return false;
         }
     }
-    
+
     /**
      * Returns an ArrayList of all Pet objects.
      *
      * @return an ArrayList of all Pet objects
      */
-    public static ArrayList<User> showAllUsersMessage(String toUserId, String fromUserId) {
+    public static ArrayList<User> showAllUsersMessage(String userId) {
         ArrayList<User> result = new ArrayList<User>();
+        ArrayList<String> users = new ArrayList<String>();
 
-        String myUserId = fromUserId;
-        
-        String command = "SELECT * FROM Message WHERE (";
-        command += "toUserId = '" + toUserId + "'";
-        command += " AND fromUserId = '" + fromUserId + "') OR";
-        command += "(toUserId = '" + fromUserId + "'";
-        command += " AND fromUserId = '" + toUserId + "')";
+        String command = "SELECT * FROM Message WHERE ";
+        command += "toUserId = '" + userId + "'";
+        command += " OR fromUserId = '" + userId + "'";
 
         // open a connection to the database and a Statement object
         try {
@@ -75,16 +74,21 @@ public class MessagePersistence {
                 String fromUserIdM = rs.getString(i++);
                 String content = rs.getString(i++);
                 String timeSent = rs.getString(i++);
-                
+
                 User user;
-                if(toUserIdM.equals(myUserId)){
+                String id;
+                if (toUserIdM.equals(userId)) {
                     user = UserActions.getUser(fromUserIdM);
-                }
-                else{
+                    id = toUserIdM;
+                } else {
                     user = UserActions.getUser(toUserIdM);
+                    id = fromUserIdM;
                 }
-                
-                result.add(user);
+
+                if (!users.contains(id)) {
+                    users.add(id);
+                    result.add(user);
+                }
             }
 
             dbHandler.close();
@@ -105,7 +109,7 @@ public class MessagePersistence {
         
         String command = "SELECT * FROM Message WHERE (";
         command += "toUserId = '" + toUserId + "'";
-        command += " AND fromUserId = '" + fromUserId + "') OR";
+        command += " AND fromUserId = '" + fromUserId + "') OR ";
         command += "(toUserId = '" + fromUserId + "'";
         command += " AND fromUserId = '" + toUserId + "')";
 
@@ -132,6 +136,13 @@ public class MessagePersistence {
             ex.printStackTrace();
         }
         // return the result
+        
+        Collections.sort(result, new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+                return o1.getTimeSent().compareTo(o2.getTimeSent());
+            }
+        });
         return result;
     }
     

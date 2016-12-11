@@ -19,8 +19,8 @@ public class MessageActions {
         return MessagePersistence.addMessage(newMessage);
     }
     
-    public static ArrayList<User> showAllUsersMessage(String toUserId, String fromUserId) {
-        return MessagePersistence.showAllUsersMessage(toUserId, fromUserId);
+    public static ArrayList<User> showAllUsersMessage(String userId) {
+        return MessagePersistence.showAllUsersMessage(userId);
     }
     
     public static ArrayList<Message> getMessages(String toUserId, String fromUserId) {

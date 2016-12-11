@@ -99,7 +99,6 @@ public class MessageControl extends HttpServlet {
      */
     private void showMessages(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        String addMessage = null;
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -121,9 +120,8 @@ public class MessageControl extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
-        String fromUserId = (String)session.getAttribute("userId");
-        String toUserId = request.getParameter("toUserId");
-        ArrayList<User> messagesUsers = MessageActions.showAllUsersMessage(toUserId, fromUserId);
+        String userId = (String)session.getAttribute("userId");
+        ArrayList<User> messagesUsers = MessageActions.showAllUsersMessage(userId);
         session.setAttribute("messagesUsers", messagesUsers);
         
         forwardRequest(request, response, "/messages.jsp");
