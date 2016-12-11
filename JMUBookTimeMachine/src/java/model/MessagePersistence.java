@@ -25,7 +25,7 @@ public class MessagePersistence {
      * @param message The message to be added
      * @return true iff the database operation succeeded
      */
-    public static boolean addMessage(Message message) {//, User toUser, User fromUser) {
+    public static boolean addMessage(Message message) {
         DBHandler dbHandler = new DBHandler();
 
         try {
@@ -50,9 +50,10 @@ public class MessagePersistence {
     }
 
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of User objects.
      *
-     * @return an ArrayList of all Pet objects
+     * @param userId user's id
+     * @return an ArrayList of User objects
      */
     public static ArrayList<User> showAllUsersMessage(String userId) {
         ArrayList<User> result = new ArrayList<User>();
@@ -100,9 +101,11 @@ public class MessagePersistence {
     }
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of all Message objects between two users
      *
-     * @return an ArrayList of all Pet objects
+     * @param toUserId user id that the message is to
+     * @param fromUserId user id that the message is from
+     * @return an ArrayList of all Message objects between two users
      */
     public static ArrayList<Message> getMessages(String toUserId, String fromUserId) {
         ArrayList<Message> result = new ArrayList<Message>();
@@ -145,87 +148,4 @@ public class MessagePersistence {
         });
         return result;
     }
-    
-    /**
-     * Add a pet record.
-     *
-     * @param username The user to be added
-     * @param password The user's password
-     * @return true iff the database operation succeeded
-     *
-    public static boolean checkUser(String username, String password) {
-        DBHandler dbHandler = new DBHandler();
-                
-        String command = "SELECT * FROM User WHERE username = ";
-        command += "'" + username + "'";
-        command += " AND password = '" + password + "'";
-        try {
-            ResultSet resultCount = dbHandler.doQuery(command);
-            
-            System.out.println(resultCount);
-            int i = 0;
-            while(resultCount.next()) {
-                i++;
-            }
-            dbHandler.close();
-            return (i > 0);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }*/
-
-    /**
-     * Delete a pet from the Pet table.
-     * 
-     * @param pet The Pet to be deleted, identified by the name field only.
-     * @return true iff the database operation succeeded
-     *
-    public static boolean deletePet(Pet pet) {
-        DBCommandHandler dbCommandHandler = new DBCommandHandler();
-        try {
-            String command = "delete from pet where name = '" + pet.getName() + "'";
-            int result = dbCommandHandler.doCommand(command);
-            dbCommandHandler.close();
-            return (result > 0);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-    }*/
-    
-    /**
-     * Returns an ArrayList of all Pet objects.
-     *
-     * @return an ArrayList of all Pet objects
-     *
-    public static ArrayList<Pet> getAllPets() {
-        String query = "select * from pet";
-        ArrayList<Pet> result = new ArrayList<Pet>();
-
-        // open a connection to the database and a Statement object
-        try {
-            DBQueryHandler dbQueryHandler = new DBQueryHandler();
-            ResultSet rs = dbQueryHandler.doQuery(query);
-            ResultSetMetaData rsmd = rs.getMetaData();
-
-            while (rs.next()) {
-                int i = 1; // 1st column
-                String name = rs.getString(i++);
-                String owner = rs.getString(i++);
-                String species = rs.getString(i++);
-                String sex = rs.getString(i++);
-                String birth = rs.getString(i++);
-                Pet pet = new Pet(name, owner, species, sex, birth);
-                result.add(pet);
-            }
-
-            dbQueryHandler.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        // return the result
-        return result;
-    }*/
 }

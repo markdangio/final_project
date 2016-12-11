@@ -48,11 +48,14 @@ public class ClassesPersistence {
     }
     
     /**
-     * Add a pet record.
+     * Checks to see if a class exists in the database
      *
-     * @param username The user to be added
-     * @param password The user's password
-     * @return true iff the database operation succeeded
+     * @param name The class's name
+     * @param subject The class's subject
+     * @param number The class's name
+     * @param section The class's section
+     * @param professor The class's professor
+     * @return boolean that says if the class exists
      */
     public static boolean checkClass(String name, String subject, int number, int section, String professor) {
         DBHandler dbHandler = new DBHandler();
@@ -77,30 +80,16 @@ public class ClassesPersistence {
             return false;
         }
     }
-
-    /**
-     * Delete a pet from the Pet table.
-     * 
-     * @param pet The Pet to be deleted, identified by the name field only.
-     * @return true iff the database operation succeeded
-     *
-    public static boolean deletePet(Pet pet) {
-        DBCommandHandler dbCommandHandler = new DBCommandHandler();
-        try {
-            String command = "delete from pet where name = '" + pet.getName() + "'";
-            int result = dbCommandHandler.doCommand(command);
-            dbCommandHandler.close();
-            return (result > 0);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-    }*/
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an the id of the Class
      *
-     * @return an ArrayList of all Pet objects
+     * @param name The class's name
+     * @param subject The class's subject
+     * @param number The class's name
+     * @param section The class's section
+     * @param professor The class's professor
+     * @return String of the class's id
      */
     public static String getClassId(String name, String subject, int number, int section, String professor) {
         String result = "";

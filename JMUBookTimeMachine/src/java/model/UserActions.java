@@ -37,7 +37,7 @@ public class UserActions {
     /**
      * Checks to see if a user record exists.
      *
-     * @param username The user's name
+     * @param username The user's username
      * @param password The user's password
      * @return boolean that says if the user exists
      */
