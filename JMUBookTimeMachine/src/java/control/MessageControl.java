@@ -132,7 +132,7 @@ public class MessageControl extends HttpServlet {
      */
     private void handleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        String addMessage = null;
+        String addMessageMessage = null;
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -144,7 +144,7 @@ public class MessageControl extends HttpServlet {
         String timeSent = sdf.format(today);
 
         if (content == null) {
-            addMessage = "Improper add message request: " + content;
+            addMessageMessage = "Improper add message request: " + content;
         } else {
             // execute add transaction
             String messageId = UUID.randomUUID().toString();
@@ -152,26 +152,16 @@ public class MessageControl extends HttpServlet {
             messageId = messageId.substring(0, 16);
             
             boolean addResult = MessageActions.addMessage(messageId, toUserId, fromUserId, content, timeSent);
-            addMessage = addResult ? "New message added" : "Message add failed" + messageId + toUserId + fromUserId + content + timeSent;
+            addMessageMessage = addResult ? "New message added" : "Message add failed" + messageId + toUserId + fromUserId + content + timeSent;
         }
-        session.setAttribute("addmessage", addMessage);
-        if(addMessage.equals("New message added")){
+        
+        if(addMessageMessage.equals("New message added")){
+            session.setAttribute("addMessageMessage", null);
             forwardRequest(request, response, "/messages.jsp");
         }
         else{
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("addMessageMessage", addMessageMessage);
+            forwardRequest(request, response, "/message.jsp?action=show?toUserId=" + toUserId);
 
         }
     }

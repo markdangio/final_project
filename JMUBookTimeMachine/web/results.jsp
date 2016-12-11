@@ -7,6 +7,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="stderror.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,8 +31,8 @@
                 <nav class="navbar navbar-default navbar-static-top">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="messages.jsp">Messages</a></li>
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"> Home</i></a></li>
+                            <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -69,7 +70,7 @@
                                         out.println("<td>" + seller.getFirstName() + " " + seller.getLastName() + "</td>");
                                         out.println("<td><form method=\"post\" action=\"messageControl?action=show&toUserId=" + seller.getUserId() + 
                                                 "\"><button class=\"btn btn-block\" name=\"message\" type=\"submit\">Message</button></form></td>");
-                                        out.println("<td>" + book.getTitle() + "</td>");
+                                        out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         out.println("<td>" + book.getPublisher() + "</td>");

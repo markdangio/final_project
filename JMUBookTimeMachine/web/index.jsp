@@ -5,21 +5,22 @@
 --%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Properties"%>
+<%@page errorPage="stderror.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     
-    boolean bool = request.isSecure();
-    
-    if (!bool)
-    {
-        
-        out.println("<p>" + "Error must use HTTPS" + "<p>");
-        out.println("<a href = \"https://" + request.getServerName() + ":8443" + request.getContextPath() + "/index.jsp\"> Secure Connection  </a>");
-        return;
-        
-        
-    }
+//    boolean bool = request.isSecure();
+//    
+//    if (!bool)
+//    {
+//        
+//        out.println("<p>" + "Error must use HTTPS" + "<p>");
+//        out.println("<a href = \"https://" + request.getServerName() + ":8443" + request.getContextPath() + "/index.jsp\"> Secure Connection  </a>");
+//        return;
+//        
+//        
+//    }
 
 %>
 <html>
@@ -113,9 +114,14 @@
         </script>
 
     </head>
-
+    <%
+        String addUsermessage = (String)session.getAttribute("addmessage");
+    %>
     <body>
-        <h1>JMU Book Time Machine</h1>
+        <div id="wrapper3">
+            <h1>JMU Book Time Machine</h1>
+        </div>
+        </br>
         <div class="container">
             <div class="row">
                 <div align="center" class="col-md-6" >
@@ -169,6 +175,9 @@
                             </br>
                             <button class="btn btn-block" name="adduser" type="submit">Sign up</button>
                             </br>
+                            <%
+                                if(addUsermessage != null){out.println("<div class=\"wrapper\">" + addUsermessage + "</div></br>");}
+                            %>
                         </form>
                     </div>
                 </div>

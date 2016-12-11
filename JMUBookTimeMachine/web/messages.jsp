@@ -6,6 +6,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="stderror.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,12 +48,12 @@
                 <nav class="navbar navbar-default navbar-static-top">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
-                            <li><a id="bar" href="profile.jsp">Profile</a></li>
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"> Home</i></a></li>
+                            <li><a id="bar1" href="messageControl?action=showMessages">Messages</a></li>
+                            <li><a id="bar2" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a id="bar" href="logout">Logout</a></li>
+                            <li><a id="bar3" href="logout">Logout</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -60,18 +61,18 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div align="center" class="col-md-8">
-                    <div class="list-group">
+                    <div class="list-group" id="message">
                         <%
                             int i = 0;
                             while (it.hasNext()) {
                                 i++;
                                 User messagesUser = it.next();
-                                out.println("<a href=\"messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
+                                out.println("<a id=\"message\" href=\"messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
                                 out.println(messagesUser.getFirstName() + " " + messagesUser.getLastName());
                                 out.println("</a>");
                             }
                             if(i == 0){
-                                out.println("<p>You have no messages.</p>");
+                                out.println("<div class=\"row\" id=\"wrapper3\">You have no messages.</div>");
                             }
                         %>
                     </div>

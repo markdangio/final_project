@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="stderror.jsp" %>
 <%@ page import="model.*" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
@@ -48,7 +49,7 @@
                 <nav class="navbar navbar-default navbar-static-top">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"> Home</i></a></li>
                             <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
@@ -110,12 +111,12 @@
                                         User reserver = (User) UserActions.getUser(book.getReserverId());
 
                                         out.println("<tr>");
-                                        out.println("<td>" + book.getTitle() + "</td>");
+                                        out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         out.println("<td>$" + book.getSold() + "</td>");
                                         if (!book.getReserverId().equals("null")) {
-                                            out.println("<td><a href=\"messagesControl?action=create&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
+                                            out.println("<td><a href=\"messageControl?action=show&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
                                         } else {
                                             out.println("<td></td>");
                                         }
@@ -146,8 +147,8 @@
                                         User seller = (User) UserActions.getUser(book2.getSellerId());
 
                                         out.println("<tr>");
-                                        out.println("<td><a href=\"messagesControl?action=create&toUserId=" + seller.getUserId() + "\">" + seller.getFirstName() + " " + seller.getLastName() + "</a></td>");
-                                        out.println("<td>" + book2.getTitle() + "</td>");
+                                        out.println("<td><a href=\"messageControl?action=show&toUserId=" + seller.getUserId() + "\">" + seller.getFirstName() + " " + seller.getLastName() + "</a></td>");
+                                        out.println("<td><a href=\"/images/" + book2.getCoverPhoto() + "\">" + book2.getTitle() + "</a></td>");
                                         out.println("<td>" + book2.getAuthor() + "</td>");
                                         out.println("<td>" + book2.getEdition() + "</td>");
                                         out.println("<td>$" + book2.getPrice() + "</td>");

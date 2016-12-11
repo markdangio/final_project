@@ -125,7 +125,7 @@ public class UserControl extends HttpServlet {
     private void handleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
-        String addMessage = "";
+        String addUserMessage = "";
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -186,50 +186,38 @@ public class UserControl extends HttpServlet {
 
         if (username == null || password == null || firstname == null || lastname == null
                 || email == null || birthday == null || securityAns == null) {
-            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
+            addUserMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
         } else if (username.trim().length() == 0) {
-            addMessage = "Userame field must not be blank";
+            addUserMessage = "Userame field must not be blank";
         } else if (password.trim().length() == 0) {
-            addMessage = "Password field must not be blank";
+            addUserMessage = "Password field must not be blank";
         } else if (firstname.trim().length() == 0) {
-            addMessage = "First name field must not be blank";
+            addUserMessage = "First name field must not be blank";
         } else if (lastname.trim().length() == 0) {
-            addMessage = "Last name field must not be blank";
+            addUserMessage = "Last name field must not be blank";
         } else if (email.trim().length() == 0) {
-            addMessage = "Email field must not be blank";
+            addUserMessage = "Email field must not be blank";
         } else if (birthday.trim().length() == 0) {
-            addMessage = "Birthday field must not be blank";
+            addUserMessage = "Birthday field must not be blank";
         } else if (securityAns.trim().length() == 0) {
-            addMessage = "Security Answer field must not be blank";
+            addUserMessage = "Security Answer field must not be blank";
         } else {
             // execute add transaction
             userId = UUID.randomUUID().toString();
             userId = userId.replace("-", "");
             userId = userId.substring(0, 16);
             boolean addResult = UserActions.addUser(userId, firstname, lastname, email, avatar, birthday, username, securityAns, password);
-            addMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
+            addUserMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
         }
-        session.setAttribute("addmessage", addMessage);
-        if (addMessage.equals("New user added")) {
-            
+        
+        if (addUserMessage.equals("New user added")) {
+            session.setAttribute("addUserMessage", null);
             session.setAttribute("loggedIn", true);
             session.setAttribute("userId", userId);
             forwardRequest(request, response, "/home.jsp");
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out1 = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out1.println("<!DOCTYPE html>");
-                out1.println("<html>");
-                out1.println("<head>");
-                out1.println("<title>Results</title>");
-                out1.println("</head>");
-                out1.println("<body>");
-                out1.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out1.println("</body>");
-                out1.println("</html>");
-            }
-
+            session.setAttribute("addUserMessage", addUserMessage);
+            forwardRequest(request, response, "/index.jsp");
         }
     }
 
@@ -256,23 +244,13 @@ public class UserControl extends HttpServlet {
             boolean checkSecurityResult = UserActions.checkUserSecurity(username, securityAns);
             securityMessage = checkSecurityResult ? "Reset Password" : "Cannot Reset Password" + username + securityAns;
         }
-        session.setAttribute("securityMessage", securityMessage);
+        
         if (securityMessage.equals("Reset Password")) {
+            session.setAttribute("securityMessage", null);
             changePass(request, response);
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("securityMessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("securityMessage", securityMessage);
+            forwardRequest(request, response, "/recovery.jsp");
 
         }
     }
@@ -288,23 +266,13 @@ public class UserControl extends HttpServlet {
 
         boolean checkResult = UserActions.changePass(username, password);
         changeMessage = checkResult ? "Password changed" : "Password not changed" + username + password;
-        session.setAttribute("changeMessage", changeMessage);
+        
         if (changeMessage.equals("Password changed")) {
+            session.setAttribute("changeMessage", null);
             forwardRequest(request, response, "/login");
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("changeMessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("changeMessage", changeMessage);
+            forwardRequest(request, response, "/recovery.jsp");
         }
     }
 

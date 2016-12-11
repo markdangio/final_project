@@ -21,8 +21,13 @@ body{
 /* CSS for chat box */
   
   
-input { font:12px arial; }
+input { 
+    font:12px arial; 
+}
   
+#message {
+    width: 504px;
+}
   
 #wrapper{
     margin:0 auto;
@@ -30,6 +35,14 @@ input { font:12px arial; }
     background:#EBF4FB;
     width:504px;
     border:1px solid #ACD8F0; }
+
+#wrapper3{
+    margin:0 auto;
+    background:#EBF4FB;
+    width:252px;
+    border:3px solid #ACD8F0; 
+    border-radius: 10px;
+}
 
 #chatbox {
     text-align:left;
@@ -77,6 +90,7 @@ div.container{
 
 .left {
     text-align: left;
+    margin: 5px;
 }
 
 .right {

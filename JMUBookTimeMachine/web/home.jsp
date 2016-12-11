@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="stderror.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -128,7 +129,10 @@
     <%
         }
         
-        String addmessage = (String)session.getAttribute("addmessage");
+        String addClassmessage = (String)session.getAttribute("addmessage");
+        String addBookmessage = (String)session.getAttribute("addmessage");
+        String addBFSmessage = (String)session.getAttribute("addmessage");
+
         String searchmessage = (String)session.getAttribute("searchmessage");
     %>
 
@@ -138,7 +142,7 @@
                 <nav class="navbar navbar-default navbar-static-top">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"> Home</i></a></li>
                             <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
@@ -202,8 +206,8 @@
                                         <input type="text" name="sellPublisher" id="sellPublisher" class="form-control" placeholder="Publisher" required autofocus>
                                         <span id="sellPublishere" class="errmsg"> </span>
                                         </br>
-                                        <label for="sellCoverPhoto" class="sr-only">Book Cover Photo</label>
-                                        <input type="file" name="sellCoverPhoto" id="sellCoverPhoto" autofocus>
+                                        <label for="file" class="sr-only">Book Cover Photo</label>
+                                        <input type="file" name="file" id="file" autofocus>
                                         </br>
                                         <button class="btn btn-block" name="back"onclick="moveBackward();">Back</button>
                                         </br>
@@ -225,7 +229,9 @@
                             </div>
                         </form>
                         <%
-                            if(addmessage != null){out.println("<div class=\"wrapper\">" + addmessage + "</div></br>");}
+                            if(addClassmessage != null){out.println("<div class=\"wrapper\">" + addClassmessage + "</div></br>");}
+                            if(addBookmessage != null){out.println("<div class=\"wrapper\">" + addBookmessage + "</div></br>");}
+                            if(addBFSmessage != null){out.println("<div class=\"wrapper\">" + addBFSmessage + "</div></br>");}
                         %>
                     </div>
                     </br>
@@ -236,19 +242,36 @@
                             <div class="item">
                                 <h2 class="form-signin-heading">Find Book</h2>
                                 <label for="title" class="sr-only">Title</label>
-                                <input type="text" name="title" id="title" class="form-control" placeholder="Title" autofocus>
+                                <input type="text" name="title" id="title" class="form-control" placeholder="Book Title" autofocus>
                                 <span id="titlee" class="errmsg"> </span>
                                 </br>
                                 <label for="author" class="sr-only">Author</label>
-                                <input type="text" name="author" id="author" class="form-control" placeholder="Author" autofocus>
+                                <input type="text" name="author" id="author" class="form-control" placeholder="Book Author" autofocus>
                                 <span id="authore" class="errmsg"> </span>
                                 </br>
                                 <label for="edition" class="sr-only">Edition</label>
-                                <input type="number" name="edition" id="edition" class="form-control" placeholder="Edition" autofocus>
+                                <input type="number" name="edition" id="edition" class="form-control" placeholder="Book Edition" autofocus>
                                 </br>
                                 <label for="publisher" class="sr-only">Publisher</label>
-                                <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Publisher" autofocus>
+                                <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Book Publisher" autofocus>
                                 <span id="publishere" class="errmsg"> </span>
+                                </br>
+                                <label for="className" class="sr-only">Title</label>
+                                <input type="text" name="className" id="className" class="form-control" placeholder="Class Name" autofocus>
+                                <span id="titlee" class="errmsg"> </span>
+                                </br>
+                                <label for="classSubject" class="sr-only">Author</label>
+                                <input type="text" name="classSubject" id="classSubject" class="form-control" placeholder="Class Subject" autofocus>
+                                <span id="authore" class="errmsg"> </span>
+                                </br>
+                                <label for="classNumber" class="sr-only">Edition</label>
+                                <input type="number" name="classNumber" id="classNumber" class="form-control" placeholder="Class Number" autofocus>
+                                </br>
+                                <label for="classSection" class="sr-only">Publisher</label>
+                                <input type="number" name="classSection" id="classSection" class="form-control" placeholder="Class Section" autofocus>
+                                </br>
+                                <label for="classProfessor" class="sr-only">Publisher</label>
+                                <input type="text" name="classProfessor" id="classProfessor" class="form-control" placeholder="Class Professor" autofocus>
                                 </br>
                                 <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
                                 </br>

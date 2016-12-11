@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="stderror.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,6 +67,10 @@
         function get(id) { return document.getElementById(id) }
         </script>
     </head>
+    <%
+        String securityMessage = (String)session.getAttribute("securityMessage");
+        String changeMessage = (String)session.getAttribute("changeMessage");
+    %>
     <body>
         <div align="center" class="container">
             <h1>JMU Book Time Machine</h1>
@@ -91,6 +96,10 @@
                     </br>
                     <button class="btn btn-block" name="recover" type="submit" >Change Password</button>
                     </br>
+                    <%
+                        if(securityMessage != null){out.println("<div class=\"wrapper\">" + securityMessage + "</div></br>");}
+                        if(changeMessage != null){out.println("<div class=\"wrapper\">" + changeMessage + "</div></br>");}
+                    %>
                 </form>
             </div>
         </div>

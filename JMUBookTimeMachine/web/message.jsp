@@ -6,6 +6,7 @@
 <%@page import="java.util.*"%>
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="stderror.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,7 +48,7 @@
                 <nav class="navbar navbar-default navbar-static-top">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"> Home</i></a></li>
                             <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
@@ -61,25 +62,27 @@
                 <div class="col-md-2"></div>
                 
                 <div align="center" class="col-md-8">
-                    <h2 class="form-signin-heading">Messages</h2>
+                    <div class="row" id="wrapper3">
+                        <h2 class="form-signin-heading">Messages</h2>
+                    </div>
+                    </br>
                     <div class="row messages" id="wrapper">
                         <%
                             while (it.hasNext()) {
                                 Message message = it.next();
                                 if(message.getFromUserId().equals(userId)){
-                                    out.println("<p class=\"right\">" + message.getContent() + "</p>");
+                                    out.println("<div class=\"right\">" + message.getContent() + "</div>");
                                 }
                                 else{
-                                    out.println("<p class=\"left\">" + message.getContent() + "</p>");
+                                    out.println("<div class=\"left\">" + message.getContent() + "</div>");
                                 }
-                                out.println("</br>");
                             }
                         %>
                     </div>
                     </br>
                     <form method="post" action="messageControl?action=create" class="form-signin">
                         <input type = "text" name="content" id="message" class="form-control" placeholder="Message" required autofocus/> 
-                        <button class="btn btn-block" name="addMsg" type="submit">Send Message</button>
+                        <button class="btn btn-block" name="addMsg" type="submit" id="message">Send Message</button>
                     </form>
                 </div>
                 <div class="col-md-2"></div>

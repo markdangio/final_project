@@ -5,27 +5,42 @@
  */
 package control;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import model.*;
 
+@MultipartConfig
 /**
  *
  * @author hinesmj
  */
 @WebServlet(name = "BBC", urlPatterns = {"/bbc"})
 public class BBC extends HttpServlet {
+    
+    private final static Logger LOGGER
+            = Logger.getLogger(UserControl.class.getCanonicalName());
 
     /**
      * Handle an HTTP POST transaction for a drop or add.
@@ -49,13 +64,43 @@ public class BBC extends HttpServlet {
             handleBookReserve(request, response);
         }
     }
+    
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     *
+     * @Override public String getServletInfo() { return "Short description";
+     * }// </editor-fold>
+     */
+    private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+
+    private boolean checkFile(String fileName) {
+        if (!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg")
+                || !fileName.endsWith(".png") || !fileName.endsWith(".gif")) {
+            //alert maybe?;
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     /*
      * Add a user to the table.
      */
     private void handleClassAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        String addMessage = null;
+        String addClassMessage = null;
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -76,43 +121,31 @@ public class BBC extends HttpServlet {
         String description = request.getParameter("sellClassDescription");
 
         if (name == null || subject == null || professor == null) {
-            addMessage = "No Class Field can be left empty";
+            addClassMessage = "No Class Field can be left empty";
         } else if (name.trim().length() == 0) {
-            addMessage = "Class Name field must not be blank";
+            addClassMessage = "Class Name field must not be blank";
         } else if (subject.trim().length() == 0) {
-            addMessage = "Class Subject field must not be blank";
+            addClassMessage = "Class Subject field must not be blank";
         } else if (number <= 0) {
-            addMessage = "Class Number must be greater than zero";
+            addClassMessage = "Class Number must be greater than zero";
         } else if (section <= 0) {
-            addMessage = "Class Section must be greater than zero";
+            addClassMessage = "Class Section must be greater than zero";
         } else if (professor.trim().length() == 0) {
-            addMessage = "Class Professor field must not be blank";
+            addClassMessage = "Class Professor field must not be blank";
         } else {
             // execute add transaction
             boolean addResult = ClassesActions.addClass(classId, name, subject, number, section, professor, description);
-            addMessage = addResult ? "New class added" : "Class was not added successfully";
+            addClassMessage = addResult ? "New class added" : "Class was not added successfully";
         }
         
-        if(addMessage.equals("New class added")){
+        if(addClassMessage.equals("New class added")){
+            session.setAttribute("addClassMessage", null);
             session.setAttribute("classId", classId);
             handleBookCheck(request, response);
         }
         else{
-            session.setAttribute("addmessage", addMessage);
+            session.setAttribute("addClassMessage", addClassMessage);
             forwardRequest(request, response, "/home.jsp");
-//            response.setContentType("text/html;charset=UTF-8");
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Results</title>");            
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
 
         }
     }
@@ -171,7 +204,7 @@ public class BBC extends HttpServlet {
      */
     private void handleBookAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        String addMessage = null;
+        String addBookMessage = null;
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -188,28 +221,76 @@ public class BBC extends HttpServlet {
         
         String publisher = request.getParameter("sellPublisher");
         String coverPhoto = request.getParameter("sellCoverPhoto");
+        
+        
+        InputStream filecontent = null;
+        OutputStream out = null;
+        //String tomcatBase = System.getProperty("catalina.home");
+
+        //where the image will be saved
+        final String path = "/Users/dangiomr/NetBeansProjects/final_project/web/images";
+        //= tomcatBase + "/webapps/uploader/images";
+
+        final Part filePart = request.getPart("file");
+        final String fileName = getFileName(filePart);
+
+        coverPhoto = "/images/" + fileName;
+        if (checkFile(fileName)) {
+            try {
+                //out = new FileOutputStream(new File(path + File.separator
+                //       + userName + "-" + fileName));
+                filecontent = filePart.getInputStream();
+
+                int read = 0;
+                int size = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = filecontent.read(bytes)) != -1) {
+                    size += read;
+                    out.write(bytes, 0, read);
+                }
+                LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+                        new Object[]{fileName, path});
+
+            } catch (FileNotFoundException fne) {
+
+                LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+                        new Object[]{fne.getMessage()});
+
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+                if (filecontent != null) {
+                    filecontent.close();
+                }
+            }
+        }
+
+        
 
         if (title == null || author == null || edition <= 0 || publisher == null) {
-            addMessage = "No Book field can be left empty";
+            addBookMessage = "No Book field can be left empty";
         } else if (title.trim().length() == 0) {
-            addMessage = "Book Title field must not be blank";
+            addBookMessage = "Book Title field must not be blank";
         } else if (author.trim().length() == 0) {
-            addMessage = "Book Author field must not be blank";
+            addBookMessage = "Book Author field must not be blank";
         } else if (edition <= 0) {
-            addMessage = "Book Edition field must not be less than one";
+            addBookMessage = "Book Edition field must not be less than one";
         } else {
             // execute add transaction
             String classId = (String)session.getAttribute("classId");
             boolean addResult = BooksActions.addBook(bookId, title, author, edition, publisher, coverPhoto, classId);
-            addMessage = addResult ? "New book added" : "Book was not added successfully";
+            addBookMessage = addResult ? "New book added" : "Book was not added successfully";
         }
         
-        if(addMessage.equals("New book added")){
+        if(addBookMessage.equals("New book added")){
+            session.setAttribute("addBookMessage", null);
             session.setAttribute("bookId", bookId);
             handleBook_For_SaleAdd(request, response);
         }
         else{
-            session.setAttribute("addmessage", addMessage);
+            session.setAttribute("addBookMessage", addBookMessage);
             forwardRequest(request, response, "/home.jsp");
 //            response.setContentType("text/html;charset=UTF-8");
 //            try (PrintWriter out = response.getWriter()) {
@@ -289,7 +370,19 @@ public class BBC extends HttpServlet {
         
         String publisher = request.getParameter("publisher");
         
-        if (title == null || author == null || publisher == null) {
+        String className = request.getParameter("className");
+        String classSubject = request.getParameter("classSubject");
+        int classNumber = 0;
+        int classSection = 0;
+        try{
+            classNumber = Integer.parseInt(request.getParameter("classNumber"));
+            classSection = Integer.parseInt(request.getParameter("classSection"));
+        }
+        catch(NumberFormatException e) {}
+        
+        String classProfessor = request.getParameter("classclassProfessor");
+        
+        if (title == null || author == null || publisher == null || className == null || classSubject == null || classProfessor == null) {
             searchmessage = "Improper check book request: " + title + author + edition + publisher;
         } else if (title.trim().length() == 0) {
             searchmessage = "Book Title field must not be blank";
@@ -297,7 +390,17 @@ public class BBC extends HttpServlet {
             searchmessage = "Book Author field must not be blank";
         } else if (edition <= 0) {
             searchmessage = "Book Edition field must not be less than one";
-        } else {
+        } else if (className.trim().length() == 0) {
+            searchmessage = "Class Name field must not be blank";
+        } else if (classSubject.trim().length() == 0) {
+            searchmessage = "Class Subject field must not be blank";
+        }else if (classNumber <= 0) {
+            searchmessage = "Class Number field must not be less than one";
+        }else if (classSection <= 0) {
+            searchmessage = "Class Section field must not be less than one";
+        }else if (classProfessor.trim().length() == 0) {
+            searchmessage = "Class Professir field must not be blank";
+        }else {
             // execute add transaction
             ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
             ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults, userId);
@@ -307,6 +410,7 @@ public class BBC extends HttpServlet {
         }
         
         if(searchmessage.equals("Book search complete")){
+            session.setAttribute("searchmessage", null);
             forwardRequest(request, response, "/results.jsp");
         }
         else{
@@ -351,7 +455,7 @@ public class BBC extends HttpServlet {
      */
     private void handleBook_For_SaleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
-        String addMessage = null;
+        String addBFSMessage = null;
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -372,7 +476,7 @@ public class BBC extends HttpServlet {
         String reserverId = null;
 
         if (price <= 0) {
-            addMessage = "Book Price cannot be below zero";
+            addBFSMessage = "Book Price cannot be below zero";
         } else {
             // execute add transaction
             
@@ -380,29 +484,16 @@ public class BBC extends HttpServlet {
             String bookId = (String)session.getAttribute("bookId");
             
             boolean addResult = Books_For_SaleActions.addBooks_For_Sale(sellerId, bookId, saleId, postedDate, price, sold, reserverId);
-            addMessage = addResult ? "New books_for_sale added" : "Book was not posted for sale successfully";
+            addBFSMessage = addResult ? "New books_for_sale added" : "Book was not posted for sale successfully";
         }
         
-        if(addMessage.equals("New books_for_sale added")){
+        if(addBFSMessage.equals("New books_for_sale added")){
+            session.setAttribute("addBFSMessage", null);
             forwardRequest(request, response, "/profile.jsp");
         }
         else{
-            session.setAttribute("addmessage", addMessage);
+            session.setAttribute("addBFSMessage", addBFSMessage);
             forwardRequest(request, response, "/home.jsp");
-//            response.setContentType("text/html;charset=UTF-8");
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Results</title>");            
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
-
         }
     }
     
