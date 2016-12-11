@@ -33,9 +33,17 @@
         }
 
         String userId = (String) session.getAttribute("userId");
+        System.out.println(userId);
         User u = UserActions.getUser(userId);
-        
+
         String imageSrc = (String) session.getAttribute("avatar");
+        if (u.getAvatar() == null || u.getAvatar().equals("")) {
+            imageSrc = "";
+        } else {
+
+            imageSrc = u.getAvatar();
+            System.out.println(imageSrc);
+        }
 
         ArrayList<BookInfo> books = Books_For_SaleActions.searchBook_For_SaleSelling(userId);
         Iterator<BookInfo> it = books.iterator();
@@ -114,12 +122,7 @@
                                         out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
-                                        if(book.getSold() == 0){
-                                            out.println("<td><a href=\"bbc?action=sold&saleId=" + book.getSaleId() + "\">Mark as Sold</a></td>");
-                                        }
-                                        else {
-                                            out.println("<td>Sold</td>");
-                                        }
+                                        out.println("<td>$" + book.getSold() + "</td>");
                                         if (!book.getReserverId().equals("null")) {
                                             out.println("<td><a href=\"messageControl?action=show&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
                                         } else {

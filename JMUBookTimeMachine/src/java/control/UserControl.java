@@ -6,6 +6,7 @@
 package control;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -110,12 +111,11 @@ public class UserControl extends HttpServlet {
     }
 
     private boolean checkFile(String fileName) {
-        if (!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg")
-                || !fileName.endsWith(".png") || !fileName.endsWith(".gif")) {
-            //alert maybe?;
-            return false;
-        } else {
+        String ext = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+        if (ext.equals("jpg") || ext.equals("jpeg") || ext.equals("png") || ext.equals("gif")) {
             return true;
+        } else {
+            return false;
         }
     }
     /*
@@ -125,7 +125,7 @@ public class UserControl extends HttpServlet {
     private void handleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
-        String addUserMessage = "";
+        String addMessage = "";
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -142,83 +142,102 @@ public class UserControl extends HttpServlet {
 
         InputStream filecontent = null;
         OutputStream out = null;
-        //String tomcatBase = System.getProperty("catalina.home");
 
+        //String tomcatBase = System.getProperty("catalina.home");
         //where the image will be saved
-        final String path = "/Users/dangiomr/NetBeansProjects/final_project/web/images";
+        String path = "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
         //= tomcatBase + "/webapps/uploader/images";
 
-        final Part filePart = request.getPart("file");
-        final String fileName = getFileName(filePart);
+        Part filePart = request.getPart("file");
+        String fileName = getFileName(filePart);
 
-        avatar = "/images/" + fileName;
-        if (checkFile(fileName)) {
-            try {
-                //out = new FileOutputStream(new File(path + File.separator
-                //       + userName + "-" + fileName));
-                filecontent = filePart.getInputStream();
+        if (fileName == null || fileName.equals("") || filePart == null) {
+            avatar = "";
+        } 
+        else if (checkFile(fileName)) {
+            {
+                avatar = "images/" + username + "-" + fileName;
 
-                int read = 0;
-                int size = 0;
-                final byte[] bytes = new byte[1024];
+                try {
+                    out = new FileOutputStream(new File(path + "/" + username + "-" +fileName));
+                    filecontent = filePart.getInputStream();
 
-                while ((read = filecontent.read(bytes)) != -1) {
-                    size += read;
-                    out.write(bytes, 0, read);
-                }
-                LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
-                        new Object[]{fileName, path});
+                    int read = 0;
+                    int size = 0;
+                    final byte[] bytes = new byte[1024];
 
-            } catch (FileNotFoundException fne) {
+                    while ((read = filecontent.read(bytes)) != -1) {
+                        size += read;
+                        out.write(bytes, 0, read);
+                    }
+                    LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+                            new Object[]{fileName, path});
 
-                LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
-                        new Object[]{fne.getMessage()});
+                } catch (FileNotFoundException fne) {
 
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
-                if (filecontent != null) {
-                    filecontent.close();
+                    LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+                            new Object[]{fne.getMessage()});
+
+                } finally {
+                    if (out != null) {
+                        out.close();
+                    }
+                    if (filecontent != null) {
+                        filecontent.close();
+                    }
                 }
             }
         }
-
+        else
+        {
+            avatar = "";
+        }
+        System.out.println(avatar);
         if (username == null || password == null || firstname == null || lastname == null
                 || email == null || birthday == null || securityAns == null) {
-            addUserMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
+            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
         } else if (username.trim().length() == 0) {
-            addUserMessage = "Userame field must not be blank";
+            addMessage = "Userame field must not be blank";
         } else if (password.trim().length() == 0) {
-            addUserMessage = "Password field must not be blank";
+            addMessage = "Password field must not be blank";
         } else if (firstname.trim().length() == 0) {
-            addUserMessage = "First name field must not be blank";
+            addMessage = "First name field must not be blank";
         } else if (lastname.trim().length() == 0) {
-            addUserMessage = "Last name field must not be blank";
+            addMessage = "Last name field must not be blank";
         } else if (email.trim().length() == 0) {
-            addUserMessage = "Email field must not be blank";
+            addMessage = "Email field must not be blank";
         } else if (birthday.trim().length() == 0) {
-            addUserMessage = "Birthday field must not be blank";
+            addMessage = "Birthday field must not be blank";
         } else if (securityAns.trim().length() == 0) {
-            addUserMessage = "Security Answer field must not be blank";
+            addMessage = "Security Answer field must not be blank";
         } else {
             // execute add transaction
             userId = UUID.randomUUID().toString();
             userId = userId.replace("-", "");
             userId = userId.substring(0, 16);
             boolean addResult = UserActions.addUser(userId, firstname, lastname, email, avatar, birthday, username, securityAns, password);
-            addUserMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
+            addMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
         }
-        
-        if (addUserMessage.equals("New user added")) {
-            session.setAttribute("addUserMessage", null);
+        session.setAttribute("addmessage", addMessage);
+        if (addMessage.equals("New user added")) {
             session.setAttribute("loggedIn", true);
-            User userObj = UserActions.getUser(userId);
-            session.setAttribute("userObj", userObj);
+            session.setAttribute("userId", userId);
             forwardRequest(request, response, "/home.jsp");
         } else {
-            session.setAttribute("addUserMessage", addUserMessage);
-            forwardRequest(request, response, "/index.jsp");
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out1 = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out1.println("<!DOCTYPE html>");
+                out1.println("<html>");
+                out1.println("<head>");
+                out1.println("<title>Results</title>");
+                out1.println("</head>");
+                out1.println("<body>");
+                out1.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
+                out1.println("</body>");
+                out1.println("</html>");
+            }
+
         }
     }
 
@@ -245,13 +264,23 @@ public class UserControl extends HttpServlet {
             boolean checkSecurityResult = UserActions.checkUserSecurity(username, securityAns);
             securityMessage = checkSecurityResult ? "Reset Password" : "Cannot Reset Password" + username + securityAns;
         }
-        
+        session.setAttribute("securityMessage", securityMessage);
         if (securityMessage.equals("Reset Password")) {
-            session.setAttribute("securityMessage", null);
             changePass(request, response);
         } else {
-            session.setAttribute("securityMessage", securityMessage);
-            forwardRequest(request, response, "/recovery.jsp");
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Results</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>" + session.getAttribute("securityMessage") + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
 
         }
     }
@@ -267,13 +296,23 @@ public class UserControl extends HttpServlet {
 
         boolean checkResult = UserActions.changePass(username, password);
         changeMessage = checkResult ? "Password changed" : "Password not changed" + username + password;
-        
+        session.setAttribute("changeMessage", changeMessage);
         if (changeMessage.equals("Password changed")) {
-            session.setAttribute("changeMessage", null);
             forwardRequest(request, response, "/login");
         } else {
-            session.setAttribute("changeMessage", changeMessage);
-            forwardRequest(request, response, "/recovery.jsp");
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Results</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>" + session.getAttribute("changeMessage") + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
     }
 
