@@ -82,7 +82,7 @@
                     <span id="usernamee" class="errmsg"> </span>
                     </br>
                     <label for="recoverySQ" class="sr-only">Security Question</label>
-                    <input type="text" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required onchange="this.value = this.value.trim();">
+                    <input type="password" name="recoverySQ" id="sq" class="form-control" placeholder="Security Question Answer" required onchange="this.value = this.value.trim();">
                     <span id="sqe" class="errmsg"> </span>
                     </br>
                     </br>
