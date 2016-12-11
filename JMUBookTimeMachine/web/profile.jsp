@@ -119,7 +119,7 @@
                                         User reserver = (User) UserActions.getUser(book.getReserverId());
 
                                         out.println("<tr>");
-                                        out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
+                                        out.println("<td><a target=\"_blank\" href=\"images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         if (book.getSold() == 0) {

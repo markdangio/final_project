@@ -174,7 +174,6 @@ public class UserControl extends HttpServlet {
         {
             avatar = "";
         }
-        System.out.println(avatar);
         if (username == null || password == null || firstname == null || lastname == null
                 || email == null || birthday == null || securityAns == null) {
             addUserMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;

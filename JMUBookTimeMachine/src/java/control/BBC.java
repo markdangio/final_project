@@ -92,13 +92,12 @@ public class BBC extends HttpServlet {
      *
      * @param fileName string
      */
-    private boolean checkFile(String fileName) {
-        if (!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg")
-                || !fileName.endsWith(".png") || !fileName.endsWith(".gif")) {
-            //alert maybe?;
-            return false;
-        } else {
+     private boolean checkFile(String fileName) {
+        String ext = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+        if (ext.equals("jpg") || ext.equals("jpeg") || ext.equals("png") || ext.equals("gif")) {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -234,50 +233,60 @@ public class BBC extends HttpServlet {
         
         String publisher = request.getParameter("sellPublisher");
         String coverPhoto = request.getParameter("sellCoverPhoto");
+        String username = (String)session.getAttribute("username");
         
         
         InputStream filecontent = null;
         OutputStream out = null;
-        //String tomcatBase = System.getProperty("catalina.home");
 
+        //String tomcatBase = System.getProperty("catalina.home");
         //where the image will be saved
-        final String path = "/Users/dangiomr/NetBeansProjects/final_project/web/images";
+        String path = "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
         //= tomcatBase + "/webapps/uploader/images";
 
-        final Part filePart = request.getPart("file");
-        final String fileName = getFileName(filePart);
+        Part filePart = request.getPart("file");
+        String fileName = getFileName(filePart);
 
-        coverPhoto = "/images/" + fileName;
-        if (checkFile(fileName)) {
-            try {
-                //out = new FileOutputStream(new File(path + File.separator
-                //       + userName + "-" + fileName));
-                filecontent = filePart.getInputStream();
+        if (fileName == null || fileName.equals("") || filePart == null) {
+            coverPhoto = "";
+        } 
+        else if (checkFile(fileName)) {
+            {
+                coverPhoto =  username + "-" + fileName;
 
-                int read = 0;
-                int size = 0;
-                final byte[] bytes = new byte[1024];
+                try {
+                    out = new FileOutputStream(new File(path + "/" + username + "-" +fileName));
+                    filecontent = filePart.getInputStream();
 
-                while ((read = filecontent.read(bytes)) != -1) {
-                    size += read;
-                    out.write(bytes, 0, read);
-                }
-                LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
-                        new Object[]{fileName, path});
+                    int read = 0;
+                    int size = 0;
+                    final byte[] bytes = new byte[1024];
 
-            } catch (FileNotFoundException fne) {
+                    while ((read = filecontent.read(bytes)) != -1) {
+                        size += read;
+                        out.write(bytes, 0, read);
+                    }
+                    LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+                            new Object[]{fileName, path});
 
-                LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
-                        new Object[]{fne.getMessage()});
+                } catch (FileNotFoundException fne) {
 
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
-                if (filecontent != null) {
-                    filecontent.close();
+                    LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+                            new Object[]{fne.getMessage()});
+
+                } finally {
+                    if (out != null) {
+                        out.close();
+                    }
+                    if (filecontent != null) {
+                        filecontent.close();
+                    }
                 }
             }
+        }
+        else
+        {
+            coverPhoto = "";
         }
 
         if (title == null || author == null || edition <= 0 || publisher == null) {
