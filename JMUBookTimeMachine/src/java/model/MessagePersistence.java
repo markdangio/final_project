@@ -8,6 +8,7 @@ package model;
 //import java.util.*;
 import java.util.UUID;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -44,6 +45,94 @@ public class MessagePersistence {
             ex.printStackTrace();
             return false;
         }
+    }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static ArrayList<User> showAllUsersMessage(String toUserId, String fromUserId) {
+        ArrayList<User> result = new ArrayList<User>();
+
+        String myUserId = fromUserId;
+        
+        String command = "SELECT * FROM Messages WHERE (";
+        command += "toUserId = '" + toUserId + "'";
+        command += " AND fromUserId = '" + fromUserId + "') OR";
+        command += "(toUserId = '" + fromUserId + "'";
+        command += " AND fromUserId = '" + toUserId + "')";
+
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(command);
+
+            while (rs.next()) {
+                int i = 1;
+                String messageId = rs.getString(i++);
+                String toUserIdM = rs.getString(i++);
+                String fromUserIdM = rs.getString(i++);
+                String content = rs.getString(i++);
+                String timeSent = rs.getString(i++);
+                
+                User user;
+                if(toUserIdM.equals(myUserId)){
+                    user = UserActions.getUser(fromUserIdM);
+                }
+                else{
+                    user = UserActions.getUser(toUserIdM);
+                }
+                
+                result.add(user);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        // return the result
+        return result;
+    }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static ArrayList<Message> getMessages(String toUserId, String fromUserId) {
+        ArrayList<Message> result = new ArrayList<Message>();
+        
+        String command = "SELECT * FROM Messages WHERE (";
+        command += "toUserId = '" + toUserId + "'";
+        command += " AND fromUserId = '" + fromUserId + "') OR";
+        command += "(toUserId = '" + fromUserId + "'";
+        command += " AND fromUserId = '" + toUserId + "')";
+
+        // open a connection to the database and a Statement object
+        try {
+            DBHandler dbHandler = new DBHandler();
+            ResultSet rs = dbHandler.doQuery(command);
+
+            while (rs.next()) {
+                int i = 1;
+                String messageId = rs.getString(i++);
+                String toUserIdM = rs.getString(i++);
+                String fromUserIdM = rs.getString(i++);
+                String content = rs.getString(i++);
+                String timeSent = rs.getString(i++);
+                
+                Message message = new Message(messageId, toUserIdM, fromUserIdM, content, timeSent);
+                
+                result.add(message);
+            }
+
+            dbHandler.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        // return the result
+        return result;
     }
     
     /**

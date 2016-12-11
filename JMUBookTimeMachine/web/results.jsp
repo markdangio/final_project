@@ -67,7 +67,7 @@
 
                                         out.println("<tr>");
                                         out.println("<td>" + seller.getFirstName() + " " + seller.getLastName() + "</td>");
-                                        out.println("<td><form method=\"post\" action=\"messagesControl?action=create&toUserId=" + seller.getUserId() + 
+                                        out.println("<td><form method=\"post\" action=\"messageControl?action=show&toUserId=" + seller.getUserId() + 
                                                 "\"><button class=\"btn btn-block\" name=\"message\" onClick=\"/messages.jsp?" + seller.getUserId() + "\">Message</button></form></td>");
                                         out.println("<td>" + book.getTitle() + "</td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");

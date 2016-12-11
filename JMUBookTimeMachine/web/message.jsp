@@ -1,5 +1,5 @@
 <%--
-    Document   : messages
+    Document   : message
     Created on : Dec 1, 2016, 3:39:40 PM
     Author     : massarmh
 --%>
@@ -39,8 +39,8 @@
             // get a list of all Books searched for
             String userId = (String)session.getAttribute("userId");
             User u = UserActions.getUser(userId);
-            ArrayList<User> messagesUsers = (ArrayList<User>) session.getAttribute("messagesUsers");
-            Iterator<User> it = messagesUsers.iterator();
+            ArrayList<Message> messages = (ArrayList<Message>) session.getAttribute("messages");
+            Iterator<Message> it = messages.iterator();
         %>
         <div class="container">
             <div class="row">
@@ -60,24 +60,20 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div align="center" class="col-md-8">
-                    <div class="list-group">
+                    <h2 class="form-signin-heading">Messages</h2>
+                    <div class="row messages">
                         <%
                             while (it.hasNext()) {
-                                User messagesUser = it.next();
-                                out.println("<a href=\"/messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
-                                out.println(messagesUser.getFirstName() + " " + messagesUser.getLastName());
-                                out.println("</a>");
+                                Message message = it.next();
+                                out.println("<p>" + message.getContent() + "</p>");
+                                out.println("</br>");
                             }
                         %>
                     </div>
-                    <!-- <form method="post" action="control?action=signup" class="form-signin"> -->
-                    <div class="messages">
-                        <h2 class="form-signin-heading">Messages</h2>
-                        <label for="sellAuthor" class="sr-only">Message</label>
-                        </br>
-                        <input type = "text" name="message" id="message" class="form-control" placeholder="Message" required autofocus/> 
+                    <form method="post" action="messageControl?action=create" class="form-signin">
+                        <input type = "text" name="content" id="message" class="form-control" placeholder="Message" required autofocus/> 
                         <button class="btn btn-block" name="addMsg" type="submit">Send Message</button>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-md-2"></div>
             </div>

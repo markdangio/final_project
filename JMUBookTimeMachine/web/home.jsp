@@ -139,7 +139,7 @@
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
                             <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
-                            <li><a id="bar" href="messages.jsp">Messages</a></li>
+                            <li><a id="bar" href="/messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -152,7 +152,7 @@
                 <div align="center" class="col-md-6">
                     <div id="wrapper">
                         <h2 class="form-signin-heading">Sell a Book</h2>
-                        <form method="post" action="bbc?action=check" class="form-signin" onclick="return validateForm();">
+                        <form method="post" action="bbc?action=check" class="form-signin">
                             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner" role="listbox">

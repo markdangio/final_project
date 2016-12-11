@@ -107,7 +107,7 @@
                                 <%
                                     while (it.hasNext()) {
                                         BookInfo book = it.next();
-                                        User reserver = (User) UserActions.getUser(book.getSellerId());
+                                        User reserver = (User) UserActions.getUser(book.getReserverId());
 
                                         out.println("<tr>");
                                         out.println("<td>" + book.getTitle() + "</td>");

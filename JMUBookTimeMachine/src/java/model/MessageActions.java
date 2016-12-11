@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package model;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,6 +17,14 @@ public class MessageActions {
 
         Message newMessage = new Message(messageId, toUserId, fromUserId, content, timeSent);
         return MessagePersistence.addMessage(newMessage);
+    }
+    
+    public static ArrayList<User> showAllUsersMessage(String toUserId, String fromUserId) {
+        return MessagePersistence.showAllUsersMessage(toUserId, fromUserId);
+    }
+    
+    public static ArrayList<Message> getMessages(String toUserId, String fromUserId) {
+        return MessagePersistence.getMessages(toUserId, fromUserId);
     }
     /*
     public static boolean checkMessage(String content, Date timeSent) {
