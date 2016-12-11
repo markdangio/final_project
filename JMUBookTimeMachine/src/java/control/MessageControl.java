@@ -51,51 +51,12 @@ public class MessageControl extends HttpServlet {
             showAllUsersMessage(request, response);
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     *
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }*/
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        if (request.getParameter("adduser") != null) {
-            handleAdd(request, response);
-        }
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     *
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>*/
     
-    
-    /*
-     * Add a user to the table.
+    /**
+     * Handle an HTTP POST transaction for showing messages.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void showMessages(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -111,8 +72,11 @@ public class MessageControl extends HttpServlet {
         forwardRequest(request, response, "/message.jsp");
     }
     
-    /*
-     * Add a user to the table.
+    /**
+     * Handle an HTTP POST transaction for showing all user messages.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void showAllUsersMessage(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -127,8 +91,11 @@ public class MessageControl extends HttpServlet {
         forwardRequest(request, response, "/messages.jsp");
     }
     
-    /*
-     * Add a user to the table.
+    /**
+     * Handle an HTTP POST transaction for adding a message.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void handleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -165,9 +132,7 @@ public class MessageControl extends HttpServlet {
 
         }
     }
-   
 
-    
     /*
      * Forward this request to another component. 
      */

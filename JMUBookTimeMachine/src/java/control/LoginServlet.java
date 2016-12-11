@@ -49,6 +49,14 @@ public class LoginServlet extends HttpServlet {
         }
     }
     
+    /**
+     * Handle login user.
+     * 
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
+     * @param username  String
+     * @param password  String
+     */
     public void loginUser(HttpServletRequest request, HttpServletResponse response, String username, String password)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
@@ -68,7 +76,11 @@ public class LoginServlet extends HttpServlet {
                 forwardUrl);
         dispatcher.forward(request, response);
     }
-    
+    /**
+     * Hash password
+     *
+     * @param password String
+     */
     private static String hashPassword(String password) {
 
         String digest;

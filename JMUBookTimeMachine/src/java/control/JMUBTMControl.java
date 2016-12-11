@@ -54,7 +54,12 @@ public class JMUBTMControl extends HttpServlet {
             }
         }
     }
-
+    /**
+     * Handle an HTTP POST transaction.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
+     */
     public void handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws IOException,
             ServletException {

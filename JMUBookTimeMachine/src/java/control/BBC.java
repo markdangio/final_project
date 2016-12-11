@@ -47,8 +47,7 @@ public class BBC extends HttpServlet {
      *
      * @param request The HTTP request object
      * @param response The HTTP resonse object
-     */
-    
+     */    
     @Override
     public void service(HttpServletRequest request,
             HttpServletResponse response) throws IOException,
@@ -87,7 +86,12 @@ public class BBC extends HttpServlet {
         }
         return null;
     }
-
+    
+    /**
+     * Handle file checking.
+     *
+     * @param fileName string
+     */
     private boolean checkFile(String fileName) {
         if (!fileName.endsWith(".jpg") || !fileName.endsWith(".jpeg")
                 || !fileName.endsWith(".png") || !fileName.endsWith(".gif")) {
@@ -153,8 +157,11 @@ public class BBC extends HttpServlet {
         }
     }
     
-    /*
-     * Add a user to the table.
+    /**
+     * Handle a class check.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void handleClassCheck(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -202,8 +209,11 @@ public class BBC extends HttpServlet {
         }
     }
     
-    /*
-     * Add a user to the table.
+    /**
+     * Handle add a book.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void handleBookAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -270,8 +280,6 @@ public class BBC extends HttpServlet {
             }
         }
 
-        
-
         if (title == null || author == null || edition <= 0 || publisher == null) {
             addBookMessage = "No Book field can be left empty";
         } else if (title.trim().length() == 0) {
@@ -298,8 +306,11 @@ public class BBC extends HttpServlet {
         }
     }
 
-    /*
-     * Add a user to the table.
+    /**
+     * Handle when a book is added.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void handleBookCheck(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -342,6 +353,12 @@ public class BBC extends HttpServlet {
         }
     }
     
+    /**
+     * Handle a Book search.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
+     */
     private void handleBookSearch(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         String searchmessage = null;
@@ -410,6 +427,12 @@ public class BBC extends HttpServlet {
         }
     }
     
+    /**
+     * Handle a book being reserved.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
+     */
     private void handleBookReserve(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         String reserveMessage = null;
@@ -441,8 +464,11 @@ public class BBC extends HttpServlet {
         }
     }
     
-    /*
-     * Add a user to the table.
+    /**
+     * Handle adding a new book.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void handleBook_For_SaleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -488,8 +514,11 @@ public class BBC extends HttpServlet {
         }
     }
     
-    /*
-     * Add a user to the table.
+    /**
+     * Handles whether a book has sold or not.
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void handleBook_For_SaleSell(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -514,6 +543,9 @@ public class BBC extends HttpServlet {
     
     /*
      * Forward this request to another component. 
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void forwardRequest(HttpServletRequest request,
             HttpServletResponse response, String forwardUrl)
