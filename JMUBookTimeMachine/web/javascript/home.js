@@ -14,7 +14,8 @@ function moveForwardClass()
     {
         console.log("no value");
     }
-    else 
+    
+    else if(validateForm())
     {
         $("#myCarousel").carousel("next");
     }
@@ -28,7 +29,7 @@ function moveForwardInfo()
     {
         console.log("no value");
     }
-    else 
+    else if(validateForm())
     {
         $("#myCarousel").carousel("next");
     }
