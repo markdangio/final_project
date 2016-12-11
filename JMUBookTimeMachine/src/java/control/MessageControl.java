@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.MessageActions;
+import model.*;
 
 /**
  *
@@ -37,11 +37,18 @@ public class MessageControl extends HttpServlet {
     public void service(HttpServletRequest request,
             HttpServletResponse response) throws IOException,
             ServletException {
-
+        HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
         
         if (action.equals("create")){
             handleAdd(request, response);
+        }
+        else if (action.equals("show")){
+            session.setAttribute("toUserId", request.getParameter("toUserId"));
+            showMessages(request, response);
+        }
+        else if (action.equals("showMessages")){
+            showAllUsersMessage(request, response);
         }
     }
 
@@ -86,6 +93,42 @@ public class MessageControl extends HttpServlet {
         return "Short description";
     }// </editor-fold>*/
     
+    
+    /*
+     * Add a user to the table.
+     */
+    private void showMessages(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String addMessage = null;
+        HttpSession session = request.getSession(true);
+
+        // get add-user request parameters
+        String fromUserId = (String)session.getAttribute("userId");
+        String toUserId = request.getParameter("toUserId");
+        
+        ArrayList<Message> messages = MessageActions.getMessages(toUserId, fromUserId);
+        session.setAttribute("messages", messages);
+        
+        forwardRequest(request, response, "/message.jsp");
+    }
+    
+    /*
+     * Add a user to the table.
+     */
+    private void showAllUsersMessage(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+
+        HttpSession session = request.getSession(true);
+
+        // get add-user request parameters
+        String fromUserId = (String)session.getAttribute("userId");
+        String toUserId = request.getParameter("toUserId");
+        ArrayList<User> messagesUsers = MessageActions.showAllUsersMessage(toUserId, fromUserId);
+        session.setAttribute("messagesUsers", messagesUsers);
+        
+        forwardRequest(request, response, "/messages.jsp");
+    }
+    
     /*
      * Add a user to the table.
      */
@@ -96,14 +139,14 @@ public class MessageControl extends HttpServlet {
 
         // get add-user request parameters
         String fromUserId = (String)session.getAttribute("userId");
-        String toUserId = (String)session.getAttribute("userPageId");
+        String toUserId = (String)session.getAttribute("toUserId");
         String content = request.getParameter("content");
         Date today = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timeSent = sdf.format(today);
 
         if (content == null) {
-            addMessage = "Improper add user request: " + content;
+            addMessage = "Improper add message request: " + content;
         } else {
             // execute add transaction
             String messageId = UUID.randomUUID().toString();
@@ -111,7 +154,7 @@ public class MessageControl extends HttpServlet {
             messageId = messageId.substring(0, 16);
             
             boolean addResult = MessageActions.addMessage(messageId, toUserId, fromUserId, content, timeSent);
-            addMessage = addResult ? "New message added" : "Message add failed";
+            addMessage = addResult ? "New message added" : "Message add failed" + messageId + toUserId + fromUserId + content + timeSent;
         }
         session.setAttribute("addmessage", addMessage);
         if(addMessage.equals("New message added")){
@@ -134,6 +177,7 @@ public class MessageControl extends HttpServlet {
 
         }
     }
+   
 
     
     /*

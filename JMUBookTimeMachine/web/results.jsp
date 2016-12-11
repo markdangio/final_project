@@ -67,15 +67,15 @@
 
                                         out.println("<tr>");
                                         out.println("<td>" + seller.getFirstName() + " " + seller.getLastName() + "</td>");
-                                        out.println("<td><form method=\"post\" action=\"messagesControl?action=create&toUserId=" + seller.getUserId() + 
-                                                "\"><button class=\"btn btn-block\" name=\"message\" onClick=\"/messages.jsp?" + seller.getUserId() + "\">Message</button></form></td>");
+                                        out.println("<td><form method=\"post\" action=\"messageControl?action=show&toUserId=" + seller.getUserId() + 
+                                                "\"><button class=\"btn btn-block\" name=\"message\" type=\"submit\">Message</button></form></td>");
                                         out.println("<td>" + book.getTitle() + "</td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         out.println("<td>" + book.getPublisher() + "</td>");
                                         out.println("<td>" + book.getPostedDate() + "</td>");
                                         out.println("<td>$" + book.getPrice() + "</td>");
-                                        if(book.getReserverId() == null){
+                                        if(book.getReserverId().equals("null")){
                                             out.println("<td><form method=\"post\" action=\"bbc?action=reserve&saleId=" + book.getSaleId() + "&reserverId=" + u.getUserId() + "\"><button class=\"btn btn-block\" name=\"reserve\" type=\"submit\">Reserve</button></form></td>");
                                         }
                                         else {

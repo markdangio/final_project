@@ -1,5 +1,5 @@
 <%--
-    Document   : messages
+    Document   : message
     Created on : Dec 1, 2016, 3:39:40 PM
     Author     : massarmh
 --%>
@@ -39,8 +39,8 @@
             // get a list of all Books searched for
             String userId = (String)session.getAttribute("userId");
             User u = UserActions.getUser(userId);
-            ArrayList<User> messagesUsers = (ArrayList<User>) session.getAttribute("messagesUsers");
-            Iterator<User> it = messagesUsers.iterator();
+            ArrayList<Message> messages = (ArrayList<Message>) session.getAttribute("messages");
+            Iterator<Message> it = messages.iterator();
         %>
         <div class="container">
             <div class="row">
@@ -59,22 +59,28 @@
             </div>
             <div class="row">
                 <div class="col-md-2"></div>
+                
                 <div align="center" class="col-md-8">
-                    <div class="list-group">
+                    <h2 class="form-signin-heading">Messages</h2>
+                    <div class="row messages" id="wrapper">
                         <%
-                            int i = 0;
+                            out.println("<p>HI</p>");
                             while (it.hasNext()) {
-                                i++;
-                                User messagesUser = it.next();
-                                out.println("<a href=\"/messageControl?action=show&toUserId=" + messagesUser.getUserId() + "\" class=\"list-group-item\">");
-                                out.println(messagesUser.getFirstName() + " " + messagesUser.getLastName());
-                                out.println("</a>");
-                            }
-                            if(i == 0){
-                                out.println("<p>You have no messages.</p>");
+                                Message message = it.next();
+                                if(message.getFromUserId().equals(userId)){
+                                    out.println("<p class=\"right\">" + message.getContent() + "</p>");
+                                }
+                                else{
+                                    out.println("<p class=\"left\">" + message.getContent() + "</p>");
+                                }
+                                out.println("</br>");
                             }
                         %>
                     </div>
+                    <form method="post" action="messageControl?action=create" class="form-signin">
+                        <input type = "text" name="content" id="message" class="form-control" placeholder="Message" required autofocus/> 
+                        <button class="btn btn-block" name="addMsg" type="submit">Send Message</button>
+                    </form>
                 </div>
                 <div class="col-md-2"></div>
             </div>

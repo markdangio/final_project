@@ -7,6 +7,21 @@
 <%@page import="java.util.Properties"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+//    
+//    boolean bool = request.isSecure();
+//    
+//    if (!bool)
+//    {
+//        
+//        out.println("<p>" + "Error must use HTTPS" + "<p>");
+//        out.println("<a href = \"https://" + request.getServerName() + ":8443" + request.getContextPath() + "/index.jsp\"> Secure Connection  </a>");
+//        return;
+//        
+//        
+//    }
+
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

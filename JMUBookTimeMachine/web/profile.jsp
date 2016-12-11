@@ -120,14 +120,14 @@
                                 <%
                                     while (it.hasNext()) {
                                         BookInfo book = it.next();
-                                        User reserver = (User) UserActions.getUser(book.getSellerId());
+                                        User reserver = (User) UserActions.getUser(book.getReserverId());
 
                                         out.println("<tr>");
                                         out.println("<td>" + book.getTitle() + "</td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         out.println("<td>$" + book.getSold() + "</td>");
-                                        if (book.getReserverId() != null) {
+                                        if (!book.getReserverId().equals("null")) {
                                             out.println("<td><a href=\"messagesControl?action=create&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
                                         } else {
                                             out.println("<td></td>");
