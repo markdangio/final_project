@@ -42,7 +42,7 @@ public class UserControl extends HttpServlet {
             = Logger.getLogger(UserControl.class.getCanonicalName());
 
     /**
-     * Handle an HTTP POST transaction for a drop or add.
+     * Handle an HTTP POST transaction for signing up, checking security question, and changing password.
      *
      * @param request The HTTP request object
      * @param response The HTTP resonse object
@@ -61,33 +61,6 @@ public class UserControl extends HttpServlet {
         } else if (action.equals("updatePass")) {
             changePass(request, response);
         }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     *
-     * @Override protected void doGet(HttpServletRequest request,
-     * HttpServletResponse response) throws ServletException, IOException {
-     * processRequest(request, response); }
-     */
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 
     /**
@@ -110,6 +83,12 @@ public class UserControl extends HttpServlet {
         return null;
     }
 
+    /**
+     * Returns true if the file has the correct extension
+     *
+     * @return a boolean if the file has the right extension
+     *
+     */
     private boolean checkFile(String fileName) {
         String ext = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
         if (ext.equals("jpg") || ext.equals("jpeg") || ext.equals("png") || ext.equals("gif")) {
@@ -118,14 +97,17 @@ public class UserControl extends HttpServlet {
             return false;
         }
     }
-    /*
-     * Add a user to the table.
+    
+    /**
+     * Adds a User to the database
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
-
     private void handleAdd(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
-        String addMessage = "";
+        String addUserMessage = "";
         HttpSession session = request.getSession(true);
 
         // get add-user request parameters
@@ -195,54 +177,46 @@ public class UserControl extends HttpServlet {
         System.out.println(avatar);
         if (username == null || password == null || firstname == null || lastname == null
                 || email == null || birthday == null || securityAns == null) {
-            addMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
+            addUserMessage = "Improper add user request: " + username + password + firstname + lastname + email + birthday + securityAns;
         } else if (username.trim().length() == 0) {
-            addMessage = "Userame field must not be blank";
+            addUserMessage = "Userame field must not be blank";
         } else if (password.trim().length() == 0) {
-            addMessage = "Password field must not be blank";
+            addUserMessage = "Password field must not be blank";
         } else if (firstname.trim().length() == 0) {
-            addMessage = "First name field must not be blank";
+            addUserMessage = "First name field must not be blank";
         } else if (lastname.trim().length() == 0) {
-            addMessage = "Last name field must not be blank";
+            addUserMessage = "Last name field must not be blank";
         } else if (email.trim().length() == 0) {
-            addMessage = "Email field must not be blank";
+            addUserMessage = "Email field must not be blank";
         } else if (birthday.trim().length() == 0) {
-            addMessage = "Birthday field must not be blank";
+            addUserMessage = "Birthday field must not be blank";
         } else if (securityAns.trim().length() == 0) {
-            addMessage = "Security Answer field must not be blank";
+            addUserMessage = "Security Answer field must not be blank";
         } else {
             // execute add transaction
             userId = UUID.randomUUID().toString();
             userId = userId.replace("-", "");
             userId = userId.substring(0, 16);
             boolean addResult = UserActions.addUser(userId, firstname, lastname, email, avatar, birthday, username, securityAns, password);
-            addMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
+            addUserMessage = addResult ? "New user added" : "User add failed" + userId + username + password + firstname + lastname + email + avatar + birthday + securityAns;
         }
-        session.setAttribute("addmessage", addMessage);
-        if (addMessage.equals("New user added")) {
+        
+        if (addUserMessage.equals("New user added")) {
+            session.setAttribute("addUserMessage", null);
             session.setAttribute("loggedIn", true);
             session.setAttribute("userId", userId);
             forwardRequest(request, response, "/home.jsp");
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out1 = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out1.println("<!DOCTYPE html>");
-                out1.println("<html>");
-                out1.println("<head>");
-                out1.println("<title>Results</title>");
-                out1.println("</head>");
-                out1.println("<body>");
-                out1.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-                out1.println("</body>");
-                out1.println("</html>");
-            }
-
+            session.setAttribute("addUserMessage", addUserMessage);
+            forwardRequest(request, response, "/index.jsp");
         }
     }
 
-    /*
-     * Add a user to the table.
+    /**
+     * Checks to see if the users security answer matches the database
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
      */
     private void checkUserSecurity(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
@@ -264,27 +238,22 @@ public class UserControl extends HttpServlet {
             boolean checkSecurityResult = UserActions.checkUserSecurity(username, securityAns);
             securityMessage = checkSecurityResult ? "Reset Password" : "Cannot Reset Password" + username + securityAns;
         }
-        session.setAttribute("securityMessage", securityMessage);
+        
         if (securityMessage.equals("Reset Password")) {
+            session.setAttribute("securityMessage", null);
             changePass(request, response);
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("securityMessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
-
+            session.setAttribute("securityMessage", securityMessage);
+            forwardRequest(request, response, "/recovery.jsp");
         }
     }
-
+    
+    /**
+     * Changes the password of the user
+     *
+     * @param request The HTTP request object
+     * @param response The HTTP resonse object
+     */
     private void changePass(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
         String changeMessage = null;
@@ -296,23 +265,13 @@ public class UserControl extends HttpServlet {
 
         boolean checkResult = UserActions.changePass(username, password);
         changeMessage = checkResult ? "Password changed" : "Password not changed" + username + password;
-        session.setAttribute("changeMessage", changeMessage);
+        
         if (changeMessage.equals("Password changed")) {
+            session.setAttribute("changeMessage", null);
             forwardRequest(request, response, "/login");
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Results</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>" + session.getAttribute("changeMessage") + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            session.setAttribute("changeMessage", changeMessage);
+            forwardRequest(request, response, "/recovery.jsp");
         }
     }
 
@@ -327,6 +286,12 @@ public class UserControl extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Hashes the password
+     *
+     * @param password the password inputted
+     * @return String of hashed password
+     */
     private static String hashPassword(String password) {
 
         String digest;

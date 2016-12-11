@@ -51,7 +51,7 @@ public class UserPersistence {
     }
     
     /**
-     * Add a pet record.
+     * Checks to see if a user exists in the database
      *
      * @param username The user to be added
      * @param password The user's password
@@ -79,7 +79,7 @@ public class UserPersistence {
     }
     
     /**
-     * Add a pet record.
+     * Checks to see if the user knows their security password
      *
      * @param username The user to be added
      * @param securityAns The user's security password
@@ -108,9 +108,9 @@ public class UserPersistence {
     }
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Changes the users password
      *
-     * @return an ArrayList of all Pet objects
+     * @return true iff the database operation succeeded
      */
     public static boolean changePass(String username, String password) {
         DBHandler dbHandler = new DBHandler();
@@ -129,30 +129,12 @@ public class UserPersistence {
             return false;
         }
     }
-
-    /**
-     * Delete a pet from the Pet table.
-     * 
-     * @param pet The Pet to be deleted, identified by the name field only.
-     * @return true iff the database operation succeeded
-     *
-    public static boolean deletePet(Pet pet) {
-        DBCommandHandler dbCommandHandler = new DBCommandHandler();
-        try {
-            String command = "delete from pet where name = '" + pet.getName() + "'";
-            int result = dbCommandHandler.doCommand(command);
-            dbCommandHandler.close();
-            return (result > 0);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-    }*/
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an the id of the User
      *
-     * @return an ArrayList of all Pet objects
+     * @param username the username of the user
+     * @return String of users id
      */
     public static String getUserId(String username) {
         String query = "SELECT userId FROM User WHERE username = '" + username + "'";
@@ -176,9 +158,10 @@ public class UserPersistence {
     }
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns aUser object
      *
-     * @return an ArrayList of all Pet objects
+     * @param userId id of the user
+     * @return User object with user info
      */
     public static User getUser(String userId) {
         String query = "SELECT * FROM User WHERE userId = '" + userId + "'";

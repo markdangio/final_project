@@ -39,6 +39,11 @@ public class User {
         this.securityAns = securityAns;
     }
     
+    /**
+     * Get the user's id.
+     *
+     * @return The user's id
+     */
     public String getUserId() {
         return userId;
     }
@@ -71,7 +76,7 @@ public class User {
     }
 
     /**
-     * Get the user's species.
+     * Get the user's last name.
      *
      * @return The last name of the user.
      */
@@ -109,7 +114,7 @@ public class User {
     /**
      * Get the user's security answer.
      *
-     * @return The security answer of the user, in the format YYYY-MM-DD
+     * @return The security answer of the user
      */
     public String getSecurityAnswer() {
         return securityAns;
