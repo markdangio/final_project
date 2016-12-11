@@ -15,11 +15,10 @@ import java.sql.*;
 public class BooksPersistence {
 
     /**
-     * Add a pet record.
+     * Add a book
      *
      * @param book The book to be added
-     * @param classes The class to be used to get the id
-     * @return true iff the database operation succeeded
+     * @return true if the database operation succeeded
      */
     public static boolean addBook(Books book) {//, Classes classes) {
         DBHandler dbHandler = new DBHandler();
@@ -48,11 +47,12 @@ public class BooksPersistence {
     }
     
     /**
-     * Add a pet record.
+     * Check book 
      *
-     * @param username The user to be added
-     * @param password The user's password
-     * @return true iff the database operation succeeded
+     * @param title The title
+     * @param author The author
+     * @param edition The edition 
+     * @param publisher The publisher
      */
     public static boolean checkBook(String title, String author, int edition, String publisher) {
         DBHandler dbHandler = new DBHandler();
@@ -76,30 +76,16 @@ public class BooksPersistence {
             return false;
         }
     }
-
-    /**
-     * Delete a pet from the Pet table.
-     * 
-     * @param pet The Pet to be deleted, identified by the name field only.
-     * @return true iff the database operation succeeded
-     *
-    public static boolean deletePet(Pet pet) {
-        DBCommandHandler dbCommandHandler = new DBCommandHandler();
-        try {
-            String command = "delete from pet where name = '" + pet.getName() + "'";
-            int result = dbCommandHandler.doCommand(command);
-            dbCommandHandler.close();
-            return (result > 0);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-    }*/
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Get book id
      *
-     * @return an ArrayList of all Pet objects
+     * @param title The title
+     * @param author The author
+     * @param edition The edition 
+     * @param publisher The publisher
+     * 
+     * @return string of book id
      */
     public static String getBookId(String title, String author, int edition, String publisher) {
         String result = "";
@@ -128,9 +114,10 @@ public class BooksPersistence {
     }
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Get book
      *
-     * @return an ArrayList of all Pet objects
+     * @param bookId The book id
+     * @return an array of with book objects
      */
     public static Books getBook(String bookId) {
         String query = "SELECT * FROM Books WHERE bookId = '" + bookId + "'";
@@ -162,9 +149,13 @@ public class BooksPersistence {
     }
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of all searched books objects.
      *
-     * @return an ArrayList of all Pet objects
+     * @param title title of the book
+     * @param author author of the book
+     * @param edition edition of the book
+     * @param publisher publisher of the book
+     * @return an ArrayList of all books objects
      */
     public static ArrayList<Books> searchBook(String title, String author, int edition, String publisher) {
         ArrayList<Books> result = new ArrayList<Books>();

@@ -17,11 +17,11 @@ import java.util.ArrayList;
 public class Books_For_SalePersistence {
 
     /**
-     * Add a pet record.
+     * Add a book for sale record.
      *
      * @param books_For_Sale The books_For_Sale to be added
-     * @param book The book to be used to get the id
-     * @return true iff the database operation succeeded
+     * 
+     * @return true if the database operation succeeded
      */
     public static boolean addBook_For_Sale(Books_For_Sale books_For_Sale) {//, Books books, User user) {
         DBHandler dbHandler = new DBHandler();
@@ -47,42 +47,9 @@ public class Books_For_SalePersistence {
     }
 
     /**
-     * Add a pet record.
+     * Returns an ArrayList of all books for sale objects.
      *
-     * @param username The user to be added
-     * @param password The user's password
-     * @return true iff the database operation succeeded
-     *
-     * public static boolean checkUser(String username, String password) {
-     * DBHandler dbHandler = new DBHandler();
-     *
-     * String command = "SELECT * FROM User WHERE username = "; command += "'" +
-     * username + "'"; command += " AND password = '" + password + "'"; try {
-     * ResultSet resultCount = dbHandler.doQuery(command);
-     *
-     * System.out.println(resultCount); int i = 0; while(resultCount.next()) {
-     * i++; } dbHandler.close(); return (i > 0); } catch (SQLException ex) {
-     * ex.printStackTrace(); return false; }
-    }
-     */
-    /**
-     * Delete a pet from the Pet table.
-     *
-     * @param pet The Pet to be deleted, identified by the name field only.
-     * @return true iff the database operation succeeded
-     *
-     * public static boolean deletePet(Pet pet) { DBCommandHandler
-     * dbCommandHandler = new DBCommandHandler(); try { String command = "delete
-     * from pet where name = '" + pet.getName() + "'"; int result =
-     * dbCommandHandler.doCommand(command); dbCommandHandler.close(); return
-     * (result > 0); } catch (SQLException ex) {
-     * System.out.println(ex.getMessage()); return false; }
-    }
-     */
-    /**
-     * Returns an ArrayList of all Pet objects.
-     *
-     * @return an ArrayList of all Pet objects
+     * @return an ArrayList of all books for sale objects
      */
     public static ArrayList<BookInfo> searchBook_For_Sale(ArrayList<Books> books, String userId) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
@@ -128,9 +95,9 @@ public class Books_For_SalePersistence {
     }
 
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of all reserve book for sale objects.
      *
-     * @return an ArrayList of all Pet objects
+     * @return an ArrayList of all reserve book for sale objects
      */
     public static boolean reserveBook_For_Sale(String saleId, String reserverId) {
         DBHandler dbHandler = new DBHandler();
@@ -151,9 +118,9 @@ public class Books_For_SalePersistence {
     }
     
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of all books for sale objects.
      *
-     * @return an ArrayList of all Pet objects
+     * @return an ArrayList of all  books for sale objects
      */
     public static boolean sellBooks_For_Sale(String saleId) {
         DBHandler dbHandler = new DBHandler();
@@ -173,9 +140,9 @@ public class Books_For_SalePersistence {
     }
 
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of all search book for sale reserved objects.
      *
-     * @return an ArrayList of all Pet objects
+     * @return an ArrayList of all search book for sale reserved objects
      */
     public static ArrayList<BookInfo> searchBook_For_SaleReserved(String reserverId) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
@@ -219,9 +186,9 @@ public class Books_For_SalePersistence {
     }
 
     /**
-     * Returns an ArrayList of all Pet objects.
+     * Returns an ArrayList of all search for books selling objects.
      *
-     * @return an ArrayList of all Pet objects
+     * @return an ArrayList of all search for books selling objects
      */
     public static ArrayList<BookInfo> searchBook_For_SaleSelling(String sellerId) {
         ArrayList<BookInfo> result = new ArrayList<BookInfo>();
