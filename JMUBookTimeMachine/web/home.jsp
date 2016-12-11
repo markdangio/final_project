@@ -256,23 +256,6 @@
                                 <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Book Publisher" autofocus>
                                 <span id="publishere" class="errmsg"> </span>
                                 </br>
-                                <label for="className" class="sr-only">Title</label>
-                                <input type="text" name="className" id="className" class="form-control" placeholder="Class Name" autofocus>
-                                <span id="titlee" class="errmsg"> </span>
-                                </br>
-                                <label for="classSubject" class="sr-only">Author</label>
-                                <input type="text" name="classSubject" id="classSubject" class="form-control" placeholder="Class Subject" autofocus>
-                                <span id="authore" class="errmsg"> </span>
-                                </br>
-                                <label for="classNumber" class="sr-only">Edition</label>
-                                <input type="number" name="classNumber" id="classNumber" class="form-control" placeholder="Class Number" autofocus>
-                                </br>
-                                <label for="classSection" class="sr-only">Publisher</label>
-                                <input type="number" name="classSection" id="classSection" class="form-control" placeholder="Class Section" autofocus>
-                                </br>
-                                <label for="classProfessor" class="sr-only">Publisher</label>
-                                <input type="text" name="classProfessor" id="classProfessor" class="form-control" placeholder="Class Professor" autofocus>
-                                </br>
                                 <button class="btn btn-block" name="bookSearch" type="submit" onclick="return validateForm()" >Search</button>
                                 </br>
                             </div>

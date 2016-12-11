@@ -37,14 +37,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        
         String username = request.getParameter("loginUsername");
         String password = request.getParameter("loginPassword");
         password = hashPassword(password);
 
         if (UserActions.checkUser(username, password)) {
+            session.setAttribute("checkLoginMessage", null);
             loginUser(request, response, username, password);
         }
         else {
+            session.setAttribute("checkLoginMessage", "Cannot successfully log in: " + username);
             forwardRequest(request, response, "/index.jsp");
         }
     }

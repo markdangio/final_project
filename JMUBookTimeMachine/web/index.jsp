@@ -116,6 +116,7 @@
     </head>
     <%
         String addUsermessage = (String)session.getAttribute("addmessage");
+        String checkLoginMessage = (String)session.getAttribute("checkLoginMessage");
     %>
     <body>
         <div id="wrapper3">
@@ -194,6 +195,10 @@
                             <button class="btn btn-block" name="login" type="submit">Sign in</button>
                         </form>
                         <a href="recovery.jsp" style="color:purple;"><p>Forgot Password?</p></a>
+                        </br>
+                        <%
+                            if(checkLoginMessage != null){out.println("<div class=\"wrapper\">" + checkLoginMessage + "</div></br>");}
+                        %>
                     </div>
                 </div>
             </div>
