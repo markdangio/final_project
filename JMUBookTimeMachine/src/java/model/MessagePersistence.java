@@ -80,10 +80,10 @@ public class MessagePersistence {
                 String id;
                 if (toUserIdM.equals(userId)) {
                     user = UserActions.getUser(fromUserIdM);
-                    id = toUserIdM;
+                    id = fromUserIdM;
                 } else {
                     user = UserActions.getUser(toUserIdM);
-                    id = fromUserIdM;
+                    id = toUserIdM;
                 }
 
                 if (!users.contains(id)) {

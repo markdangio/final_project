@@ -127,7 +127,7 @@ public class UserControl extends HttpServlet {
 
         String tomcatBase = System.getProperty("catalina.home");
         //where the image will be saved
-        String path = tomcatBase + "/webapps/uploader/images";
+        String path = tomcatBase + "/webapps/team13-JMUBookTimeMachine/images";
         //= "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
 
         Part filePart = request.getPart("file");
@@ -203,6 +203,7 @@ public class UserControl extends HttpServlet {
         if (addUserMessage.equals("New user added")) {
             session.setAttribute("addUserMessage", null);
             session.setAttribute("loggedIn", true);
+            session.setAttribute("username", username);
             session.setAttribute("userId", userId);
             forwardRequest(request, response, "/home.jsp");
         } else {

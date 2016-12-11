@@ -25,7 +25,7 @@
     %>
     -->
 
-    <p><a href="/index.jsp">Return to JMU Book Time Machine page</a></p>
+    <p><a href="index.jsp">Return to JMU Book Time Machine page</a></p>
 
   </body>
 </html>

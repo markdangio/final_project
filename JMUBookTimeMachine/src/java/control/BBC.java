@@ -241,7 +241,7 @@ public class BBC extends HttpServlet {
 
         String tomcatBase = System.getProperty("catalina.home");
         //where the image will be saved
-        String path = tomcatBase + "/webapps/uploader/images";
+        String path = tomcatBase + "/webapps/team13-JMUBookTimeMachine/images";
         //= "/Users/dangiomr/NetBeansProjects/final_project/JMUBookTimeMachine/web/images";
 
         Part filePart = request.getPart("file");

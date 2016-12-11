@@ -119,7 +119,11 @@
                                         User reserver = (User) UserActions.getUser(book.getReserverId());
 
                                         out.println("<tr>");
-                                        out.println("<td><a target=\"_blank\" href=\"images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
+                                        if (book.getCoverPhoto() == null) {
+                                            out.println("<td>" + book.getTitle() + "</td>");
+                                        } else {
+                                            out.println("<td><a target=\"_blank\" href=\"images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
+                                        }
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         if (book.getSold() == 0) {
@@ -161,7 +165,11 @@
 
                                         out.println("<tr>");
                                         out.println("<td><a href=\"messageControl?action=show&toUserId=" + seller.getUserId() + "\">" + seller.getFirstName() + " " + seller.getLastName() + "</a></td>");
-                                        out.println("<td><a href=\"/images/" + book2.getCoverPhoto() + "\">" + book2.getTitle() + "</a></td>");
+                                        if (book2.getCoverPhoto() == null) {
+                                            out.println("<td>" + book2.getTitle() + "<</td>");
+                                        } else {
+                                            out.println("<td><a target=\"_blank\" href=\"images/" + book2.getCoverPhoto() + "\">" + book2.getTitle() + "</a></td>");
+                                        }
                                         out.println("<td>" + book2.getAuthor() + "</td>");
                                         out.println("<td>" + book2.getEdition() + "</td>");
                                         out.println("<td>$" + book2.getPrice() + "</td>");

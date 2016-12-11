@@ -70,7 +70,11 @@
                                         out.println("<td>" + seller.getFirstName() + " " + seller.getLastName() + "</td>");
                                         out.println("<td><form method=\"post\" action=\"messageControl?action=show&toUserId=" + seller.getUserId() + 
                                                 "\"><button class=\"btn btn-block\" name=\"message\" type=\"submit\">Message</button></form></td>");
-                                        out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
+                                        if (book.getCoverPhoto() == null) {
+                                            out.println("<td>" + book.getTitle() + "</td>");
+                                        } else {
+                                            out.println("<td><a target=\"_blank\" href=\"images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
+                                        }
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
                                         out.println("<td>" + book.getPublisher() + "</td>");
