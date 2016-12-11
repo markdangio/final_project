@@ -43,4 +43,9 @@ public class Books_For_SaleActions {
 
         return Books_For_SalePersistence.reserveBook_For_Sale(saleId, reserverId);
     }
+            
+    public static boolean sellBooks_For_Sale(String saleId) {
+
+        return Books_For_SalePersistence.sellBooks_For_Sale(saleId);
+    }
 }

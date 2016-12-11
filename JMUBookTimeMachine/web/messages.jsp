@@ -61,6 +61,10 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div align="center" class="col-md-8">
+                    <div class="row" id="wrapper3">
+                        <h2 class="form-signin-heading">Messages</h2>
+                    </div>
+                    </br>
                     <div class="list-group" id="message">
                         <%
                             int i = 0;

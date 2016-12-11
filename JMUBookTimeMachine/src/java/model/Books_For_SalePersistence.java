@@ -149,6 +149,28 @@ public class Books_For_SalePersistence {
             return false;
         }
     }
+    
+    /**
+     * Returns an ArrayList of all Pet objects.
+     *
+     * @return an ArrayList of all Pet objects
+     */
+    public static boolean sellBooks_For_Sale(String saleId) {
+        DBHandler dbHandler = new DBHandler();
+        try {
+
+            String command = "UPDATE Books_for_Sale SET sold = ";
+            command += "'" + 1 + "'";
+            command += " WHERE saleId = '" + saleId + "'";
+
+            int resultCount = dbHandler.doCommand(command);
+            dbHandler.close();
+            return (resultCount > 0);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * Returns an ArrayList of all Pet objects.

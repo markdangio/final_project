@@ -53,7 +53,7 @@ public class BBC extends HttpServlet {
     public void service(HttpServletRequest request,
             HttpServletResponse response) throws IOException,
             ServletException {
-
+        HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
         
         if (action.equals("check")){
@@ -62,6 +62,9 @@ public class BBC extends HttpServlet {
             handleBookSearch(request, response);
         } else if (action.equals("reserve")){
             handleBookReserve(request, response);
+        } else if (action.equals("sold")){
+            session.setAttribute("saleId", request.getParameter("saleId"));
+            handleBook_For_SaleSell(request, response);
         }
     }
     
@@ -292,20 +295,6 @@ public class BBC extends HttpServlet {
         else{
             session.setAttribute("addBookMessage", addBookMessage);
             forwardRequest(request, response, "/home.jsp");
-//            response.setContentType("text/html;charset=UTF-8");
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Results</title>");            
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>" + session.getAttribute("addmessage") + "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
-
         }
     }
 
@@ -369,7 +358,7 @@ public class BBC extends HttpServlet {
         catch(NumberFormatException e){}
         
         String publisher = request.getParameter("publisher");
-        
+        /*
         String className = request.getParameter("className");
         String classSubject = request.getParameter("classSubject");
         int classNumber = 0;
@@ -381,8 +370,8 @@ public class BBC extends HttpServlet {
         catch(NumberFormatException e) {}
         
         String classProfessor = request.getParameter("classclassProfessor");
-        
-        if (title == null || author == null || publisher == null || className == null || classSubject == null || classProfessor == null) {
+        */
+        if (title == null || author == null || publisher == null) { // || className == null || classSubject == null || classProfessor == null) {
             searchmessage = "Improper check book request: " + title + author + edition + publisher;
         } else if (title.trim().length() == 0) {
             searchmessage = "Book Title field must not be blank";
@@ -390,7 +379,9 @@ public class BBC extends HttpServlet {
             searchmessage = "Book Author field must not be blank";
         } else if (edition <= 0) {
             searchmessage = "Book Edition field must not be less than one";
-        } else if (className.trim().length() == 0) {
+        } else if (publisher.trim().length() == 0) {
+            searchmessage = "Book Publisher field must not be blank";
+        }/*else if (className.trim().length() == 0) {
             searchmessage = "Class Name field must not be blank";
         } else if (classSubject.trim().length() == 0) {
             searchmessage = "Class Subject field must not be blank";
@@ -400,7 +391,7 @@ public class BBC extends HttpServlet {
             searchmessage = "Class Section field must not be less than one";
         }else if (classProfessor.trim().length() == 0) {
             searchmessage = "Class Professir field must not be blank";
-        }else {
+        }*/else {
             // execute add transaction
             ArrayList<Books> bookResults = BooksActions.searchBook(title, author, edition, publisher);
             ArrayList<BookInfo> bookSaleResults = Books_For_SaleActions.searchBook_For_Sale(bookResults, userId);
@@ -495,6 +486,30 @@ public class BBC extends HttpServlet {
             session.setAttribute("addBFSMessage", addBFSMessage);
             forwardRequest(request, response, "/home.jsp");
         }
+    }
+    
+    /*
+     * Add a user to the table.
+     */
+    private void handleBook_For_SaleSell(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, ServletException {
+        String sellBFSMessage = null;
+        HttpSession session = request.getSession(true);
+
+        // get add-user request parameters
+        String saleId = (String)session.getAttribute("saleId");
+            
+        boolean addResult = Books_For_SaleActions.sellBooks_For_Sale(saleId);
+        sellBFSMessage = addResult ? "books_for_sale sold" : "Book was not sold successfully";
+        
+        if(sellBFSMessage.equals("books_for_sale sold")){
+            session.setAttribute("sellBFSMessage", null);
+        }
+        else{
+            session.setAttribute("sellBFSMessage", sellBFSMessage);
+        }
+        
+        forwardRequest(request, response, "/profile.jsp");
     }
     
     /*

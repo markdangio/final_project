@@ -114,7 +114,12 @@
                                         out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
-                                        out.println("<td>$" + book.getSold() + "</td>");
+                                        if(book.getSold() == 0){
+                                            out.println("<td><a href=\"bbc?action=sold&saleId=" + book.getSaleId() + "\">Mark as Sold</a></td>");
+                                        }
+                                        else {
+                                            out.println("<td>Sold</td>");
+                                        }
                                         if (!book.getReserverId().equals("null")) {
                                             out.println("<td><a href=\"messageControl?action=show&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
                                         } else {

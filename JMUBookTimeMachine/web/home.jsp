@@ -156,7 +156,7 @@
                 <div align="center" class="col-md-6">
                     <div id="wrapper">
                         <h2 class="form-signin-heading">Sell a Book</h2>
-                        <form method="post" action="bbc?action=check" class="form-signin">
+                        <form method="post" action="bbc?action=check" class="form-signin" enctype="multipart/form-data">
                             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner" role="listbox">
