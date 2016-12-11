@@ -57,7 +57,7 @@
                 <nav class="navbar navbar-default navbar-static-top">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"> Home</i></a></li>
+                            <li><a id="bar" href="home.jsp"><i class="fa fa-book" style="font-size:24px;"></i></a></li>
                             <li><a id="bar" href="messageControl?action=showMessages">Messages</a></li>
                             <li><a id="bar" href="profile.jsp">Profile</a></li>
                         </ul>
@@ -99,7 +99,7 @@
                         </ul>
                     </div>
                 </div>
-                <div align="center" class="col-md-6" id="books_selling">
+                <div align="center" class="col-md-5" id="books_selling">
                     <div class="panel panel-default">
                         <div class=panel-heading>Books Selling</div>
                         <table class=table> 
@@ -122,7 +122,11 @@
                                         out.println("<td><a href=\"/images/" + book.getCoverPhoto() + "\">" + book.getTitle() + "</a></td>");
                                         out.println("<td>" + book.getAuthor() + "</td>");
                                         out.println("<td>" + book.getEdition() + "</td>");
-                                        out.println("<td>$" + book.getSold() + "</td>");
+                                        if (book.getSold() == 0) {
+                                            out.println("<td><a href=\"bbc?action=sold&saleId=" + book.getSaleId() + "\">Mark as Sold</a></td>");
+                                        } else {
+                                            out.println("<td>Sold</td>");
+                                        }
                                         if (!book.getReserverId().equals("null")) {
                                             out.println("<td><a href=\"messageControl?action=show&toUserId=" + reserver.getUserId() + "\">" + reserver.getFirstName() + " " + reserver.getLastName() + "</a></td>");
                                         } else {
@@ -135,7 +139,7 @@
                         </table> 
                     </div>
                 </div>
-                <div align="center" class="col-md-4" id="books_reserved">
+                <div align="center" class="col-md-5" id="books_reserved">
                     <div class="panel panel-default">
                         <div class=panel-heading>Books Reserved</div>
                         <table class=table> 
@@ -146,6 +150,7 @@
                                     <th>Author</th> 
                                     <th>Edition</th> 
                                     <th>Price</th> 
+                                    <th>Bought</th>
                                 </tr> 
                             </thead> 
                             <tbody>
@@ -160,6 +165,11 @@
                                         out.println("<td>" + book2.getAuthor() + "</td>");
                                         out.println("<td>" + book2.getEdition() + "</td>");
                                         out.println("<td>$" + book2.getPrice() + "</td>");
+                                        if (book2.getSold() == 0) {
+                                            out.println("<td>No</td>");
+                                        } else {
+                                            out.println("<td>Yes</td>");
+                                        }
                                         out.println("</tr>");
                                     }
                                 %>
